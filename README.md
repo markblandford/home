@@ -1,7 +1,6 @@
 # Home
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b22b9fef-dc15-42e1-961f-feaa2237a8d6/deploy-status)](https://app.netlify.com/sites/frosty-kare-1ab3b1/deploys)
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -16,7 +15,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://on.cypress.io/cypress.schema.json",
+  "baseUrl": "http://localhost:4200",
+  "defaultCommandTimeout": 2000,
+  "video": true,
+  "screenshotsFolder": "reports/ui-tests/screenshots",
+  "videosFolder": "reports/ui-tests/videos"
+}

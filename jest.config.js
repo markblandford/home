@@ -5,6 +5,9 @@ module.exports = {
   preset: 'jest-preset-angular',
   roots: ['<rootDir>/src/'],
   testMatch: ['**/+(*.)+(spec).+(ts)'],
+  transform: {
+    "^.+\\.tsx?$": "ts-jest"
+  },
   setupFilesAfterEnv: ['<rootDir>/src/test.ts'],
   collectCoverage: true,
   coverageReporters: ['html'],

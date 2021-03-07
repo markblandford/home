@@ -5,7 +5,7 @@ BRANCH=`git rev-parse --abbrev-ref HEAD`
 
 if test "$BRANCH" = "main"; then
   echo "You are on branch $BRANCH. "
-  npm run pre-deploy
+  # npm run pre-deploy
 fi
 
 exit 0

@@ -7,6 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "prepare": "husky install",
+    "pre-deploy": "ng lint && npm run stylelint && ng test --watch=false --code-coverage && ng build",
     "e2e": "ng e2e",
     "snyk": "snyk monitor",
     "stylelint": "stylelint 'src/**/*.scss'"

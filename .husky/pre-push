@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+echo $BRANCH
+if test "$BRANCH" = "main"; then
+  echo "You are on branch $BRANCH. "
+  npm run pre-deploy
+fi
+
+exit 0

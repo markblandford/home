@@ -3,14 +3,14 @@
   [headers.values]
     Content-Security-Policy = '''
     default-src 'self';
-    connect-src 'self' https://o544339.ingest.sentry.io https://sentry.io/api/embed/error-page;
+    connect-src 'self' https://sentry.io/api/embed/error-page/ https://o544339.ingest.sentry.io;
     form-action 'none';
     frame-ancestors 'none';
-    img-src 'self';
+    img-src 'self' data:;
     object-src 'none';
     script-src 'self' https://sentry.io/api/embed/error-page https://o544339.ingest.sentry.io;
     script-src-elem 'self' https://sentry.io/api/embed/error-page https://o544339.ingest.sentry.io;
-    style-src 'self';
+    style-src 'self' 'unsafe-inline';
     report-uri https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4;
     '''
     X-Content-Type-Options = "nosniff"

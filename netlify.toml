@@ -3,7 +3,7 @@
   [headers.values]
     Content-Security-Policy = '''
     default-src 'self';
-    connect-src 'self';
+    connect-src 'self' https://o544339.ingest.sentry.io;
     form-action 'none';
     frame-ancestors 'none';
     img-src 'self';

@@ -29,6 +29,7 @@
     "@angular/router": "~11.2.4",
     "@sentry/angular": "^6.2.1",
     "@sentry/tracing": "^6.2.1",
+    "css.gg": "^2.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

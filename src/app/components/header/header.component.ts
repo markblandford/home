@@ -1,4 +1,8 @@
+import { RoutingService } from './../../services/routing.service';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd, Data } from '@angular/router';
+import { Observable } from 'rxjs';
+import { filter, map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  data: Data | undefined;
+
+  constructor(private routerService: RoutingService) {}
 
   ngOnInit(): void {
+    this.data = this.routerService.routeData;
+    console.log('data', this.data);
   }
-
 }

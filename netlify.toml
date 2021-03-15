@@ -13,6 +13,7 @@ package = "@sentry/netlify-build-plugin"
   for = "/*"
   [headers.values]
   Content-Security-Policy = '''
+  base-uri 'self';
   default-src 'self';
   connect-src 'self' https://o544339.ingest.sentry.io;
   form-action 'none';
@@ -25,7 +26,9 @@ package = "@sentry/netlify-build-plugin"
   report-uri https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4;
   '''
   Expect-CT = "max-age=86400, enforce, report-uri'=https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4'"
+  Feature-Policy = "microphone 'none'; camera 'none'"
   Referrer-Policy = "strict-origin-when-cross-origin"
+  Strict-Transport-Security = "max-age=31536000; includesSubDomains"
   X-Content-Type-Options = "nosniff"
   X-Frame-Options = "DENY"
   X-XSS-Protection = "1; mode=block"

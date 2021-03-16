@@ -1,35 +1,45 @@
 import { ActivatedRouteSnapshot, Data, NavigationEnd, Router, RouterState } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { filter } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
+import { Observable, Observer, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoutingService {
 
-  private rd: Data | undefined;
+  routeData$ = new Observable<Data>(observer =>
+    this.subscribeToRouteData(this.router, observer)
+  );
 
-  constructor(router: Router) {
-    this.subscribeToRouteData(router);
+  constructor(
+    private router: Router,
+    private titleService: Title
+    ) {
+    this.routeData$.subscribe(data => data && this.setTitle(data.title));
   }
 
-  routeData(): Data | undefined {
-    return this.rd;
-  }
-
-  private subscribeToRouteData(router: Router): void {
+  private subscribeToRouteData(router: Router, observer: Observer<Data>): void {
     router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {
-      this.rd = this.getSnapshotData(router.routerState);
+      const rd = this.getSnapshotData(router.routerState);
+
+      observer.next(rd);
     });
   }
 
   private getSnapshotData(rs: RouterState): Data {
-    return rs.snapshot.root.data[0];
+    const root = rs.snapshot.root;
+    return this.lastChild(root).data[0];
   }
 
-  // private lastChild(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
-  //   return route.firstChild ? this.lastChild(route.firstChild) : route;
-  // }
+  private lastChild(snapshotRoot: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
+    return snapshotRoot.firstChild ? this.lastChild(snapshotRoot.firstChild) : snapshotRoot;
+  }
+
+  private setTitle(title: string): void {
+    this.titleService.setTitle(title);
+  }
 }

@@ -5,12 +5,20 @@ import * as Sentry from '@sentry/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './components';
+import {
+  A11yComponent,
+  HomeComponent
+} from './pages';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    A11yComponent,
+    HomeComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

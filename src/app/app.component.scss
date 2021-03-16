@@ -1,0 +1,34 @@
+.app {
+  display: grid;
+  min-height: 100vh;
+
+  grid-template-columns: 250px auto;
+  grid-template-rows: var(--size-xxxl) auto var(--size-xxxs);
+  grid-template-areas:
+    "header header"
+    "nav content"
+    "footer footer";
+
+  &__header {
+    grid-area: header;
+    border-top: var(--size-xxxxs) solid var(--color-super-blue);
+    background-color: var(--color-white-smoke);
+  }
+
+  &__nav {
+    grid-area: nav;
+    height: 100%;
+    background-color: var(--color-white-smoke);
+  }
+
+  &__outlet {
+    grid-area: content;
+    place-self: stretch stretch;
+  }
+
+  &__footer {
+    grid-area: footer;
+    height: 100%;
+    background-color: var(--color-super-blue);
+  }
+}

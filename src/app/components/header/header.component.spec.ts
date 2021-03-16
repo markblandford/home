@@ -1,11 +1,18 @@
 import { Data } from '@angular/router';
+import { of } from 'rxjs';
 import { RoutingService } from '../../services/routing.service';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
 
-  const mockRouterService = jest.mock('../../services/routing.service.ts') as unknown as RoutingService;
+  const mockData = {
+    title: 'test title'
+  } as unknown as Data;
+
+  const mockRouterService = {
+    routeData$: of(mockData)
+  } as unknown as RoutingService;
 
   beforeEach(() => {
     component = new HeaderComponent(mockRouterService);
@@ -16,16 +23,11 @@ describe('HeaderComponent', () => {
   });
 
   it('should get the routing data in ngOnInit', () => {
-    const expected = {
-      title: 'test title'
-    } as unknown as Data;
-
-    const spy = jest.fn().mockReturnValue(expected);
-
-    mockRouterService.routeData = spy;
-
     component.ngOnInit();
 
-    expect(component.data).toEqual(expected);
+    let actual = null;
+    component.routeData$?.subscribe(_ => actual = _);
+
+    expect(actual).toEqual(mockData);
   });
 });

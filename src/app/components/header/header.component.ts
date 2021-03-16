@@ -1,8 +1,7 @@
-import { RoutingService } from './../../services/routing.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, Data } from '@angular/router';
+import { Data } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { RoutingService } from '@services/routing.service';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +10,11 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
 
-  data: Data | undefined;
+  routeData$: Observable<Data> | undefined;
 
   constructor(private routerService: RoutingService) {}
 
   ngOnInit(): void {
-    this.data = this.routerService.routeData();
+    this.routeData$ = this.routerService.routeData$;
   }
 }

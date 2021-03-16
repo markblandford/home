@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+
+  &__link {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--size-md) var(--size-xl);
+  }
+
+  &__text {
+    margin-left: var(--size-sm);
+  }
+}

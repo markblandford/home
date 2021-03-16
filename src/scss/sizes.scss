@@ -1,0 +1,14 @@
+:root {
+  --size-unit: 1rem;
+  --size-xxxxs: calc(0.125 * var(--size-unit)); // 2
+  --size-xxxs: calc(0.25 * var(--size-unit)); // 4
+  --size-xxs: calc(0.5 * var(--size-unit)); // 8
+  --size-xs: calc(0.75 * var(--size-unit)); // 12
+  --size-sm: var(--size-unit); // 16
+  --size-md: calc(1.5 * var(--size-unit)); // 24
+  --size-lg: calc(2 * var(--size-unit)); // 32
+  --size-xl: calc(2.5 * var(--size-unit)); // 40
+  --size-xxl: calc(3 * var(--size-unit)); // 48
+  --size-xxxl: calc(4.5 * var(--size-unit)); // 72
+  --size-xxxxl: calc(9 * var(--size-unit)); // 144
+}

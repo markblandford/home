@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@import  '~node_modules/css.gg/icons/all.scss';
+@import 'scss/colors.scss';
+@import 'scss/misc.scss';
+@import 'scss/sizes.scss';
+
+:root {
+  --base-font-size: 16px;
+}
+
+body {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-size: var(--base-font-size);
+  margin: 0;
+
+  a {
+    color: var(--color-super-blue);
+    text-decoration: underline;
+  }
+
+  code {
+    font-family: 'Fira Code', monospace;
+  }
+}
+

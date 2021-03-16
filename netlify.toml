@@ -22,7 +22,7 @@ package = "@sentry/netlify-build-plugin"
   object-src 'none';
   script-src 'self' https://o544339.ingest.sentry.io;
   script-src-elem 'self' https://o544339.ingest.sentry.io;
-  style-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com/css2;
+  style-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com/css2 'sha256-H4FcxU01L5WUfEZobTDaU3I/FE8RjPjTemexSEkm0Y0=' 'sha256-2yKTcXakelhpNqfW9NVMwtqrEST1VvQeudk/IkhsTcY=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-8DCI+Lfs9r+7z9OEmO/E0k/0glZ0/G98qyxKllTrsv8=';
   report-uri https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4;
   '''
   Expect-CT = "max-age=86400, enforce, report-uri'=https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4'"

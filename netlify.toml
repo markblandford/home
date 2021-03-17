@@ -16,7 +16,7 @@ package = "@sentry/netlify-build-plugin"
   base-uri 'self';
   default-src 'none';
   connect-src 'self' https://o544339.ingest.sentry.io;
-  font-src https://fonts.gstatic.com https://fonts.googleapis.com/css2;
+  font-src https://fonts.gstatic.com;
   form-action 'none';
   frame-ancestors 'none';
   img-src 'self';
@@ -24,6 +24,7 @@ package = "@sentry/netlify-build-plugin"
   script-src 'self' https://o544339.ingest.sentry.io;
   script-src-elem 'self' https://o544339.ingest.sentry.io;
   style-src 'self' 'unsafe-inline';
+  style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com;
   report-uri https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4;
   '''
   Expect-CT = "max-age=86400, enforce, report-uri'=https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4'"

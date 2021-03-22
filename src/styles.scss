@@ -5,6 +5,10 @@
 
 :root {
   --base-font-size: 16px;
+
+  /* theming */
+  --bg-color: var(--color-white);
+  --txt-color: var(--color-black);
 }
 
 body {
@@ -12,8 +16,11 @@ body {
   font-size: var(--base-font-size);
   margin: 0;
 
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+
   a {
-    color: var(--color-super-blue);
+    color: var(--txt-color);
     text-decoration: underline;
   }
 

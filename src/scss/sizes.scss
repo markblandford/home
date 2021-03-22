@@ -1,4 +1,6 @@
 :root {
+  --max-width: 75rem;
+  --min-width: 48rem;
   --size-unit: 1rem;
   --size-xxxxs: calc(0.125 * var(--size-unit)); // 2
   --size-xxxs: calc(0.25 * var(--size-unit)); // 4

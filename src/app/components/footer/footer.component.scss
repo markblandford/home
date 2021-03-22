@@ -1,0 +1,7 @@
+.themes {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  font-size: var(--size-xs);
+  margin-bottom: var(--size-xxs);
+}

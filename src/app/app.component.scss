@@ -1,24 +1,27 @@
 .app {
   display: grid;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--size-xxxs));
+  border-top: var(--size-xxxxs) solid var(--color-super-blue);
+  border-bottom: var(--size-xxxxs) solid var(--color-super-blue);
 
-  grid-template-columns: 250px auto;
-  grid-template-rows: var(--size-xxxl) auto var(--size-xxxs);
+  grid-template-columns: auto fit-content(var(--max-width)) auto;
+  grid-template-rows: fit-content(var(--size-xxxl)) auto fit-content(var(--size-xxxl));
   grid-template-areas:
-    "header header"
-    "nav content"
-    "footer footer";
+    "h0 header h2"
+    "c0 content c2"
+    "f0 footer f2";
+
+  &__spacer--l {
+    background: var(--bg-color);
+  }
+
+  &__spacer--r {
+    background: var(--bg-color);
+  }
 
   &__header {
     grid-area: header;
-    border-top: var(--size-xxxxs) solid var(--color-super-blue);
-    background-color: var(--color-white-smoke);
-  }
-
-  &__nav {
-    grid-area: nav;
-    height: 100%;
-    background-color: var(--color-white-smoke);
+    background-color: var(--bg-color);
   }
 
   &__outlet {
@@ -28,7 +31,6 @@
 
   &__footer {
     grid-area: footer;
-    height: 100%;
-    background-color: var(--color-super-blue);
+    background-color: var(--bg-color);
   }
 }

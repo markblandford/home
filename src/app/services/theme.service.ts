@@ -1,10 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface ThemeColours {
   'bg-color': string;
   'txt-color': string;
 }
+/* eslint-enable */
 
 export type Themes = {
   [key: string]: ThemeColours;
@@ -17,6 +19,7 @@ export type ThemeName = keyof typeof ThemeService.appThemes;
 })
 export class ThemeService {
 
+  /* eslint-disable @typescript-eslint/naming-convention */
   static appThemes: Themes = {
     sunny: {
       'bg-color': '#ffef67',
@@ -30,6 +33,7 @@ export class ThemeService {
       'bg-color': '#333',
       'txt-color': '#fff'
     } as ThemeColours
+    /* eslint-enable */
   };
 
   constructor(@Inject(DOCUMENT) private document: Document) { }

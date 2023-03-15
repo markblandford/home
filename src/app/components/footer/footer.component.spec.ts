@@ -3,13 +3,15 @@ import { ThemeService } from '@services/theme.service';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
-
-  const themeService = {
-    enableTheme: jest.fn(),
-    availableThemes: () => ['sunny', 'default']
-  } as unknown as ThemeService;
+  let themeService: ThemeService;
 
   beforeEach(() => {
+    themeService = {
+      enableTheme: jest.fn(),
+    } as unknown as ThemeService;
+
+    ThemeService.themes = ['sunny', 'default'];
+
     component = new FooterComponent(themeService);
   });
 

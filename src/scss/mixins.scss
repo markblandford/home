@@ -1,0 +1,17 @@
+$breakpoints: (
+  sm: 480px,
+  md: 720px,
+  lg: 960px,
+  xl: 1200px
+);
+
+@mixin breakpoint($name) {
+  @if not map-has-key($map: $breakpoints, $key: $name) {
+    @warn "unknown breakpoint `#{$name}`";
+  }
+  @else {
+    @media (min-width: map-get($breakpoints, $name)) {
+      @content;
+    }
+  }
+}

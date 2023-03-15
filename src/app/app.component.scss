@@ -1,12 +1,16 @@
+@import "../scss/mixins";
+
 .app {
   display: grid;
   min-height: calc(100vh - var(--size-xxxs));
   border-top: var(--size-xxxxs) solid var(--color-super-blue);
   border-bottom: var(--size-xxxxs) solid var(--color-super-blue);
 
-  grid-template-columns: auto fit-content(var(--max-width)) auto;
+  grid-gap: var(--size-xs);
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: fit-content(var(--size-xxxl)) auto fit-content(var(--size-xxxl));
   grid-template-areas:
+    "h0 title h2"
     "h0 header h2"
     "c0 content c2"
     "f0 footer f2";
@@ -17,6 +21,17 @@
 
   &__spacer--r {
     background: var(--bg-color);
+  }
+
+  &__title {
+    grid-area: title;
+    background-color: var(--bg-color);
+    border-width: var(--size-xxxxs);
+    border-style: solid;
+    border-image: linear-gradient(to right, var(--bg-color), var(--color-super-blue), var(--bg-color)) 1;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
   }
 
   &__header {
@@ -32,5 +47,19 @@
   &__footer {
     grid-area: footer;
     background-color: var(--bg-color);
+    border-width: var(--size-xxxxs);
+    border-style: solid;
+    border-image: linear-gradient(to right, var(--bg-color), var(--color-super-blue), var(--color-super-blue), var(--bg-color)) 1;
+    border-bottom: 0;
+    border-right: 0;
+    border-left: 0;
+  }
+
+  @include breakpoint(md) {
+    grid-template-columns: auto 260px 1fr auto;
+    grid-template-areas:
+      "h0 title header h2"
+      "c0 c1 content c2"
+      "f0 footer footer f2";
   }
 }

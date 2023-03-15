@@ -20,6 +20,6 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.themeService.enableTheme(this.selected);
 
-    this.themes = this.themeService.availableThemes().sort();
+    this.themes = ThemeService.themes.sort();
   }
 }

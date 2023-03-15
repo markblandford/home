@@ -9,6 +9,15 @@
   /* theming */
   --bg-color: var(--color-white);
   --txt-color: var(--color-black);
+
+  --theme-bg-color-default: #f6f6f6;
+  --theme-txt-color-default: #175ea1;
+
+  --theme-bg-color-night: #333;
+  --theme-txt-color-night: #fff;
+
+  --theme-bg-color-sunny: #f7ee9e;
+  --theme-txt-color-sunny: #3c3cb6;
 }
 
 body {
@@ -18,14 +27,14 @@ body {
 
   background-color: var(--bg-color);
   color: var(--txt-color);
+}
 
-  a {
-    color: var(--txt-color);
-    text-decoration: underline;
-  }
+a {
+  color: var(--txt-color);
+  text-decoration: underline;
+}
 
-  code {
-    font-family: 'Fira Code', monospace;
-  }
+code {
+  font-family: 'Fira Code', monospace;
 }
 

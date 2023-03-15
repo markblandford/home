@@ -21,34 +21,22 @@ describe('ThemeService', () => {
 
   it('should return an array of the names of the themes available', () => {
     const expected = [
-      'sunny',
       'default',
-      'night'
+      'night',
+      'sunny',
     ];
 
-    const actual = service.availableThemes();
+    const actual = ThemeService.themes;
 
     expect(actual).toEqual(expected);
   });
 
-  it('should set the theme to sunny', () => {
-    service.enableTheme('sunny');
+  ThemeService.themes.forEach(t => {
+    it(`should set the theme to ${t}`, () => {
+      service.enableTheme(t);
 
-    expect(dom.documentElement.style.setProperty).toBeCalledWith('--bg-color', '#ffef67');
-    expect(dom.documentElement.style.setProperty).toBeCalledWith('--txt-color', '#005826');
-  });
-
-  it('should set the theme to default', () => {
-    service.enableTheme('default');
-
-    expect(dom.documentElement.style.setProperty).toBeCalledWith('--bg-color', '#f6f6f6');
-    expect(dom.documentElement.style.setProperty).toBeCalledWith('--txt-color', '#175ea1');
-  });
-
-  it('should set the theme to night', () => {
-    service.enableTheme('night');
-
-    expect(dom.documentElement.style.setProperty).toBeCalledWith('--bg-color', '#333');
-    expect(dom.documentElement.style.setProperty).toBeCalledWith('--txt-color', '#fff');
+      expect(dom.documentElement.style.setProperty).toBeCalledWith('--bg-color', `var(--bg-color-${t})`);
+      expect(dom.documentElement.style.setProperty).toBeCalledWith('--txt-color', `var(--txt-color-${t})`);
+    });
   });
 });

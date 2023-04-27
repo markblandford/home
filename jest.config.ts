@@ -22,6 +22,7 @@ const jestConfig: Config = {
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   setupFilesAfterEnv: ['<rootDir>/src/test.ts'],
   globalSetup: 'jest-preset-angular/global-setup',
+  clearMocks: true,
   collectCoverage: true,
   coverageReporters: ['html'],
   coverageDirectory: 'reports/coverage',

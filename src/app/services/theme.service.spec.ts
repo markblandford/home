@@ -2,16 +2,17 @@ import { ThemeService } from './theme.service';
 
 describe('ThemeService', () => {
   let service: ThemeService;
-
-  const dom = {
-    documentElement: {
-      style: {
-        setProperty: jest.fn()
-      }
-    }
-  } as unknown as Document;
+  let dom: Document;
 
   beforeEach(() => {
+    dom = {
+      documentElement: {
+        style: {
+          setProperty: jest.fn()
+        }
+      }
+    } as unknown as Document;
+
     service = new ThemeService(dom);
   });
 
@@ -35,8 +36,8 @@ describe('ThemeService', () => {
     it(`should set the theme to ${t}`, () => {
       service.enableTheme(t);
 
-      expect(dom.documentElement.style.setProperty).toBeCalledWith('--bg-color', `var(--bg-color-${t})`);
-      expect(dom.documentElement.style.setProperty).toBeCalledWith('--txt-color', `var(--txt-color-${t})`);
+      expect(dom.documentElement.style.setProperty).toHaveBeenNthCalledWith(1, '--bg-color', `var(--theme-bg-color-${t})`);
+      expect(dom.documentElement.style.setProperty).toHaveBeenNthCalledWith(2, '--txt-color', `var(--theme-txt-color-${t})`);
     });
   });
 });

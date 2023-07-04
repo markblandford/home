@@ -31,7 +31,7 @@
     "@sentry/angular": "^7.43.0",
     "@sentry/tracing": "^7.43.0",
     "css.gg": "^2.0.0",
-    "rxjs": "^7.8.0",
+    "rxjs": "^7.8.1",
     "tslib": "^2.5.0",
     "zone.js": "~0.13.0"
   },

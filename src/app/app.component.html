@@ -1,19 +1,21 @@
 <div class="app">
-  <div class="app__title">
-    <app-header></app-header>
-  </div>
   <div class="app__header">
-    <app-navigation></app-navigation>
+    <div class="app__header-title">
+        <app-header></app-header>
+    </div>
+    <div class="app__header-nav">
+        <app-navigation></app-navigation>
+    </div>
   </div>
-  <div class="app__spacer--r"></div>
-  <div class="app__spacer--l"></div>
   <div class="app__outlet">
-    <router-outlet></router-outlet>
+    <div class="app__outlet-sidebar">
+
+    </div>
+    <div class="app__outlet-content">
+        <router-outlet></router-outlet>
+    </div>
   </div>
-  <div class="app__spacer--r"></div>
-  <div class="app__spacer--l"></div>
   <div class="app__footer">
     <app-footer></app-footer>
   </div>
-  <div class="app__spacer--r"></div>
 </div>

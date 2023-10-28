@@ -2,64 +2,52 @@
 
 .app {
   display: grid;
-  min-height: calc(100vh - var(--size-xxxs));
-  border-top: var(--size-xxxxs) solid var(--color-super-blue);
-  border-bottom: var(--size-xxxxs) solid var(--color-super-blue);
+  height: 100vh;
+  width: 100vw;
 
   grid-gap: var(--size-xs);
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: fit-content(var(--size-xxxl)) auto fit-content(var(--size-xxxl));
-  grid-template-areas:
-    "h0 title h2"
-    "h0 header h2"
-    "c0 content c2"
-    "f0 footer f2";
-
-  &__spacer--l {
-    background: var(--bg-color);
-  }
-
-  &__spacer--r {
-    background: var(--bg-color);
-  }
-
-  &__title {
-    grid-area: title;
-    background-color: var(--bg-color);
-    border-width: var(--size-xxxxs);
-    border-style: solid;
-    border-image: linear-gradient(to right, var(--bg-color), var(--color-super-blue), var(--bg-color)) 1;
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-  }
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
 
   &__header {
-    grid-area: header;
+    display: grid;
+    grid-gap: var(--size-xs);
+    grid-template-columns: 1fr 3fr;
     background-color: var(--bg-color);
+    padding: 0 var(--size-sm);
+    border-top: var(--size-xxxxs) solid var(--color-super-blue);
   }
 
   &__outlet {
-    grid-area: content;
-    place-self: stretch stretch;
+    display: grid;
+    grid-template-columns: 0 auto;
+    overflow: hidden;
+
+    @include breakpoint(sm) {
+      grid-gap: var(--size-xs);
+      grid-template-columns: var(--size-xxl) 3fr;
+    }
+
+    &-sidebar {
+      @include breakpoint(sm) {
+        padding-left: var(--size-sm);
+      }
+    }
+
+    &-content {
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: var(--size-sm);
+    }
   }
 
   &__footer {
-    grid-area: footer;
     background-color: var(--bg-color);
     border-width: var(--size-xxxxs);
     border-style: solid;
     border-image: linear-gradient(to right, var(--bg-color), var(--color-super-blue), var(--color-super-blue), var(--bg-color)) 1;
-    border-bottom: 0;
+    border-bottom: var(--size-xxxxs) solid var(--color-super-blue);
     border-right: 0;
     border-left: 0;
-  }
-
-  @include breakpoint(md) {
-    grid-template-columns: auto 260px 1fr auto;
-    grid-template-areas:
-      "h0 title header h2"
-      "c0 c1 content c2"
-      "f0 footer footer f2";
   }
 }

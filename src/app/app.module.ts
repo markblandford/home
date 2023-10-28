@@ -1,32 +1,38 @@
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 import { createErrorHandler, TraceService } from '@sentry/angular-ivy';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components';
 import {
-  A11yComponent,
+  ArticlesComponent,
   HomeComponent
 } from './pages';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    A11yComponent,
+    ArticlesComponent,
     HomeComponent,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MarkdownModule.forRoot({ loader: HttpClient }),
   ],
   providers: [
     {

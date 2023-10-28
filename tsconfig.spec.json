@@ -7,8 +7,7 @@
     "types": [
       "jest"
     ],
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true
+    "esModuleInterop": true
   },
   "files": [
     "src/test.ts",

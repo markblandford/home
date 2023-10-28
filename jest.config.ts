@@ -24,7 +24,7 @@ const jestConfig: Config = {
   globalSetup: 'jest-preset-angular/global-setup',
   clearMocks: true,
   collectCoverage: true,
-  coverageReporters: ['html'],
+  coverageReporters: ['text-summary', 'html'],
   coverageDirectory: 'reports/coverage',
   coverageThreshold: {
     global: {

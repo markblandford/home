@@ -16,6 +16,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArticleComponent } from './components/article/article.component';
+import { BioComponent } from './components/bio/bio.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ArticleComponent } from './components/article/article.component';
     HomeComponent,
     NavigationComponent,
     FooterComponent,
-    ArticleComponent
+    ArticleComponent,
+    BioComponent
   ],
   imports: [
     BrowserModule,

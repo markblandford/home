@@ -1,21 +1,20 @@
 <div class="app">
-  <div class="app__header">
-    <div class="app__header-title">
-        <app-header></app-header>
-    </div>
-    <div class="app__header-nav">
-        <app-navigation></app-navigation>
-    </div>
-  </div>
-  <div class="app__outlet">
-    <div class="app__outlet-sidebar">
+    <header class="app__header">
+        <div class="app__header-title">
+            <app-header></app-header>
+        </div>
 
-    </div>
-    <div class="app__outlet-content">
+        <div class="app__header-nav">
+            <app-navigation></app-navigation>
+        </div>
+    </header>
+    <aside class="app__sidebar">
+        <app-bio></app-bio>
+    </aside>
+    <main class="app__content">
         <router-outlet></router-outlet>
+    </main>
+    <div class="app__footer">
+        <app-footer></app-footer>
     </div>
-  </div>
-  <div class="app__footer">
-    <app-footer></app-footer>
-  </div>
 </div>

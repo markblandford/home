@@ -1,0 +1,17 @@
+@import "../../../scss/mixins";
+
+.bio {
+  --base-font-size: 10px;
+
+  @include breakpoint(md) {
+    --base-font-size: 16px;
+  }
+
+  &__image {
+    display: none;
+
+    @include breakpoint(md) {
+      display: block;
+    }
+  }
+}

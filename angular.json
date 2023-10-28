@@ -28,10 +28,10 @@
             "aot": true,
             "assets": [
               "src/_redirects",
-              "src/assets",
-              { "glob": "**/*", "input": "node_modules/css.gg/icons/css", "output": "assets/css-icons" }
+              "src/assets"
             ],
             "styles": [
+              "node_modules/css.gg/icons/icons.scss",
               "src/styles.scss"
             ],
             "scripts": []

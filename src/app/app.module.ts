@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import * as Sentry from '@sentry/angular';
+import { createErrorHandler, TraceService } from '@sentry/angular-ivy';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,18 +31,18 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
     {
       provide: ErrorHandler,
-      useValue: Sentry.createErrorHandler({
+      useValue: createErrorHandler({
         showDialog: false,
       }),
     },
     {
-      provide: Sentry.TraceService,
+      provide: TraceService,
       deps: [Router],
     },
     {
       provide: APP_INITIALIZER,
       useFactory: () => () => {},
-      deps: [Sentry.TraceService],
+      deps: [TraceService],
       multi: true,
     },
   ],

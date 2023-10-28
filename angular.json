@@ -28,7 +28,8 @@
             "aot": true,
             "assets": [
               "src/_redirects",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*", "input": "node_modules/css.gg/icons/css", "output": "assets/css-icons" }
             ],
             "styles": [
               "src/styles.scss"

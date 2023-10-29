@@ -1,8 +1,7 @@
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { MarkdownModule } from 'ngx-markdown';
+
 import { createErrorHandler, TraceService } from '@sentry/angular-ivy';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,9 +31,7 @@ import { BioComponent } from './components/bio/bio.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MarkdownModule.forRoot({ loader: HttpClient }),
+    ReactiveFormsModule
   ],
   providers: [
     {

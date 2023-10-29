@@ -1,7 +1,6 @@
 @import "../../../scss/mixins";
 
 .bio {
-  --base-font-size: 10px;
 
   @include breakpoint(md) {
     --base-font-size: 16px;
@@ -11,7 +10,13 @@
     display: none;
 
     @include breakpoint(md) {
-      display: block;
+      display: flex;
+      justify-content: center;
     }
+  }
+
+  &__name {
+    font-family: var(--font-family-alt);
+    font-weight: 400;
   }
 }

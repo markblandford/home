@@ -17,10 +17,13 @@
 
   --theme-bg-color-sunny: #f7ee9e;
   --theme-txt-color-sunny: #3c3cb6;
+
+  --font-family: 'Inter var', Arial, Helvetica, sans-serif;
+  --font-family-alt: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 body {
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-family: var(--font-family);
   font-size: var(--base-font-size);
   margin: 0;
 
@@ -37,3 +40,21 @@ code {
   font-family: 'Fira Code', monospace;
 }
 
+p {
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: var(--size-xxxs);
+  }
+}
+
+h2 {
+  margin: var(--size-sm) 0 var(--size-xxs);
+}
+
+h3 {
+  margin: var(--size-xxs) 0 var(--size-xxxs);
+  font-weight: 400;
+}

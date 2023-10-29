@@ -12,14 +12,14 @@
     "sidebar sidebar" auto
     "footer footer" auto
     / 1fr;
-  grid-gap: var(--size-xs);
+  grid-gap: 0;
 
   @include breakpoint(md) {
     grid:
       "header header" auto
       "sidebar body" 1fr
       "footer footer" auto
-      / 1fr 5fr;
+      / minmax(222px, 1fr) 5fr;
   }
 
   &__header {

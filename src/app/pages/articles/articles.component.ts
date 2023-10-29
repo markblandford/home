@@ -4,5 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: './articles.component.html'
 })
 export class ArticlesComponent  {
-  articleId = "1";
+  articleId = "venn-of-angular-component-testing";
 }

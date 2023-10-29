@@ -4,4 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: './articles.component.html'
 })
 export class ArticlesComponent  {
+  articleId = "1";
 }

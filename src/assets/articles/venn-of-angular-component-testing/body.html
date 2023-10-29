@@ -77,7 +77,7 @@
 </blockquote>
 <ol type="1">
 <li>I think if your test focuses on the <strong>class</strong> of a single Angular component in isolation, it's more likely to be a unit test.</li>
-<li>If your test involves <strong>rendering multiple Angular components together</strong>, in a more real-world scenario, and / or <strong>interacting with the DOM<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></strong>, I think it is probably an Integration Test<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
+<li>If your test involves <strong>rendering multiple Angular components together</strong>, in a more real-world scenario, and / or <strong>interacting with the DOM<span class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></span></strong>, I think it is probably an Integration Test<span class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></span>.</li>
 </ol>
 <h3 id="an-example">An example</h3>
 <p>For example, testing the click of a button on a component:</p>
@@ -90,17 +90,17 @@
 <li><code>fixture.nativeElement.querySelector('button').click();</code>
 <ul>
 <li><strong>Type of Test?</strong> 🤝 Integration Test</li>
-<li><strong>Why?</strong> The test interacts with the DOM, so likely needs to render other dependencies and components. One could argue the DOM itself is a dependency<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</li>
+<li><strong>Why?</strong> The test interacts with the DOM, so likely needs to render other dependencies and components. One could argue the DOM itself is a dependency<span class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></span>.</li>
 </ul></li>
 </ol>
 <p><em><strong>But that's not an Integration Test, it's a Component DOM Test!</strong></em></p>
-<p>You're spot on. If you read the <a href="https://angular.io/guide/testing-components-basics">Angular Guide for testing Components</a>, the docs call the tests 'Component Class Tests' and 'Component DOM Tests', no where does it mention unit testing<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Perhaps the terminology we use day-to-day is wrong? Either way I think this leads to a grey area of what we refer to as 'unit testing' Angular Components. Moreover, here is further definition of an Angular Component:</p>
+<p>You're spot on. If you read the <a href="https://angular.io/guide/testing-components-basics">Angular Guide for testing Components</a>, the docs call the tests 'Component Class Tests' and 'Component DOM Tests', no where does it mention unit testing<span class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></span>. Perhaps the terminology we use day-to-day is wrong? Either way I think this leads to a grey area of what we refer to as 'unit testing' Angular Components. Moreover, here is further definition of an Angular Component:</p>
 <blockquote>
 <p>...a component is more than just its class. A component interacts with the DOM and with other components. The class-only tests can tell you about class behavior [sic]. They cannot tell you if the component is going to render properly, respond to user input and gestures, or integrate with its parent and child components.</p>
 <p>-- <cite><a href="https://angular.io/guide/testing-components-basics#component-dom-testing">Angular Guide - Component DOM testing</a></cite></p>
 </blockquote>
-<p>So if Component DOM Tests are to address this 'limitation', that must mean the Component DOM Tests need to have dependencies and 'integrate with its parent and child components'? Sounds pretty close to the <a href="#a-definition-of-an-integration-test">definition of an Integration Test</a> to me.</p>
-<p>I felt there had to be a cleaner, more succinct way to draw the line between Component Unit Tests vs Component DOM Tests vs Integration Tests. This is where I went back to my books<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and considered Sociable and Solitary tests.</p>
+<p>So if Component DOM Tests are to address this 'limitation', that must mean the Component DOM Tests need to have dependencies and 'integrate with its parent and child components'? Sounds pretty close to the definition of an Integration Test to me.</p>
+<p>I felt there had to be a cleaner, more succinct way to draw the line between Component Unit Tests vs Component DOM Tests vs Integration Tests. This is where I went back to my books<span class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></span> and considered Sociable and Solitary tests.</p>
 <h3 id="sociable-vs-solitary-unit-tests">Sociable vs Solitary Unit Tests</h3>
 <p>I think it was Jay Fields that coined the term Sociable &amp; Solitary Tests. Martin Fowler has a <a href="https://martinfowler.com/bliki/UnitTest.html">good article</a> that mentions the concept too.</p>
 <blockquote>
@@ -120,7 +120,7 @@
 </blockquote>
 <p>I fall firmly into the Solitary camp of unit testing approaches: I can probably count on one hand the number of Angular, Sociable Unit Tests I have ever <em>had</em> to write.</p>
 <p>My predisposition probably comes down to my development background. For example, it's simply not possible to test a WPF UI (or View) binding / interaction with the 'class' (View Model), with the unit test framework, <a href="https://nunit.org/">NUnit</a>. Furthermore, the 'View' should never have any logic anyway. I would argue, for the large part, it should be the same for Angular Templates too!</p>
-<p>In addition, the Sociable Tests exhibit traits similar to Integration tests for example: <a href="#fragility">fragility</a> &amp; <a href="#speed">speed</a>. To better describe this, look at this basic example.</p>
+<p>In addition, the Sociable Tests exhibit traits similar to Integration tests for example: fragility &amp; speed. To better describe this, look at this basic example.</p>
 <h4 id="an-example-comparing-solitary--sociable-angular-component-tests">An Example comparing Solitary &amp; Sociable Angular Component Tests</h4>
 <p>Take this Angular component as an example.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Component</span>({</span>
@@ -208,7 +208,7 @@
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
 </details>
 
-<p>Notice how the Sociable Tests are subtly different - A Sociable Test wouldn't normally test the <code>counterIncremented</code> event is dispatched. That would be on the responsibility of the parent 'subscriber' (which in turn shouldn't need to know under what circumstances it is emitted).<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p>Notice how the Sociable Tests are subtly different - A Sociable Test wouldn't normally test the <code>counterIncremented</code> event is dispatched. That would be on the responsibility of the parent 'subscriber' (which in turn shouldn't need to know under what circumstances it is emitted).<span class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></span></p>
 <p>Where as the Solitary Unit Tests can be said to provide 100% coverage, the Sociable / Component DOM Tests can not. If you just had the Sociable Tests, you could delete the <code>this.counterIncremented.emit();</code> line, which could be critical, and yet no tests would fail. 🙁</p>
 <p>Given these examples, let's outline the key differences:</p>
 <h4 id="key-differences-solitary-vs-sociable-tests">Key Differences: Solitary vs Sociable Tests</h4>
@@ -264,12 +264,12 @@
 <p>Sociable Unit Tests are more susceptible to cascading failures.</p>
 <p>-- <cite><a href="https://leanpub.com/wewut">'Working Effectively with Unit Tests' by Jay Fields</a></cite></p>
 </blockquote>
-<p>This all comes down to using, the <code>TestBed</code> or notably <code>TestBed.configureTestingModule()</code>.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>This all comes down to using, the <code>TestBed</code> or notably <code>TestBed.configureTestingModule()</code>.<span class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></span></p>
 <p>On the other hand, the Solitary Unit Tests can not suffer this same fate: they have zero knowledge of any descendants.</p>
 <h5 id="speed">Speed</h5>
 <p>Remember Unit Tests are meant to be fast. They should enable an engineer to be able to run them often, ideally after any change they make. Running two, Sociable Unit Tests in an average of 26.9ms is pretty good right? But how about running tests, that give you more coverage and greater confidence but <strong>12 times faster</strong>? Just scale that up to when you have over 2,000 tests. That's the difference between the entire test run taking 27 seconds (which is still really fast but these are very simple tests) vs 2 seconds! That's what Solitary Unit Tests give you.</p>
 <p>If Unit Tests are meant to be fast, then I'll take running 2,000 of them in ~2 seconds please.</p>
-<p>Furthermore, I think most engineers find it quicker and easier to write Solitary Unit Tests than they do Sociable Unit Tests (Component DOM Tests), plus maintain the component dependencies in the tests.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>Furthermore, I think most engineers find it quicker and easier to write Solitary Unit Tests than they do Sociable Unit Tests (Component DOM Tests), plus maintain the component dependencies in the tests.<span class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></span></p>
 <h3 id="the-venn-diagram-of-angular-component-testing">The Venn Diagram of Angular Component Testing</h3>
 <p>This brings us to the heart of this series. Going back to the <a href="./venn-of-angular-component-testing-0.md#a-definition-of-an-integration-test">definition for an Integration Test from part 1 of this series</a>:</p>
 <blockquote>
@@ -304,10 +304,10 @@
 <h3 id="rebuttal">Rebuttal</h3>
 <p>Given the 'Venn of Angular Component Testing' one could argue to simply just have a test suite of Sociable Tests, with no Solitary or Integration Tests. You absolutely <em>could</em>. I've not tried but I imagine, at scale it would become unmanageable. I would strongly expect too, that you will have a suite of Integration tests using something like <a href="https://playwright.dev">Playwright</a> or <a href="https://learn.cypress.io/">Cypress</a>, so you'll end up duplicating your test effort.</p>
 <h3 id="closing">Closing</h3>
-<p>Think about why we test interactions in the DOM? I think we do it to test how the customer is going to use our component / application. We already use tools like <a href="https://playwright.dev">Playwright</a> and <a href="https://learn.cypress.io/">Cypress</a> for our E2E Testing<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> which are probably better suited (and potentially less fragile than Sociable Tests) for this testing.</p>
-<p>How many times have you faced problems in the past with writing your [Sociable] unit tests to assert something in the DOM and you just cannot get it to work, no matter how many <code>fixture.detectChanges()</code> you add? 😄 I know I've spent too much time down that rabbit hole when I know the code 'works'. It is probably quicker<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> (and easier) to extend the existing E2E / Integration tests to cover the new behaviour. Plus, if there isn't any, observable change in the DOM, why bother including it in a Sociable Test at all?</p>
+<p>Think about why we test interactions in the DOM? I think we do it to test how the customer is going to use our component / application. We already use tools like <a href="https://playwright.dev">Playwright</a> and <a href="https://learn.cypress.io/">Cypress</a> for our E2E Testing<span class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></span> which are probably better suited (and potentially less fragile than Sociable Tests) for this testing.</p>
+<p>How many times have you faced problems in the past with writing your [Sociable] unit tests to assert something in the DOM and you just cannot get it to work, no matter how many <code>fixture.detectChanges()</code> you add? 😄 I know I've spent too much time down that rabbit hole when I know the code 'works'. It is probably quicker<span class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></span> (and easier) to extend the existing E2E / Integration tests to cover the new behaviour. Plus, if there isn't any, observable change in the DOM, why bother including it in a Sociable Test at all?</p>
 <p>Too often I see what could easily be Solitary Unit Tests written with all of the boilerplate of Sociable Tests without actually interacting with the Component Template. So the tests have none of the 'benefit' of a Sociable test but have all of the downsides of them. I've found by simply removing the <code>ComponentFixture</code> etc., the tests run up to 10x faster.</p>
-<p>Final note: I was taught that if you're polluting the production code just so you can test something (think of the <code>data-testid</code> attribute for one, or even simply changing the scope of a method to make it 'easier' to test), then you maybe doing something wrong or unconventional.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<p>Final note: I was taught that if you're polluting the production code just so you can test something (think of the <code>data-testid</code> attribute for one, or even simply changing the scope of a method to make it 'easier' to test), then you maybe doing something wrong or unconventional.<span class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></span></p>
 <section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
@@ -315,18 +315,17 @@
 <blockquote>
 <p>jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG DOM...</p>
 </blockquote>
-<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
-<li id="fn2" role="doc-endnote"><p>The Angular docs call these <a href="https://angular.io/guide/testing-components-basics#component-dom-testing">Component DOM testing</a>. I think they are just another type of Integration Test, more on that later.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>The Angular docs call these <a href="https://angular.io/guide/testing-components-basics#component-dom-testing">Component DOM testing</a>. I think they are just another type of Integration Test, more on that later.</p></li>
 <li id="fn3" role="doc-endnote"><p>I suspect if you were to run <a href="https://jestjs.io/docs/configuration#testenvironment-string">Jest without JSDOM</a>, this sort of interaction would fail.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>On the <a href="https://angular.io/guide/testing-components-basics">Basics of testing components</a> page anyway, and I cannot find anywhere where the Angular framework / team makes the link between Component tests (class or DOM) and unit tests. However, in the documentation for <code>ng test</code>, Angular describes command as "Runs unit tests...".<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>On the <a href="https://angular.io/guide/testing-components-basics">Basics of testing components</a> page anyway, and I cannot find anywhere where the Angular framework / team makes the link between Component tests (class or DOM) and unit tests. However, in the documentation for <code>ng test</code>, Angular describes command as "Runs unit tests...".</p></li>
 <li id="fn5" role="doc-endnote"><p><a href="https://www.artofunittesting.com/">'The Art of Unit Testing' by Roy Osherove</a></p>
 <p><a href="https://leanpub.com/wewut">'Working Effectively with Unit Tests' by Jay Fields</a></p>
-<p><a href="https://www.oreilly.com/library/view/test-driven-development/0321146530/">'Test-Driven Development By Example' by Kent Beck</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>You could of course wrap the component in the test with a dummy component but you are 100% then into Integration Test territory (as far as I'm concerned). Not to mention introducing additional complexity into the tests which is just something else that can break / fail your tests.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>Some of this can be overcome using mocking frameworks such as <a href="https://github.com/help-me-mom/ng-mocks">ng-mocks</a> but I struggle to then understand the value in the added boilerplate compared to simple Solitary Tests instead.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>How many console warnings (<em>"component A is not a known element"</em>) do you see when you run your tests? Potentially hiding the warnings you really care about.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>If you're not, then you should be. If you are performing <em>real</em> E2E tests against <em>real</em> APIs, then (👏) it shouldn't be too troublesome to reuse these tests to also execute against stubbed APIs (if you even need to bother).<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10" role="doc-endnote"><p>To write, not to run.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11" role="doc-endnote"><p>That's a whole other conversation however.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<p><a href="https://www.oreilly.com/library/view/test-driven-development/0321146530/">'Test-Driven Development By Example' by Kent Beck</a></p></li>
+<li id="fn6" role="doc-endnote"><p>You could of course wrap the component in the test with a dummy component but you are 100% then into Integration Test territory (as far as I'm concerned). Not to mention introducing additional complexity into the tests which is just something else that can break / fail your tests.</p></li>
+<li id="fn7" role="doc-endnote"><p>Some of this can be overcome using mocking frameworks such as <a href="https://github.com/help-me-mom/ng-mocks">ng-mocks</a> but I struggle to then understand the value in the added boilerplate compared to simple Solitary Tests instead.</p></li>
+<li id="fn8" role="doc-endnote"><p>How many console warnings (<em>"component A is not a known element"</em>) do you see when you run your tests? Potentially hiding the warnings you really care about.</p></li>
+<li id="fn9" role="doc-endnote"><p>If you're not, then you should be. If you are performing <em>real</em> E2E tests against <em>real</em> APIs, then (👏) it shouldn't be too troublesome to reuse these tests to also execute against stubbed APIs (if you even need to bother).</p></li>
+<li id="fn10" role="doc-endnote"><p>To write, not to run.</p></li>
+<li id="fn11" role="doc-endnote"><p>That's a whole other conversation however.</p></li>
 </ol>
 </section>

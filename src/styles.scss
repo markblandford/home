@@ -62,3 +62,9 @@ h3 {
   margin: var(--size-xxs) 0 var(--size-xxxs);
   font-weight: 400;
 }
+
+blockquote {
+  border-left: var(--size-xxxxs) solid var(--color-taupe-grey);
+  margin-left: var(--size-xxs);
+  padding-left: var(--size-lg);
+}

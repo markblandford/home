@@ -1,0 +1,332 @@
+<h2 id="the-venn-of-angular-component-testing">The Venn of Angular Component Testing</h2>
+<p>In my experience there is confusion between what I would consider a Unit Test and an Integration Test for an Angular Component. Drawing on my OO development experience and having practised Test-driven development for a number of years in Angular &amp; Java (plus other languages &amp; frameworks), I think I can help reduce the 'grey' in the landscape.</p>
+<p>This series is limited to just testing of Angular Components. I feel the concept of Unit Testing other Angular objects, such as Services is more well defined.</p>
+<h3 id="to-start">To Start</h3>
+<h4 id="a-definition-of-a-unit-test">A Definition of a Unit Test</h4>
+<blockquote>
+<p>Asserts a unit of software works as expected <strong>within isolation</strong></p>
+</blockquote>
+<h4 id="a-definition-of-an-integration-test">A Definition of an Integration Test</h4>
+<blockquote>
+<p>Asserts a unit of software interacts as expected <strong>with another</strong></p>
+</blockquote>
+<h4 id="what-is-the-unit-of-a-unit-test">What is the 'Unit' of a Unit Test?</h4>
+<p>The smallest piece of software where, for a given change to an input there is an observed (to the software / unit under test) change in output. For example a public method, which for a given input leads to a predictable, visible output (to the software / unit under test).</p>
+<h3 id="a-comparison-between-a-unit-test--integration-test">A Comparison between a Unit Test &amp; Integration Test</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Aspect</th>
+<th>🧩 Unit Tests</th>
+<th>🤝 Integration Tests</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Scope</strong></td>
+<td>🔬 Isolated Units</td>
+<td>🌐 Component Interactions</td>
+</tr>
+<tr class="even">
+<td><strong>Dependencies</strong></td>
+<td>🧪 Mocked Dependencies</td>
+<td>🛠️ Real or Mocked</td>
+</tr>
+<tr class="odd">
+<td><strong>Purpose</strong></td>
+<td>✅ Isolated Code</td>
+<td>🔄 Component Integration</td>
+</tr>
+<tr class="even">
+<td><strong>Coverage</strong></td>
+<td>💯 High Unit Coverage</td>
+<td>🚀 Critical Integration</td>
+</tr>
+<tr class="odd">
+<td><strong>Fragility</strong></td>
+<td>🪨 Resilient</td>
+<td>🍌 More Fragile</td>
+</tr>
+<tr class="even">
+<td><strong>Speed</strong></td>
+<td>🚤 Fast</td>
+<td>⛵ Slower</td>
+</tr>
+<tr class="odd">
+<td><strong>On Failure</strong></td>
+<td>🎯 Easy to pinpoint</td>
+<td>👓 Potentially harder</td>
+</tr>
+</tbody>
+</table>
+<p>In summary, Unit Tests target small, isolated units of code without external dependencies, while Integration Tests examine the interactions and interfaces between components or services.</p>
+<h3 id="how-do-these-relate-to-angular-component-testing">How do these Relate to Angular Component Testing?</h3>
+<p>I think this where the lines blur between what [I would consider] a unit vs an integration test is. An Angular Component consists of:</p>
+<blockquote>
+<ul>
+<li>An HTML template that declares what renders on the page</li>
+<li>A TypeScript class that defines behavior [sic]</li>
+<li>A CSS selector that defines how the component is used in a template</li>
+<li>Optionally, CSS styles applied to the template</li>
+</ul>
+<p>-- <cite><a href="https://angular.io/guide/component-overview#angular-components-overview">Angular Guide - Angular components overview</a><cite></p>
+</blockquote>
+<p>I ask you this question:</p>
+<blockquote>
+<p>What is <em>'Isolation'</em> or the <em>Unit Under Test</em> in the Context of an Angular Component?</p>
+</blockquote>
+<ol type="1">
+<li>I think if your test focuses on the <strong>class</strong> of a single Angular component in isolation, it's more likely to be a unit test.</li>
+<li>If your test involves <strong>rendering multiple Angular components together</strong>, in a more real-world scenario, and / or <strong>interacting with the DOM<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></strong>, I think it is probably an Integration Test<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
+</ol>
+<h3 id="an-example">An example</h3>
+<p>For example, testing the click of a button on a component:</p>
+<ol type="1">
+<li><code>component.onClick();</code> (assuming this is what the <code>onclick</code> event handler calls)
+<ul>
+<li><strong>Type of Test?</strong> 🧩 Unit Test</li>
+<li><strong>Why?</strong> Interacting directly with the public interface of the class / unit under test.</li>
+</ul></li>
+<li><code>fixture.nativeElement.querySelector('button').click();</code>
+<ul>
+<li><strong>Type of Test?</strong> 🤝 Integration Test</li>
+<li><strong>Why?</strong> The test interacts with the DOM, so likely needs to render other dependencies and components. One could argue the DOM itself is a dependency<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</li>
+</ul></li>
+</ol>
+<p><em><strong>But that's not an Integration Test, it's a Component DOM Test!</strong></em></p>
+<p>You're spot on. If you read the <a href="https://angular.io/guide/testing-components-basics">Angular Guide for testing Components</a>, the docs call the tests 'Component Class Tests' and 'Component DOM Tests', no where does it mention unit testing<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Perhaps the terminology we use day-to-day is wrong? Either way I think this leads to a grey area of what we refer to as 'unit testing' Angular Components. Moreover, here is further definition of an Angular Component:</p>
+<blockquote>
+<p>...a component is more than just its class. A component interacts with the DOM and with other components. The class-only tests can tell you about class behavior [sic]. They cannot tell you if the component is going to render properly, respond to user input and gestures, or integrate with its parent and child components.</p>
+<p>-- <cite><a href="https://angular.io/guide/testing-components-basics#component-dom-testing">Angular Guide - Component DOM testing</a></cite></p>
+</blockquote>
+<p>So if Component DOM Tests are to address this 'limitation', that must mean the Component DOM Tests need to have dependencies and 'integrate with its parent and child components'? Sounds pretty close to the <a href="#a-definition-of-an-integration-test">definition of an Integration Test</a> to me.</p>
+<p>I felt there had to be a cleaner, more succinct way to draw the line between Component Unit Tests vs Component DOM Tests vs Integration Tests. This is where I went back to my books<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and considered Sociable and Solitary tests.</p>
+<h3 id="sociable-vs-solitary-unit-tests">Sociable vs Solitary Unit Tests</h3>
+<p>I think it was Jay Fields that coined the term Sociable &amp; Solitary Tests. Martin Fowler has a <a href="https://martinfowler.com/bliki/UnitTest.html">good article</a> that mentions the concept too.</p>
+<blockquote>
+<p><strong>Solitary</strong> Tests prefer to <strong>isolate</strong> the unit under test.</p>
+<p><strong>Sociable</strong> Tests often <strong>rely on</strong> other units to fulfil the behaviour.</p>
+</blockquote>
+<p>I think this more subtly describes the different approaches to 'unit testing' Angular components most Angular engineers take. Think about this too:</p>
+<blockquote>
+<p>[A Solitary Unit Test] Never cross boundaries</p>
+<p>-- <cite><a href="https://leanpub.com/wewut">'Working Effectively with Unit Tests' by Jay Fields</a></cite></p>
+</blockquote>
+<p>I would consider the interface between the Component Template and the Component Class a boundary. Thus Component DOM Tests must be Sociable.</p>
+<p>Distilling this down further, I think this leads us to:</p>
+<blockquote>
+<p>🧩 <strong>Component Class Tests =</strong> Solitary Unit Tests</p>
+<p>🤝 <strong>Component DOM Tests =</strong> Sociable / Integration Tests</p>
+</blockquote>
+<p>I fall firmly into the Solitary camp of unit testing approaches: I can probably count on one hand the number of Angular, Sociable Unit Tests I have ever <em>had</em> to write.</p>
+<p>My predisposition probably comes down to my development background. For example, it's simply not possible to test a WPF UI (or View) binding / interaction with the 'class' (View Model), with the unit test framework, <a href="https://nunit.org/">NUnit</a>. Furthermore, the 'View' should never have any logic anyway. I would argue, for the large part, it should be the same for Angular Templates too!</p>
+<p>In addition, the Sociable Tests exhibit traits similar to Integration tests for example: <a href="#fragility">fragility</a> &amp; <a href="#speed">speed</a>. To better describe this, look at this basic example.</p>
+<h4 id="an-example-comparing-solitary--sociable-angular-component-tests">An Example comparing Solitary &amp; Sociable Angular Component Tests</h4>
+<p>Take this Angular component as an example.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>@<span class="fu">Component</span>({</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  selector<span class="op">:</span> <span class="st">&#39;app-root&#39;</span><span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  template<span class="op">:</span> <span class="vs">`</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;button (click)=&quot;increment()&quot;&gt;Increment&lt;/button&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p&gt;{{ counterValue }}&lt;/p&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> AppComponent {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Input</span>() counterValue<span class="op">:</span> <span class="dt">number</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  @<span class="fu">Output</span>() counterIncremented <span class="op">=</span> <span class="kw">new</span> <span class="bu">EventEmitter</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span>()<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">increment</span>() {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">counterValue</span><span class="op">++;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">counterIncremented</span><span class="op">.</span><span class="fu">emit</span>()<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>And here are the tests, written in the two different approaches:</p>
+<details>
+  <summary>1. Solitary Unit Tests</summary>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">&#39;AppComponent - Solitary Unit Tests&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">&#39;when the button is clicked&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">it</span>(<span class="st">&#39;should increment the counter value&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> component <span class="op">=</span> <span class="kw">new</span> <span class="fu">AppComponent</span>()<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      component<span class="op">.</span><span class="at">counterValue</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      component<span class="op">.</span><span class="fu">increment</span>()<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expect</span>(component<span class="op">.</span><span class="at">counterValue</span>)<span class="op">.</span><span class="fu">toBe</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">it</span>(<span class="st">&#39;should emit an event&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> component <span class="op">=</span> <span class="kw">new</span> <span class="fu">AppComponent</span>()<span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> emitted <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      component<span class="op">.</span><span class="at">counterIncremented</span><span class="op">.</span><span class="fu">subscribe</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        emitted <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      component<span class="op">.</span><span class="fu">increment</span>()<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expect</span>(emitted)<span class="op">.</span><span class="fu">toBe</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+</details>
+
+<details>
+  <summary>2. Sociable Tests</summary>
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">&#39;AppComponent - Sociable Tests&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> component<span class="op">:</span> AppComponent<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> fixture<span class="op">:</span> ComponentFixture<span class="op">&lt;</span>AppComponent<span class="op">&gt;;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    TestBed<span class="op">.</span><span class="fu">configureTestingModule</span>({</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      declarations<span class="op">:</span> [AppComponent]<span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    fixture <span class="op">=</span> TestBed<span class="op">.</span><span class="fu">createComponent</span>(AppComponent)<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    component <span class="op">=</span> fixture<span class="op">.</span><span class="at">componentInstance</span><span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    fixture<span class="op">.</span><span class="fu">detectChanges</span>()<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">it</span>(<span class="st">&#39;should display the initial counter value&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    component<span class="op">.</span><span class="at">counterValue</span> <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    fixture<span class="op">.</span><span class="fu">detectChanges</span>()<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> displayedValue <span class="op">=</span> fixture<span class="op">.</span><span class="at">nativeElement</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;p&#39;</span>)<span class="op">.</span><span class="at">textContent</span><span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect</span>(displayedValue<span class="op">.</span><span class="fu">trim</span>())<span class="op">.</span><span class="fu">toBe</span>(<span class="st">&#39;5&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">it</span>(<span class="st">&#39;should increment the counter when the button is clicked&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> button <span class="op">=</span> fixture<span class="op">.</span><span class="at">nativeElement</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;button&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    button<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    fixture<span class="op">.</span><span class="fu">detectChanges</span>()<span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> displayedValue <span class="op">=</span> fixture<span class="op">.</span><span class="at">nativeElement</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;p&#39;</span>)<span class="op">.</span><span class="at">textContent</span><span class="op">;</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect</span>(displayedValue<span class="op">.</span><span class="fu">trim</span>())<span class="op">.</span><span class="fu">toBe</span>(<span class="st">&#39;1&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+</details>
+
+<p>Notice how the Sociable Tests are subtly different - A Sociable Test wouldn't normally test the <code>counterIncremented</code> event is dispatched. That would be on the responsibility of the parent 'subscriber' (which in turn shouldn't need to know under what circumstances it is emitted).<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p>Where as the Solitary Unit Tests can be said to provide 100% coverage, the Sociable / Component DOM Tests can not. If you just had the Sociable Tests, you could delete the <code>this.counterIncremented.emit();</code> line, which could be critical, and yet no tests would fail. 🙁</p>
+<p>Given these examples, let's outline the key differences:</p>
+<h4 id="key-differences-solitary-vs-sociable-tests">Key Differences: Solitary vs Sociable Tests</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Aspect</th>
+<th>🧩 Solitary Test</th>
+<th>🤝 Sociable / Component DOM Test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Scope</strong></td>
+<td>🔬 Isolated Units</td>
+<td>🌐 Component Interaction</td>
+</tr>
+<tr class="even">
+<td><strong>Dependencies</strong></td>
+<td>🥸 None / Mocked</td>
+<td>🎨 DOM &amp; Angular Change Detection</td>
+</tr>
+<tr class="odd">
+<td><strong>Purpose</strong></td>
+<td>📐 Component Class logic</td>
+<td>🔄 Verify the Component Class and Template work together</td>
+</tr>
+<tr class="even">
+<td><strong>Coverage</strong></td>
+<td>💯 High Unit Coverage</td>
+<td>〽️ Lower Coverage</td>
+</tr>
+<tr class="odd">
+<td><strong>Fragility</strong></td>
+<td>💪 Highly Resilient</td>
+<td>💀 More Fragile</td>
+</tr>
+<tr class="even">
+<td><strong>Speed (100 runs)</strong></td>
+<td>🚀 <strong>2.2ms Avg</strong></td>
+<td>🐌 26.9ms Avg</td>
+</tr>
+<tr class="odd">
+<td><strong>On Failure</strong></td>
+<td>🎯 Easy to Pinpoint</td>
+<td>🪨 Harder</td>
+</tr>
+</tbody>
+</table>
+<h5 id="fragility">Fragility</h5>
+<p>How many times have you added a new component, only to then find some, relatively unrelated suite of tests now fail or you see console warnings? Likely this is because another component test suite, imports an ancestor of your new component. When this happens, you're probably thinking "I know but that ancestor shouldn't care about my new grandchild component". I think you're right. It feels to me like, the ancestor test suite is more like an Integration Test suite, simply because it has a hierarchy of dependencies.</p>
+<blockquote>
+<p>Sociable Unit Tests are more susceptible to cascading failures.</p>
+<p>-- <cite><a href="https://leanpub.com/wewut">'Working Effectively with Unit Tests' by Jay Fields</a></cite></p>
+</blockquote>
+<p>This all comes down to using, the <code>TestBed</code> or notably <code>TestBed.configureTestingModule()</code>.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>On the other hand, the Solitary Unit Tests can not suffer this same fate: they have zero knowledge of any descendants.</p>
+<h5 id="speed">Speed</h5>
+<p>Remember Unit Tests are meant to be fast. They should enable an engineer to be able to run them often, ideally after any change they make. Running two, Sociable Unit Tests in an average of 26.9ms is pretty good right? But how about running tests, that give you more coverage and greater confidence but <strong>12 times faster</strong>? Just scale that up to when you have over 2,000 tests. That's the difference between the entire test run taking 27 seconds (which is still really fast but these are very simple tests) vs 2 seconds! That's what Solitary Unit Tests give you.</p>
+<p>If Unit Tests are meant to be fast, then I'll take running 2,000 of them in ~2 seconds please.</p>
+<p>Furthermore, I think most engineers find it quicker and easier to write Solitary Unit Tests than they do Sociable Unit Tests (Component DOM Tests), plus maintain the component dependencies in the tests.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<h3 id="the-venn-diagram-of-angular-component-testing">The Venn Diagram of Angular Component Testing</h3>
+<p>This brings us to the heart of this series. Going back to the <a href="./venn-of-angular-component-testing-0.md#a-definition-of-an-integration-test">definition for an Integration Test from part 1 of this series</a>:</p>
+<blockquote>
+<p>[an Integration Test] Asserts a unit of software interacts as expected <strong>with another</strong></p>
+</blockquote>
+<p>After what I've previously highlighted with Sociable Tests, I think Sociable, Angular Component Tests are actually just a type of <em>Integration Test</em>. At the very least there is a significant overlap. Given this, <strong>we should treat and expect Sociable / Component DOM tests to behave as Integration Tests</strong>: they are more fragile &amp; slower.</p>
+<p>I'm sure if you've got this far though the series, then you are familiar with the <a href="https://www.smashingmagazine.com/2023/09/long-live-test-pyramid/">Testing Pyramid</a>?</p>
+<p><img src="./test-pyramid.png" title="Test Pyramid" alt="Test Pyramid" /></p>
+<p>Here is my take on that but applying a similar principal to Angular, Component Testing.</p>
+<p><img src="./angular-venn-testing.png" title="Venn Diagram of the number and make-up of Angular Component Tests" alt="Venn diagram of Angular Component Tests" /></p>
+<p>This highlights the overlap between Unit &amp; Integration Tests when it comes to testing Angular Components and how the 'grey area' of testing <em>is</em> the Sociable tests. It also emphasises the ratio (not to scale) of these types of tests I think we should be aiming for.</p>
+<p>If I could change three conventions regarding the general testing approach we take in Angular applications, it would be to have:</p>
+<ol type="1">
+<li><p>⏫ Have far more Solitary Unit Tests. Day-to-day I unfortunately see very few of these.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">it</span>(<span class="st">&#39;should test&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">//arrange</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> component <span class="op">=</span> <span class="kw">new</span> <span class="fu">MyComponent</span>()<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">//act</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">//assert</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect</span>(component<span class="op">...</span>)<span class="op">.</span><span class="fu">toEqual</span>(<span class="op">...</span>)<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div></li>
+<li><p>🔼 More 'real' Integration Tests, that mimic real customer behaviour &amp; interactions (using tools such as Playwright or Cypress).</p></li>
+<li><p>⏬ Fewer (near zero) Sociable / Component DOM Test Tests.</p>
+<ol type="1">
+<li>Should push engineers to have any logic within the class rather than the template.</li>
+<li>If you have to have them, then call them out. Put them in separate <code>describe('IT Tests'){}</code> blocks or something similar (and limit the <code>TestBed</code> boilerplate to that block).</li>
+</ol></li>
+</ol>
+<p>I think if an applications' test suite is organised in this way, it would lead to improved development practices. Engineers will lean more towards the <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> principal and smaller, more distinct components which have a <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">single responsibility</a>.</p>
+<h3 id="rebuttal">Rebuttal</h3>
+<p>Given the 'Venn of Angular Component Testing' one could argue to simply just have a test suite of Sociable Tests, with no Solitary or Integration Tests. You absolutely <em>could</em>. I've not tried but I imagine, at scale it would become unmanageable. I would strongly expect too, that you will have a suite of Integration tests using something like <a href="https://playwright.dev">Playwright</a> or <a href="https://learn.cypress.io/">Cypress</a>, so you'll end up duplicating your test effort.</p>
+<h3 id="closing">Closing</h3>
+<p>Think about why we test interactions in the DOM? I think we do it to test how the customer is going to use our component / application. We already use tools like <a href="https://playwright.dev">Playwright</a> and <a href="https://learn.cypress.io/">Cypress</a> for our E2E Testing<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> which are probably better suited (and potentially less fragile than Sociable Tests) for this testing.</p>
+<p>How many times have you faced problems in the past with writing your [Sociable] unit tests to assert something in the DOM and you just cannot get it to work, no matter how many <code>fixture.detectChanges()</code> you add? 😄 I know I've spent too much time down that rabbit hole when I know the code 'works'. It is probably quicker<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> (and easier) to extend the existing E2E / Integration tests to cover the new behaviour. Plus, if there isn't any, observable change in the DOM, why bother including it in a Sociable Test at all?</p>
+<p>Too often I see what could easily be Solitary Unit Tests written with all of the boilerplate of Sociable Tests without actually interacting with the Component Template. So the tests have none of the 'benefit' of a Sociable test but have all of the downsides of them. I've found by simply removing the <code>ComponentFixture</code> etc., the tests run up to 10x faster.</p>
+<p>Final note: I was taught that if you're polluting the production code just so you can test something (think of the <code>data-testid</code> attribute for one, or even simply changing the scope of a method to make it 'easier' to test), then you maybe doing something wrong or unconventional.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><a href="https://github.com/jsdom/jsdom">JSDOM</a> is a 'real' DOM:</p>
+<blockquote>
+<p>jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG DOM...</p>
+</blockquote>
+<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn2" role="doc-endnote"><p>The Angular docs call these <a href="https://angular.io/guide/testing-components-basics#component-dom-testing">Component DOM testing</a>. I think they are just another type of Integration Test, more on that later.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>I suspect if you were to run <a href="https://jestjs.io/docs/configuration#testenvironment-string">Jest without JSDOM</a>, this sort of interaction would fail.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>On the <a href="https://angular.io/guide/testing-components-basics">Basics of testing components</a> page anyway, and I cannot find anywhere where the Angular framework / team makes the link between Component tests (class or DOM) and unit tests. However, in the documentation for <code>ng test</code>, Angular describes command as "Runs unit tests...".<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p><a href="https://www.artofunittesting.com/">'The Art of Unit Testing' by Roy Osherove</a></p>
+<p><a href="https://leanpub.com/wewut">'Working Effectively with Unit Tests' by Jay Fields</a></p>
+<p><a href="https://www.oreilly.com/library/view/test-driven-development/0321146530/">'Test-Driven Development By Example' by Kent Beck</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>You could of course wrap the component in the test with a dummy component but you are 100% then into Integration Test territory (as far as I'm concerned). Not to mention introducing additional complexity into the tests which is just something else that can break / fail your tests.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>Some of this can be overcome using mocking frameworks such as <a href="https://github.com/help-me-mom/ng-mocks">ng-mocks</a> but I struggle to then understand the value in the added boilerplate compared to simple Solitary Tests instead.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p>How many console warnings (<em>"component A is not a known element"</em>) do you see when you run your tests? Potentially hiding the warnings you really care about.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>If you're not, then you should be. If you are performing <em>real</em> E2E tests against <em>real</em> APIs, then (👏) it shouldn't be too troublesome to reuse these tests to also execute against stubbed APIs (if you even need to bother).<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p>To write, not to run.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11" role="doc-endnote"><p>That's a whole other conversation however.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>

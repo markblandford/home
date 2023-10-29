@@ -13,8 +13,8 @@ export class ArticleComponent implements OnChanges {
   constructor(private articlesService: ArticlesService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     const articleChange = changes['articleId'];
+
     if (articleChange && articleChange.currentValue !== articleChange.previousValue) {
       const filename = this.getArticleFileName(articleChange.currentValue);
 

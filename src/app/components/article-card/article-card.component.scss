@@ -1,0 +1,26 @@
+@import "../../../scss/mixins";
+
+.article-card {
+  width: 90vw;
+  height: 200px;
+  border: 1px solid var(--txt-color);
+
+  @include breakpoint(sm) {
+    width: 400px;
+  }
+
+  dl {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__dd {
+    margin-left: 0;
+
+    &--about {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 120px;
+    }
+  }
+}

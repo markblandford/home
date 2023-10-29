@@ -1,3 +1,5 @@
+@use 'sass:color' as color;
+
 @import 'scss/colors';
 @import 'scss/misc';
 @import 'scss/sizes';
@@ -7,6 +9,7 @@
 
   /* theming */
   --bg-color: var(--color-white);
+  --body-color: var(--color-white);
   --txt-color: var(--color-black);
 
   --theme-bg-color-default: #f6f6f6;
@@ -69,6 +72,24 @@ blockquote {
   padding-left: var(--size-lg);
 }
 
-img {
-  max-width: 90vw;
+article {
+  word-break: break-word;
+
+  .sourceCode {
+    overflow-x: auto;
+  }
+
+  img {
+    max-width: 90vw;
+  }
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

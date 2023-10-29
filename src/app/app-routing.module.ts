@@ -3,14 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {
   ArticlesComponent,
-  HomeComponent
+  HomeComponent,
+  RenderArticleComponent
 } from './pages';
 
+
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, redirectTo: 'articles', data: [ { title: 'Blandford.dev' } ] },
-  { path: 'articles', component: ArticlesComponent, data: [ { title: 'Blandford.dev' } ] },
-  { path: '', redirectTo: '/articles', pathMatch: 'full' },
-  { path: '**', redirectTo: '/articles', pathMatch: 'full' }
+  { path: 'home', title: 'Blandford.dev', component: HomeComponent, data: [ { title: 'Blandford.dev' } ] },
+  { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { title: 'Articles' } ] },
+  { path: 'article/:id', title: 'Blandford.dev', component: RenderArticleComponent, data: [ { title: 'Blandford.dev' } ] },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({

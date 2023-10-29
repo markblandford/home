@@ -1,0 +1,12 @@
+@import "../../../scss/mixins";
+
+.article-list {
+  list-style-type: none;
+  padding-left: 0;
+
+  display: flex;
+  gap: var(--size-sm);
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}

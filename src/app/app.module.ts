@@ -18,6 +18,9 @@ import { ArticleComponent } from './components/article/article.component';
 import { BioComponent } from './components/bio/bio.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RenderArticleComponent } from './pages/render-article/render-article.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { ArticleListComponent } from './components/article-list/article-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NavigationComponent,
     FooterComponent,
     ArticleComponent,
-    BioComponent
+    BioComponent,
+    RenderArticleComponent,
+    ArticleCardComponent,
+    ArticleListComponent
   ],
   imports: [
     BrowserModule,

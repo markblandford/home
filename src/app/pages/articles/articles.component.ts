@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: './articles.component.html'
+  selector: 'app-articles',
+  templateUrl: './articles.component.html',
+  styleUrls: [ './articles.component.scss' ]
 })
 export class ArticlesComponent  {
-  articleId = "venn-of-angular-component-testing";
+
 }

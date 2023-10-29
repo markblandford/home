@@ -9,8 +9,8 @@ import {
 const routes: Routes = [
   { path: 'home', component: HomeComponent, redirectTo: 'articles', data: [ { title: 'Blandford.dev' } ] },
   { path: 'articles', component: ArticlesComponent, data: [ { title: 'Blandford.dev' } ] },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/articles', pathMatch: 'full' },
+  { path: '**', redirectTo: '/articles', pathMatch: 'full' }
 ];
 
 @NgModule({

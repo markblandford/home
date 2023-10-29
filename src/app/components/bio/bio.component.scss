@@ -19,4 +19,11 @@
     font-family: var(--font-family-alt);
     font-weight: 400;
   }
+
+  &____more {
+    display: flex;
+    justify-content: space-evenly;
+    padding: var(--size-xs) 0;
+    font-size: var(--size-md);
+  }
 }

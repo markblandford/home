@@ -31,7 +31,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/css.gg/icons/icons.scss",
               "src/styles.scss"
             ],
             "scripts": []

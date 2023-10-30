@@ -51,6 +51,7 @@
                 },
                 "fonts": true
               },
+              "baseHref": ".",
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,

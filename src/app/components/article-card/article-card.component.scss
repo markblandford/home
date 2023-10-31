@@ -1,12 +1,16 @@
 @import "../../../scss/mixins";
 
 .article-card {
-  width: 90vw;
-  height: 200px;
-  border: 1px solid var(--txt-color);
+  height: 180px;
+  padding: var(--size-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include card-style;
 
   @include breakpoint(sm) {
     width: 400px;
+    @include card-style-remove;
   }
 
   dl {
@@ -17,10 +21,12 @@
   &__dd {
     margin-left: 0;
 
-    &--about {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-height: 120px;
+    &--about p {
+      @include ellipse-after-lines(4);
+
+      @include breakpoint(sm) {
+        @include ellipse-after-lines(5);
+      }
     }
   }
 }

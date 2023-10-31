@@ -15,3 +15,21 @@ $breakpoints: (
     }
   }
 }
+
+@mixin ellipse-after-lines($lineLimit) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lineLimit;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin card-style {
+  border-radius: 2px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+@mixin card-style-remove {
+  border-radius: 0;
+  box-shadow: none;
+}

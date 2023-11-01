@@ -1,5 +1,5 @@
 import { FooterComponent } from './footer.component';
-import { ThemeService } from '@services/theme.service';
+import { ThemeService, Themes } from '@services/theme.service';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -9,8 +9,6 @@ describe('FooterComponent', () => {
     themeService = {
       enableTheme: jest.fn(),
     } as unknown as ThemeService;
-
-    ThemeService.themes = ['sunny', 'default'];
 
     component = new FooterComponent(themeService);
   });
@@ -22,18 +20,12 @@ describe('FooterComponent', () => {
   it('should enable the default theme in ngOnInit', () => {
     component.ngOnInit();
 
-    expect(themeService.enableTheme).toBeCalledWith('default');
-  });
-
-  it('should get the available themes in ngOnInit and sort them', () => {
-    component.ngOnInit();
-
-    expect(component.themes).toEqual(['default', 'sunny']);
+    expect(themeService.enableTheme).toBeCalledWith(Themes.Default);
   });
 
   it('should set the theme', () => {
-    component.changeTheme('sunny');
+    component.changeTheme(Themes.Sunny);
 
-    expect(themeService.enableTheme).toBeCalledWith('sunny');
+    expect(themeService.enableTheme).toBeCalledWith(Themes.Sunny);
   });
 });

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeName, ThemeService } from '@services/theme.service';
+import { Themes, ThemeService } from '@services/theme.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,18 +8,16 @@ import { ThemeName, ThemeService } from '@services/theme.service';
 })
 export class FooterComponent implements OnInit {
 
-  themes: ThemeName[] = [];
-  selected: ThemeName = 'default';
+  themes = Themes;
+  selected = Themes.Default;
 
   constructor(private themeService: ThemeService) {}
 
-  changeTheme(theme: ThemeName): void {
-    this.themeService.enableTheme(theme);
+  changeTheme(theme: string): void {
+    this.themeService.enableTheme(theme as Themes);
   }
 
   ngOnInit(): void {
     this.themeService.enableTheme(this.selected);
-
-    this.themes = ThemeService.themes.sort();
   }
 }

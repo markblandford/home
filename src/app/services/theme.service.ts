@@ -1,33 +1,26 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-export type ThemeName = typeof ThemeService.themes[number];
+// key and value must be the same
+export enum Themes {
+  Default = 'Default',
+  Night = 'Night',
+  Sunny = 'Sunny'
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  static themes = [
-    'default',
-    'night',
-    'sunny',
-  ];
-
-  private static themeVariables = [
-    'bg-color',
-    'txt-color',
-  ];
-
   constructor(@Inject(DOCUMENT) private document: Document) { }
 
-  enableTheme(theme: ThemeName): void {
+  enableTheme(theme: Themes): void {
     this.setTheme(theme);
   }
 
-  private setTheme(themeName: ThemeName): void {
+  private setTheme(themeName: Themes): void {
+    const root = this.document.querySelector('html');
 
-    ThemeService.themeVariables.forEach((p) => {
-      this.document.documentElement.style.setProperty(`--${p}`, `var(--theme-${p}-${themeName})`);
-    });
+    root?.setAttribute('data-theme', themeName);
   }
 }

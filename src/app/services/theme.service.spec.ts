@@ -1,3 +1,4 @@
+import { Themes } from '@services/theme.service';
 import { ThemeService } from './theme.service';
 
 describe('ThemeService', () => {
@@ -6,12 +7,8 @@ describe('ThemeService', () => {
 
   beforeEach(() => {
     dom = {
-      documentElement: {
-        style: {
-          setProperty: jest.fn()
-        }
-      }
-    } as unknown as Document;
+      querySelector: jest.fn(),
+    } as jest.MockedObject<Document>;
 
     service = new ThemeService(dom);
   });
@@ -20,24 +17,12 @@ describe('ThemeService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return an array of the names of the themes available', () => {
-    const expected = [
-      'default',
-      'night',
-      'sunny',
-    ];
+  it('should set the html data-theme attribute to the given theme', () => {
+    const htmlStub = { setAttribute: jest.fn() } as jest.MockedObject<HTMLHtmlElement>;
 
-    const actual = ThemeService.themes;
+    jest.spyOn(dom, 'querySelector').mockReturnValue(htmlStub);
+    service.enableTheme(Themes.Sunny);
 
-    expect(actual).toEqual(expected);
-  });
-
-  ThemeService.themes.forEach(t => {
-    it(`should set the theme to ${t}`, () => {
-      service.enableTheme(t);
-
-      expect(dom.documentElement.style.setProperty).toHaveBeenNthCalledWith(1, '--bg-color', `var(--theme-bg-color-${t})`);
-      expect(dom.documentElement.style.setProperty).toHaveBeenNthCalledWith(2, '--txt-color', `var(--theme-txt-color-${t})`);
-    });
+    expect(htmlStub.setAttribute).toHaveBeenCalledWith('data-theme', Themes.Sunny);
   });
 });

@@ -1,7 +1,7 @@
 <footer class="themes">
-  <label *ngFor="let theme of themes">
-    <input [id]="theme" type="radio" [value]="theme" name="themeChooser" [checked]="theme === selected" (change)="changeTheme(theme)">
-    {{ theme.toString() | titlecase }}
+  <label *ngFor="let theme of themes | keyvalue">
+    <input [id]="theme" type="radio" [value]="theme" name="themeChooser" [checked]="theme.key === selected" (change)="changeTheme(theme.key)">
+    {{ theme.value | titlecase }}
   </label>
 </footer>
 

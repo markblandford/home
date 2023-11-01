@@ -9,17 +9,31 @@
 
   /* theming */
   --bg-color: var(--color-white);
-  --body-color: var(--color-white);
   --txt-color: var(--color-black);
 
-  --theme-bg-color-default: #f6f6f6;
-  --theme-txt-color-default: #175ea1;
+  &[data-theme="Default"] {
+    --bg-color: var(--color-white-smoke);
+    --txt-color: var(--color-super-blue-dark);
+  }
 
-  --theme-bg-color-night: #333;
-  --theme-txt-color-night: #fff;
+  &[data-theme="Night"] {
+    --bg-color: var(--color-charcoal);
+    --txt-color: var(--color-white);
+  }
 
-  --theme-bg-color-sunny: #f7ee9e;
-  --theme-txt-color-sunny: #3c3cb6;
+  &[data-theme="Sunny"] {
+    --bg-color: #f7ee9e;
+    --txt-color: #3c3cb6;
+  }
+
+  // --theme-bg-color-default: #f6f6f6;
+  // --theme-txt-color-default: #175ea1;
+
+  // --theme-bg-color-night: #333;
+  // --theme-txt-color-night: #fff;
+
+  // --theme-bg-color-sunny: #f7ee9e;
+  // --theme-txt-color-sunny: #3c3cb6;
 
   --font-family: 'Inter var', Arial, Helvetica, sans-serif;
   --font-family-alt: 'Montserrat', Arial, Helvetica, sans-serif;

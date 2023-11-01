@@ -295,17 +295,14 @@ Final note: I was taught that if you're polluting the production code just so yo
 
 [^1]: [JSDOM](https://github.com/jsdom/jsdom) is a 'real' DOM:
 
-    > jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG DOM...
+> jsdom is a pure-JavaScript implementation of many web standards, notably the WHATWG DOM...
 
 [^2]: The Angular docs call these [Component DOM testing](https://angular.io/guide/testing-components-basics#component-dom-testing). I think they are just another type of Integration Test, more on that later.
 [^3]: I suspect if you were to run [Jest without JSDOM](https://jestjs.io/docs/configuration#testenvironment-string), this sort of interaction would fail.
 [^4]: On the [Basics of testing components](https://angular.io/guide/testing-components-basics) page anyway, and I cannot find anywhere where the Angular framework / team makes the link between Component tests (class or DOM) and unit tests. However, in the documentation for `ng test`, Angular describes command as "Runs unit tests...".
 [^5]: ['The Art of Unit Testing' by Roy Osherove](https://www.artofunittesting.com/)
-
-    ['Working Effectively with Unit Tests' by Jay Fields](https://leanpub.com/wewut)
-
-    ['Test-Driven Development By Example' by Kent Beck](https://www.oreilly.com/library/view/test-driven-development/0321146530/)
-
+['Working Effectively with Unit Tests' by Jay Fields](https://leanpub.com/wewut)
+['Test-Driven Development By Example' by Kent Beck](https://www.oreilly.com/library/view/test-driven-development/0321146530/)
 [^6]: You could of course wrap the component in the test with a dummy component but you are 100% then into Integration Test territory (as far as I'm concerned). Not to mention introducing additional complexity into the tests which is just something else that can break / fail your tests.
 [^7]: Some of this can be overcome using mocking frameworks such as [ng-mocks](https://github.com/help-me-mom/ng-mocks) but I struggle to then understand the value in the added boilerplate compared to simple Solitary Tests instead.
 [^8]: How many console warnings (*"component A is not a known element"*) do you see when you run your tests? Potentially hiding the warnings you really care about.

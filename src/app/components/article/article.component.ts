@@ -23,6 +23,6 @@ export class ArticleComponent implements OnChanges {
   }
 
   private getArticleFileName(id: string): string {
-    return `${this.articlesService.articlesLocation()}${id}/body.html`;
+    return `${this.articlesService.articlesLocation()}${id}/all.md`;
   }
 }

@@ -11,7 +11,7 @@ describe('RenderArticleComponent', () => {
   beforeEach(() => {
     activatedRoute = {
       paramMap: of(convertToParamMap({ id: 'an id' }))
-    } as unknown as ActivatedRoute;
+    } as jest.MockedObject<ActivatedRoute>;
 
     component = new RenderArticleComponent(activatedRoute);
   });

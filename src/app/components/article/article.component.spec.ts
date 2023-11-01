@@ -13,7 +13,7 @@ describe('ArticleComponent', () => {
     articleService = {
       articlesLocation: jest.fn().mockReturnValue('/dir/dir/'),
       loadArticle: jest.fn().mockReturnValue(of('some content'))
-    } as unknown as ArticlesService;
+    } as jest.MockedObject<ArticlesService>;
 
     component = new ArticleComponent(articleService);
   });

@@ -6,7 +6,7 @@ import { RoutingService } from './routing.service';
 describe('RoutingService', () => {
   const titleService = {
     setTitle: jest.fn()
-  } as unknown as Title;
+  } as jest.MockedObject<Title>;
 
   it('should subscribe to get the routing data', () => {
     const mockRouter = {
@@ -18,7 +18,7 @@ describe('RoutingService', () => {
           }
         }
       }
-    } as unknown as Router;
+    } as unknown as jest.MockedObject<Router>;
 
     const service = new RoutingService(mockRouter, titleService);
 
@@ -38,7 +38,7 @@ describe('RoutingService', () => {
           }
         }
       }
-    } as unknown as Router;
+    } as unknown as jest.MockedObject<Router>;
 
     const service = new RoutingService(mockRouter, titleService);
 
@@ -60,15 +60,15 @@ describe('RoutingService', () => {
           }
         }
       }
-    } as unknown as Router;
+    } as unknown as jest.MockedObject<Router>;
 
     const service = new RoutingService(mockRouter, titleService);
 
     let actual = null;
     service.routeData$.subscribe(_ => actual = _);
 
-    expect(actual).toEqual(({ title: 'sweet child of mine' } as unknown) as Data);
-  });
+    expect(actual).toEqual({ title: 'sweet child of mine' } as jest.MockedObject<Data>);
+  })
 
   it('should set the document title with the routing data title', () => {
     const mockRouter = {
@@ -80,7 +80,7 @@ describe('RoutingService', () => {
           }
         }
       }
-    } as unknown as Router;
+    } as unknown as jest.MockedObject<Router>;
 
     new RoutingService(mockRouter, titleService);
 

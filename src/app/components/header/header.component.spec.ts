@@ -8,11 +8,11 @@ describe('HeaderComponent', () => {
 
   const mockData = {
     title: 'test title'
-  } as unknown as Data;
+  } as jest.MockedObject<Data>;
 
   const mockRouterService = {
     routeData$: of(mockData)
-  } as unknown as RoutingService;
+  } as jest.MockedObject<RoutingService>;
 
   beforeEach(() => {
     component = new HeaderComponent(mockRouterService);

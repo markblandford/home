@@ -8,7 +8,7 @@ describe('FooterComponent', () => {
   beforeEach(() => {
     themeService = {
       enableTheme: jest.fn(),
-    } as unknown as ThemeService;
+    } as jest.MockedObject<ThemeService>;
 
     component = new FooterComponent(themeService);
   });

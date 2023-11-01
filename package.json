@@ -15,8 +15,7 @@
     "prepare": "husky install",
     "snyk:monitor": "snyk monitor",
     "snyk:test": "snyk test",
-    "stylelint": "stylelint 'src/**/*.scss'",
-    "postinstall": "ngcc"
+    "stylelint": "stylelint 'src/**/*.scss'"
   },
   "private": true,
   "dependencies": {

@@ -9,9 +9,9 @@ import {
 
 
 const routes: Routes = [
-  { path: 'home', title: 'Blandford.dev', component: HomeComponent, data: [ { title: 'Blandford.dev' } ] },
+  { path: 'home', title: 'Blandford.dev - home', component: HomeComponent, data: [ { title: 'Blandford.dev' } ] },
   { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { title: 'Articles' } ] },
-  { path: 'article/:id', title: 'Blandford.dev', component: RenderArticleComponent, data: [ { title: 'Blandford.dev' } ] },
+  { path: 'article/:id', title: 'Blandford.dev - article', component: RenderArticleComponent, data: [ { title: 'Article' } ] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

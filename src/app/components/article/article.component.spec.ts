@@ -36,7 +36,7 @@ describe('ArticleComponent', () => {
       let actual = null;
       component.content$.subscribe(_ => actual = _);
 
-      expect(articleService.loadArticle).toHaveBeenCalledWith('/dir/dir/id/body.html');
+      expect(articleService.loadArticle).toHaveBeenCalledWith('/dir/dir/id/all.md');
       expect(actual).toEqual('some content');
     });
   });

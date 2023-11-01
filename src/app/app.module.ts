@@ -1,26 +1,31 @@
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { createErrorHandler, TraceService } from '@sentry/angular-ivy';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components';
+import {
+  ArticleCardComponent,
+  ArticleComponent,
+  ArticleListComponent,
+  BioComponent,
+  FooterComponent,
+  HeaderComponent,
+  NavigationComponent,
+
+} from './components';
 import {
   ArticlesComponent,
-  HomeComponent
+  HomeComponent,
+  RenderArticleComponent
 } from './pages';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ArticleComponent } from './components/article/article.component';
-import { BioComponent } from './components/bio/bio.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RenderArticleComponent } from './pages/render-article/render-article.component';
-import { ArticleCardComponent } from './components/article-card/article-card.component';
-import { ArticleListComponent } from './components/article-list/article-list.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +46,20 @@ import { ArticleListComponent } from './components/article-list/article-list.com
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MarkdownModule.forRoot({
+      loader: HttpClient,
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          gfm: true,
+          breaks: true,
+          pedantic: false,
+          smartLists: true,
+        },
+      },
+    }),
+    // MarkdownModule.forRoot({ loader: HttpClient }),
   ],
   providers: [
     {

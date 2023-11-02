@@ -32,7 +32,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@sentry/angular-ivy": "^7.76.0",
+    "@sentry/angular-ivy": "^7.77.0",
     "marked": "^4.3.0",
     "ngx-markdown": "^16.0.0",
     "prismjs": "^1.29.0",

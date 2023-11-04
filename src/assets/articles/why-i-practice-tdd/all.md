@@ -67,7 +67,7 @@ I bet most engineers, who don't subscribe to TDD, have gotten to where the produ
 Similar, you've written the production code, and you are beat, you're done. The last thing you want to do is write tests. You're validated further when you tell your business stakeholders, *"the work is done I just have the tests to write"*. They're response: *"don't bother, we need that feature out"*.
 
 7️⃣ I've written the tests up-front, and I get that regular feedback, as the tests go from red 🔴 to green 🟢.
-8️⃣ TDD gives me confidence that when all the tests are green 🟢, I've completed the full, working feature.
+8️⃣ TDD gives me confidence that when all the tests are green 🟢, I've completed the full, working feature. There have been times where I have such confidence, I don't even need to manually test the changes: I know it works because my tests tell me so.
 
 ## How I TDD
 
@@ -96,7 +96,7 @@ describe('ThemeService', () => {
     const dom = {} as jest.MockedObject<Document>;
 
     const service = new ThemeService(dom);
-    
+
     throw new Error('Not implemented');
   });
 });
@@ -142,7 +142,7 @@ it('should set the html data-theme attribute to the provided theme', () => {
   const dom = {
     querySelector: jest.fn(),
   } as jest.MockedObject<Document>;
-  
+
   const htmlStub = {
     setAttribute: jest.fn(),
   } as jest.MockedObject<HTMLHtmlElement>;
@@ -209,7 +209,7 @@ public class CustomThemesServiceUnitTest {
     void getThemes_themesAvailable_listofSortedThemes() {
         throw new NotImplementedException();
     }
-    
+
     @Test
     void getThemes_themesUnavailable_emptyStringArray() {
         throw new NotImplementedException();
@@ -248,24 +248,24 @@ public class CustomThemesServiceUnitTest {
         // we will assume the `ThemeClient` interface has already been created
         // I'm using Mockito to mock the dependencies
         ThemeClient mockThemeClient = mock(ThemeClient.class);
-        
+
         // not sorted, so we can verify the list is sorted
         String[] themes = { "Sunny", "Default", "Night"};
         when(mockThemeClient.get()).thenReturn(themes);
-        
+
         CustomThemesService cut = new CustomThemesService(mockThemeClient);
-        
+
         assertEquals(cut.getThemes(), { "Default", "Night", "Sunny" });
     }
-    
+
     @Test
     void getThemes_themesUnavailable_emptyStringArray() {
         ThemeClient mockThemeClient = mock(ThemeClient.class);
-        
+
         when(mockThemeClient.getThemes()).thenReturn(null);
-        
+
         CustomThemesService cut = new CustomThemesService(mockThemeClient);
-        
+
         assertEquals(0, cut.getThemes().length);
     }
 }
@@ -276,18 +276,18 @@ These look like some pretty good tests to me, that satisfy the requirements. If 
 ```java
 public class CustomThemesService {
     private final ThemeClient themeClient;
-    
+
     // we will assume the `ThemeClient` interface has already been created
     CustomThemesService(ThemeClient themeClient) {
       this.themeClient = themeClient;
     }
-    
+
     public String[] getThemes() {
         String[] themes = themeClient.get();
-        
+
         // sort the themes
         Arrays.sort(themes);
-        
+
         return themes;
     }
 }
@@ -299,14 +299,14 @@ If we run our tests, now we should have one passing 🟢 and one failing 🔴. T
 public class CustomThemesService {
     public String[] getThemes() {
         String[] themes = themeClient.get();
-        
+
         if (themes == null) {
           return new String[0];
         }
-        
+
         // sort the themes
         Arrays.sort(themes);
-        
+
         return themes;
     }
 }
@@ -321,23 +321,32 @@ If it is warranted, I highly recommend TDD with Integration Tests. I actually fi
 For example:
 
 1. You're developing a new end-point for a Java API.
-  1. You already use a tool such as [Rest-assured](https://rest-assured.io/) for your Integration Tests.
-  2. You know what the new end-point is to be, what the responses are etc.
+    1. You already use a tool such as [Rest-assured](https://rest-assured.io/) for your Integration Tests.
+    2. You know what the new end-point is to be, what the responses are etc.
 2. You're developing a new Angular UI component.
-  1. You have the designs and know what HTML elements etc. should be used.
-  2. You already use tools such as [Playwright](https://playwright.dev/) or [Cypress](https://www.cypress.io/) for your Integration Tests.
+    1. You have the designs and know what HTML elements etc. should be used.
+    2. You already use tools such as [Playwright](https://playwright.dev/) or [Cypress](https://www.cypress.io/) for your Integration Tests.
 
 In both of these situations, it is then really, really easy to write the Integration Tests. They won't work but when they finally do, you know you're dev complete. Furthermore, it'll make you think about the response permutations and potential edge-cases. Things, that may ordinarily get missed when diving head-first into the code.
+
+### Defect fix or update an existing feature
+
+When you need to squash a bug or update an existing feature the process is very similar.
+
+1. Update your existing tests, or create a new test(s) to cover the new, expected behaviour.
+2. Run your tests. The ones you have updated, should fail 🔴.
+3. Implement the changes required to the production code.
+4. Run your tests. If you've fixed the issue, then you tests are green 🟢 and you're done.
 
 ## Summary
 
 1. Write the test shells, as a 'to-do' list, covering just what the requirements are.
-  * Remember to throw your 'Not implemented' exceptions.
+    * Remember to throw your 'Not implemented' exceptions.
 2. Implement the skeleton of the production code / Unit Under Test.
-  * Remember to throw your 'Not implemented' exceptions.
-  * The tests will now compile.
+    * Remember to throw your 'Not implemented' exceptions.
+    * The tests will now compile.
 3. Write the body of the tests.
-  * The tests will still fail, but with 'Not implemented' exceptions from the Unit Under Test.
+    * The tests will still fail, but with 'Not implemented' exceptions from the Unit Under Test.
 4. Implement the code in the Unit Under Test.
 5. The tests should now all pass 🟢.
 6. Go back around, and refactor / improve what has just been implemented with the confidence that you are covered with working tests.

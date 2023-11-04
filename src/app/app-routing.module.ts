@@ -8,9 +8,9 @@ import {
 } from './pages';
 
 const routes: Routes = [
-  { path: 'home', title: 'Blandford.dev - home', component: HomeComponent, data: [ { title: 'Blandford.dev' } ] },
-  { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { title: 'Articles' } ] },
-  { path: 'article/:id', title: 'Blandford.dev - article', component: RenderArticleComponent, data: [ { title: 'Article' } ] },
+  { path: 'home', title: 'Blandford.dev - home', component: HomeComponent, data: [ { heading: 'Blandford.dev' } ] },
+  { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { heading: 'Articles' } ] },
+  { path: 'article/:id', title: 'Blandford.dev - article', component: RenderArticleComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

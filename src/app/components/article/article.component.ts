@@ -16,13 +16,9 @@ export class ArticleComponent implements OnChanges {
     const articleChange = changes['articleId'];
 
     if (articleChange && articleChange.currentValue !== articleChange.previousValue) {
-      const filename = this.getArticleFileName(articleChange.currentValue);
+      const id = articleChange.currentValue;
 
-      this.content$ = this.articlesService.loadArticle(filename);
+      this.content$ = this.articlesService.loadArticle(id);
     }
-  }
-
-  private getArticleFileName(id: string): string {
-    return `${this.articlesService.articlesLocation()}${id}/all.md`;
   }
 }

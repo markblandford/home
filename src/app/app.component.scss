@@ -46,7 +46,7 @@
 
   &__content {
     grid-area: body;
-    padding: var(--size-sm);
+    padding: 0 var(--size-sm) var(--size-sm);
 
     @include breakpoint(md) {
       overflow-x: hidden;

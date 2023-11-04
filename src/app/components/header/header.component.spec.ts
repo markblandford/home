@@ -1,13 +1,13 @@
 import { Data } from '@angular/router';
 import { of } from 'rxjs';
-import { RoutingService } from '../../services/routing.service';
+import { RoutingService } from '@services/routing.service';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
 
   const mockData = {
-    title: 'test title'
+    heading: 'test title'
   } as jest.MockedObject<Data>;
 
   const mockRouterService = {

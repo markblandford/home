@@ -7,17 +7,17 @@ import { ArticleSummary } from '../models/article-summary';
   providedIn: 'root'
 })
 export class ArticlesService {
+  static readonly articlesLocation = '/assets/articles/';
+  static readonly articleFilename = 'article.md';
 
-  public articlesLocation(): string {
-    return '/assets/articles/';
-  }
+  public loadArticle(id: string): Observable<string> {
+    const filename = `${ArticlesService.articlesLocation}${id}/${ArticlesService.articleFilename}`;
 
-  public loadArticle(filename: string): Observable<string> {
     return this.http.get(filename, { responseType: 'text' });
   }
 
   public getArticleSummaries(): Observable<Array<ArticleSummary>> {
-    return this.http.get<Array<ArticleSummary>>(`${this.articlesLocation()}summaries.json`, { responseType: 'json' });
+    return this.http.get<Array<ArticleSummary>>(`${ArticlesService.articlesLocation}summaries.json`, { responseType: 'json' });
   }
 
   public getArticleSummary(articleId: string): Observable<ArticleSummary | undefined> {

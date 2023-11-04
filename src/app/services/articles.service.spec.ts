@@ -17,7 +17,7 @@ describe('ArticlesService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  // afterEach(() => httpTestingController.verify());
+  afterEach(() => httpTestingController.verify());
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -25,7 +25,13 @@ describe('ArticlesService', () => {
 
   describe('articlesLocation', () => {
     it('should return the path to where the articles are saved', () => {
-      expect(service.articlesLocation()).toEqual('/assets/articles/');
+      expect(ArticlesService.articlesLocation).toEqual('/assets/articles/');
+    });
+  });
+
+  describe('articleFilename', () => {
+    it('should return the filename of the articles', () => {
+      expect(ArticlesService.articleFilename).toEqual('article.md');
     });
   });
 
@@ -33,16 +39,14 @@ describe('ArticlesService', () => {
     it('should return the html body of the article', () => {
       const expected = '<h1>Hello World</h1>';
 
-      service.loadArticle('/assets/articles/a.md')
+      service.loadArticle('AnID')
       .subscribe(f => expect(f).toEqual(expected));
 
-      const req = httpTestingController.expectOne('/assets/articles/a.md');
+      const req = httpTestingController.expectOne('/assets/articles/AnID/article.md');
 
       expect(req.request.method).toEqual('GET');
 
       req.flush(expected);
-
-      httpTestingController.verify();
     });
   });
 
@@ -51,11 +55,11 @@ describe('ArticlesService', () => {
       const expected: Array<ArticleSummary> = [
         {
           id: 'p',
-          filename: 'example',
           title: 'An article',
           createdDate: '2023-10-23',
           updatedDate: '2023-10-24',
           about: 'the description',
+          image: 'img.png',
           tags: [],
         }
       ];
@@ -63,13 +67,11 @@ describe('ArticlesService', () => {
       service.getArticleSummaries()
         .subscribe(f => expect(f).toEqual(expected));
 
-      const req = httpTestingController.expectOne(`${service.articlesLocation()}summaries.json`);
+      const req = httpTestingController.expectOne(`${ArticlesService.articlesLocation}summaries.json`);
 
       expect(req.request.method).toEqual('GET');
 
       req.flush(expected);
-
-      httpTestingController.verify();
     });
   });
 
@@ -77,11 +79,11 @@ describe('ArticlesService', () => {
     it('should return the summary for the given article id', () => {
       const expected = {
         id: 'p',
-        filename: 'example',
         title: 'An article',
         createdDate: '2023-10-23',
         updatedDate: '2023-10-24',
         about: 'the description',
+        image: 'img.png',
         tags: [],
       } as ArticleSummary;
 
@@ -94,7 +96,7 @@ describe('ArticlesService', () => {
       service.getArticleSummary('p')
         .subscribe(f => expect(f).toEqual(expected));
 
-      const req = httpTestingController.expectOne(`${service.articlesLocation()}summaries.json`);
+      const req = httpTestingController.expectOne(`${ArticlesService.articlesLocation}summaries.json`);
 
       expect(req.request.method).toEqual('GET');
 

@@ -25,6 +25,7 @@ describe('ArticleListComponent', () => {
           createdDate: '2023-10-23',
           updatedDate: '2023-10-24',
           about: 'the description',
+          image: 'img.png',
           tags: [],
         }
       ];

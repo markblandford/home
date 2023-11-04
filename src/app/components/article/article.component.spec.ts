@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ArticleComponent } from './article.component';
-import { ArticlesService } from '@services/articles.service';
 import { SimpleChange, SimpleChanges } from '@angular/core';
 import { of } from 'rxjs';
+
+import { ArticlesService } from '@services/articles.service';
+
+import { ArticleComponent } from './article.component';
 
 describe('ArticleComponent', () => {
   let component: ArticleComponent;
@@ -11,7 +11,6 @@ describe('ArticleComponent', () => {
 
   beforeEach(() => {
     articleService = {
-      articlesLocation: jest.fn().mockReturnValue('/dir/dir/'),
       loadArticle: jest.fn().mockReturnValue(of('some content'))
     } as jest.MockedObject<ArticlesService>;
 
@@ -27,7 +26,7 @@ describe('ArticleComponent', () => {
       const changes = {
         articleId: {
           previousValue: undefined,
-          currentValue: 'id',
+          currentValue: 'TheID',
         } as SimpleChange,
       } as SimpleChanges;
 
@@ -36,7 +35,7 @@ describe('ArticleComponent', () => {
       let actual = null;
       component.content$.subscribe(_ => actual = _);
 
-      expect(articleService.loadArticle).toHaveBeenCalledWith('/dir/dir/id/all.md');
+      expect(articleService.loadArticle).toHaveBeenCalledWith('TheID');
       expect(actual).toEqual('some content');
     });
   });

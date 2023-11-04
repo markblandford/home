@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ArticleSummary } from '../../models/article-summary';
 
 @Component({
   selector: 'app-article-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./article-card.component.scss']
 })
 export class ArticleCardComponent {
-
+  @Input() summary: ArticleSummary = {} as ArticleSummary;
 }

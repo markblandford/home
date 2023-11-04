@@ -1,26 +1,21 @@
 
-<div class="article-card">
+<div class="article-card" *ngIf="summary as a">
     <dl>
         <dt class="article-card__dt visually-hidden">Published:</dt>
-        <dd class="article-card__dd  article-card__dd--date">29th October 2023</dd>
+        <dd class="article-card__dd  article-card__dd--date">{{ a.createdDate | date:"EE d LLLL YYYY" }}</dd>
         <dt class=" article-card__dt visually-hidden">Title</dt>
         <dd class="article-card__dd  article-card__dd--title">
-            <h3>The Venn of Angular Component Testing</h3>
+            <h3>{{ a.title }}</h3>
         </dd>
         <dt class=" article-card__dt visually-hidden">About</dt>
         <dd class="article-card__dd article-card__dd--about">
             <p>
-                In my experience there is confusion between what I would consider a Unit Test and an
-                Integration Test for an Angular Component. Drawing on my OO development experience and
-                having practised Test-driven development for a number of years in Angular & Java (plus
-                other languages & frameworks), I think I can help reduce the 'grey' in the landscape.
+               {{ a.about }}
             </p>
         </dd>
     </dl>
 
     <div class="article-card__more">
-        <a [routerLink]="['/article', 'venn-of-angular-component-testing']">Read More</a>
+        <a [routerLink]="['/article', a.path]">Read More</a>
     </div>
 </div>
-
-

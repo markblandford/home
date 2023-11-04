@@ -1,21 +1,47 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ArticleListComponent } from './article-list.component';
+import { ArticlesService } from '@services/articles.service';
+import { of } from 'rxjs';
+import { ArticleSummary } from '../../models/article-summary';
 
 describe('ArticleListComponent', () => {
-  let component: ArticleListComponent;
-  let fixture: ComponentFixture<ArticleListComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ArticleListComponent]
-    });
-    fixture = TestBed.createComponent(ArticleListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const mockArticleService = {} as jest.MockedObject<ArticlesService>;
+
+    expect(new ArticleListComponent(mockArticleService)).toBeTruthy();
+  });
+
+  describe('ngOnInit', () => {
+    it('should get the array of article summaries', () => {
+      const mockArticleSummaries: Array<ArticleSummary> = [
+        {
+          id: '0',
+          path: 'p',
+          filename: 'example',
+          title: 'An article',
+          createdDate: '2023-10-23',
+          updatedDate: '2023-10-24',
+          about: 'the description',
+          tags: [],
+        }
+      ];
+
+      const mockArticleService = {
+        getArticleSummaries: jest.fn().mockReturnValue(of(mockArticleSummaries)),
+      } as jest.MockedObject<ArticlesService>;
+
+      const component = new ArticleListComponent(mockArticleService);
+
+      component.ngOnInit();
+
+      let actual = null;
+      component.articleSummaries$.subscribe(_ => actual = _);
+
+      expect(actual).toEqual(mockArticleSummaries);
+    });
   });
 });

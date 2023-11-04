@@ -248,11 +248,11 @@ After what I've previously highlighted with Sociable Tests, I think Sociable, An
 
 I'm sure if you've got this far though the series, then you are familiar with the [Testing Pyramid](https://www.smashingmagazine.com/2023/09/long-live-test-pyramid/)?
 
-![Test Pyramid](./test-pyramid.png "Test Pyramid")
+![Test Pyramid](/assets/articles/venn-of-angular-component-testing/test-pyramid.png "Test Pyramid")
 
 Here is my take on that but applying a similar principal to Angular, Component Testing.
 
-![Venn diagram of Angular Component Tests](./angular-venn-testing.png "Venn Diagram of the number and make-up of Angular Component Tests")
+![Venn diagram of Angular Component Tests](/assets/articles/venn-of-angular-component-testing/angular-venn-testing.png "Venn Diagram of the number and make-up of Angular Component Tests")
 
 This highlights the overlap between Unit & Integration Tests when it comes to testing Angular Components and how the 'grey area' of testing *is* the Sociable tests. It also emphasises the ratio (not to scale) of these types of tests I think we should be aiming for.
 

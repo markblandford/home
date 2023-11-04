@@ -19,8 +19,7 @@ describe('ArticleListComponent', () => {
     it('should get the array of article summaries', () => {
       const mockArticleSummaries: Array<ArticleSummary> = [
         {
-          id: '0',
-          path: 'p',
+          id: 'p',
           filename: 'example',
           title: 'An article',
           createdDate: '2023-10-23',

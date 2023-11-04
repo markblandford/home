@@ -13,12 +13,11 @@ describe('ArticlesService', () => {
       imports: [ HttpClientTestingModule ]
     });
 
-
     service = TestBed.inject(ArticlesService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => httpTestingController.verify());
+  // afterEach(() => httpTestingController.verify());
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -42,6 +41,8 @@ describe('ArticlesService', () => {
       expect(req.request.method).toEqual('GET');
 
       req.flush(expected);
+
+      httpTestingController.verify();
     });
   });
 
@@ -49,8 +50,7 @@ describe('ArticlesService', () => {
     it('should return the array of article summaries', () => {
       const expected: Array<ArticleSummary> = [
         {
-          id: '0',
-          path: 'p',
+          id: 'p',
           filename: 'example',
           title: 'An article',
           createdDate: '2023-10-23',
@@ -69,6 +69,36 @@ describe('ArticlesService', () => {
 
       req.flush(expected);
 
+      httpTestingController.verify();
+    });
+  });
+
+  describe('getArticleSummary', () => {
+    it('should return the summary for the given article id', () => {
+      const expected = {
+        id: 'p',
+        filename: 'example',
+        title: 'An article',
+        createdDate: '2023-10-23',
+        updatedDate: '2023-10-24',
+        about: 'the description',
+        tags: [],
+      } as ArticleSummary;
+
+      const allSummaries = [
+        { id: 'b' } as ArticleSummary,
+        { ...expected },
+        { id: 'a' } as ArticleSummary
+      ]
+
+      service.getArticleSummary('p')
+        .subscribe(f => expect(f).toEqual(expected));
+
+      const req = httpTestingController.expectOne(`${service.articlesLocation()}summaries.json`);
+
+      expect(req.request.method).toEqual('GET');
+
+      req.flush(allSummaries);
     });
   });
 });

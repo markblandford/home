@@ -7,7 +7,6 @@ import {
   RenderArticleComponent
 } from './pages';
 
-
 const routes: Routes = [
   { path: 'home', title: 'Blandford.dev - home', component: HomeComponent, data: [ { title: 'Blandford.dev' } ] },
   { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { title: 'Articles' } ] },

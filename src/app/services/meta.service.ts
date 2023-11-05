@@ -30,6 +30,7 @@ export class MetaService {
   ) { }
 
   public getMetaTagsForArticle(id: string): Observable<MetaTags> {
+    console.log('id for meta tags: ', id);
     return this.articleService.getArticleSummary(id)
       .pipe(
         map(a => {

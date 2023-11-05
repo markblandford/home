@@ -27,7 +27,12 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-                "src/assets"
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              },
+              "src/assets"
             ],
             "styles": [
                 "node_modules/prismjs/themes/prism-solarizedlight.min.css",

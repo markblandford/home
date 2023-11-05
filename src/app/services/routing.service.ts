@@ -68,6 +68,6 @@ export class RoutingService {
   }
 
   private isArticle(path: string | undefined, id: string | undefined): boolean {
-    return !!(path && id && path.startsWith('article/'));
+    return !!(path && id && path.startsWith('articles/') && id.length > 0);
   }
 }

@@ -87,7 +87,7 @@ describe('RoutingService', () => {
         snapshot: {
           root: {
             params: { id: 'theID' },
-            routeConfig: { path: 'article/:id' }
+            routeConfig: { path: 'articles/:id' }
           }
         }
       }

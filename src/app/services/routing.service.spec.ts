@@ -1,13 +1,10 @@
 import { Data, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { of } from 'rxjs';
+
 import { RoutingService } from './routing.service';
+import { MetaService } from '@services/meta.service';
 
 describe('RoutingService', () => {
-  const titleService = {
-    setTitle: jest.fn()
-  } as jest.MockedObject<Title>;
-
   it('should subscribe to get the routing data', () => {
     const mockRouter = {
       events: of(new NavigationEnd(0, '', '')),
@@ -20,7 +17,11 @@ describe('RoutingService', () => {
       }
     } as unknown as jest.MockedObject<Router>;
 
-    const service = new RoutingService(mockRouter, titleService);
+    const metaService = {
+      setTagsForArticlePage: jest.fn()
+    } as jest.MockedObject<MetaService>;
+
+    const service = new RoutingService(mockRouter, metaService);
 
     let actual = null;
     service.routeData$.subscribe(_ => actual = _);
@@ -34,13 +35,18 @@ describe('RoutingService', () => {
       routerState: {
         snapshot: {
           root: {
-            data: [ { title: 'test' } ]
+            data: [ { title: 'test' } ],
+            routeConfig: { path: '' }
           }
         }
       }
     } as unknown as jest.MockedObject<Router>;
 
-    const service = new RoutingService(mockRouter, titleService);
+    const metaService = {
+      setTagsForArticlePage: jest.fn()
+    } as jest.MockedObject<MetaService>;
+
+    const service = new RoutingService(mockRouter, metaService);
 
     let actual = null;
     service.routeData$.subscribe(_ => actual = _);
@@ -55,35 +61,66 @@ describe('RoutingService', () => {
         snapshot: {
           root: {
             firstChild: {
-              data: [{ title: 'sweet child of mine' }]
+              data: [{ header: 'sweet child of mine' }]
             }
           }
         }
       }
     } as unknown as jest.MockedObject<Router>;
 
-    const service = new RoutingService(mockRouter, titleService);
+    const metaService = {
+      setTagsForArticlePage: jest.fn()
+    } as jest.MockedObject<MetaService>;
+
+    const service = new RoutingService(mockRouter, metaService);
 
     let actual = null;
     service.routeData$.subscribe(_ => actual = _);
 
-    expect(actual).toEqual({ title: 'sweet child of mine' } as jest.MockedObject<Data>);
+    expect(actual).toEqual({ header: 'sweet child of mine' } as jest.MockedObject<Data>);
   })
 
-  it('should set the document title with the routing data title', () => {
+  it('should set the meta tags for article pages', () => {
     const mockRouter = {
       events: of(new NavigationEnd(0, '', '')),
       routerState: {
         snapshot: {
           root: {
-            data: [{ title: 'new title' }]
+            params: { id: 'theID' },
+            routeConfig: { path: 'article/:id' }
           }
         }
       }
     } as unknown as jest.MockedObject<Router>;
 
-    new RoutingService(mockRouter, titleService);
+    const metaService = {
+      setTagsForArticlePage: jest.fn()
+    } as jest.MockedObject<MetaService>;
 
-    expect(titleService.setTitle).toHaveBeenCalledWith('new title');
+    new RoutingService(mockRouter, metaService);
+
+    expect(metaService.setTagsForArticlePage).toHaveBeenCalledWith('theID');
+  });
+
+  it('should set the meta tags for web pages', () => {
+    const mockRouter = {
+      events: of(new NavigationEnd(0, '', '')),
+      routerState: {
+        snapshot: {
+          root: {
+            params: { },
+            routeConfig: { path: 'articles' }
+          }
+        }
+      }
+    } as unknown as jest.MockedObject<Router>;
+
+    const metaService = {
+      setDefaultTags: jest.fn()
+    } as jest.MockedObject<MetaService>;
+
+    new RoutingService(mockRouter, metaService);
+
+    expect(metaService.setDefaultTags).toHaveBeenCalledTimes(1);
   });
 });

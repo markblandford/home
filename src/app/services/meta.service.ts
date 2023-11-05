@@ -52,9 +52,25 @@ export class MetaService {
       .subscribe(tags => {
         this.titleService.setTitle(`${MetaService.siteTitle} - ${tags[Tags.OG_Title]}`);
 
-        Object.keys(tags).forEach(name => {
-          this.metaService.updateTag({ name, content: tags[name] });
-        })
+        this.updateTags(tags);
       });
   };
+
+  public setDefaultTags(): void {
+    this.updateTags(MetaService.defaultTags());
+  }
+
+  private updateTags(tags: MetaTags): void {
+    Object.keys(tags).forEach(key => {
+      if (this.isOpenGraphTag(key as Tags)) {
+        this.metaService.updateTag({ property: key, content: tags[(key as Tags)] });
+      } else {
+        this.metaService.updateTag({ name: key, content: tags[(key as Tags)] });
+      }
+    })
+  }
+
+  private isOpenGraphTag(tag: Tags): boolean {
+    return tag.startsWith('og:');
+  }
 }

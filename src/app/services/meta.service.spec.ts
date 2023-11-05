@@ -1,4 +1,5 @@
-import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
+import { fakeAsync, tick } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { ArticlesService } from '@services/articles.service';
@@ -6,8 +7,6 @@ import { ArticleSummary } from '../models/article-summary';
 import { MetaTags, Tags } from '../models/meta';
 
 import { MetaService } from './meta.service';
-import HTMLMetaElement from '$GLOBAL$';
-import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('MetaService', () => {
   it('should be created', () => {
@@ -133,12 +132,33 @@ describe('MetaService', () => {
       tick();
 
       expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(1, { name: 'description', content: articleSummary.about });
-      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(2, { name: 'og:description', content: articleSummary.about });
-      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(3, { name: 'og:image', content: `${MetaService.fqdn}${ArticlesService.articlesLocation}${articleSummary.id}/${articleSummary.image}` });
-      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(4, { name: 'og:title', content: articleSummary.title });
-      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(5, { name: 'og:type', content: 'article' });
-      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(6, { name: 'og:url', content: `${MetaService.fqdn}${ArticlesService.articlesLocation}${articleSummary.id}` });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(2, { property: 'og:description', content: articleSummary.about });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(3, { property: 'og:image', content: `${MetaService.fqdn}${ArticlesService.articlesLocation}${articleSummary.id}/${articleSummary.image}` });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(4, { property: 'og:title', content: articleSummary.title });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(5, { property: 'og:type', content: 'article' });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(6, { property: 'og:url', content: `${MetaService.fqdn}${ArticlesService.articlesLocation}${articleSummary.id}` });
+    }));
+  });
 
+  describe('setDefaultTags', () => {
+    it('should set the default meta tags', fakeAsync(() => {
+      const mockArticlesService = {} as jest.MockedObject<ArticlesService>;
+      const mockTitleService = {} as jest.MockedObject<Title>;
+      const mockMetaService = {
+        updateTag: jest.fn()
+      } as jest.MockedObject<Meta>;
+
+      const service = new MetaService(mockArticlesService, mockTitleService, mockMetaService);
+
+      service.setDefaultTags();
+      tick();
+
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(1, { name: 'description', content: MetaService.defaultTags().description });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(2, { property: 'og:description', content: MetaService.defaultTags()['og:description'] });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(3, { property: 'og:image', content: MetaService.defaultTags()['og:image'] });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(4, { property: 'og:title', content: MetaService.defaultTags()['og:title'] });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(5, { property: 'og:type', content: MetaService.defaultTags()['og:type'] });
+      expect(mockMetaService.updateTag).toHaveBeenNthCalledWith(6, { property: 'og:url', content: MetaService.defaultTags()['og:url'] });
     }));
   });
 });

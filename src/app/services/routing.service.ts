@@ -1,8 +1,14 @@
-import { ActivatedRouteSnapshot, Data, NavigationEnd, Router, RouterState } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Data,
+  NavigationEnd,
+  Router,
+  RouterState
+} from '@angular/router';
 import { Injectable } from '@angular/core';
 import { filter } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
-import { Observable, Observer, of } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
+import { MetaService } from '@services/meta.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,36 +16,58 @@ import { Observable, Observer, of } from 'rxjs';
 export class RoutingService {
 
   routeData$ = new Observable<Data>(observer =>
-    this.subscribeToRouteData(this.router, observer)
+    this.subscribeToNavigationData(this.router, observer)
   );
 
   constructor(
     private router: Router,
-    private titleService: Title
+    private metaService: MetaService
     ) {
-    this.routeData$.subscribe(data => data && this.setTitle(data.title));
+    this.updateMetaTags(router);
   }
 
-  private subscribeToRouteData(router: Router, observer: Observer<Data>): void {
+  private subscribeToNavigationData(router: Router, dataObserver: Observer<Data>): void {
     router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {
-      const rd = this.getSnapshotData(router.routerState);
+      const ss = this.getSnapShot(router.routerState);
+      const rd = this.getSnapshotData(ss);
 
-      observer.next(rd);
+      dataObserver.next(rd);
     });
   }
 
-  private getSnapshotData(rs: RouterState): Data {
-    const root = rs.snapshot.root;
-    return this.lastChild(root).data[0];
+  private updateMetaTags(router: Router): void {
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe(e => {
+      const ss = this.getSnapShot(router.routerState);
+
+      this.setMetaTags(ss.routeConfig?.path, ss.params.id);
+    });
+  }
+
+  private getSnapShot(rs: RouterState): ActivatedRouteSnapshot {
+    return this.lastChild(rs.snapshot.root)
+  }
+
+  private getSnapshotData(ars: ActivatedRouteSnapshot): Data {
+    return ars.data[0];
   }
 
   private lastChild(snapshotRoot: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
     return snapshotRoot.firstChild ? this.lastChild(snapshotRoot.firstChild) : snapshotRoot;
   }
 
-  private setTitle(title: string): void {
-    this.titleService.setTitle(title);
+  private setMetaTags(path: string | undefined, id?: string): void {
+    if (this.isArticle(path, id)) {
+      this.metaService.setTagsForArticlePage(id as string);
+    } else {
+      this.metaService.setDefaultTags();
+    }
+  }
+
+  private isArticle(path: string | undefined, id: string | undefined): boolean {
+    return !!(path && id && path.startsWith('article/'));
   }
 }

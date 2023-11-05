@@ -8,8 +8,8 @@ import {
 } from './pages';
 
 const routes: Routes = [
+  { path: 'article-list', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { heading: 'Articles' } ] },
   { path: 'articles/:id', component: RenderArticleComponent },
-  { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { heading: 'Articles' } ] },
   { path: '', title: 'Blandford.dev - home', component: HomeComponent, data: [ { heading: 'Blandford.dev' } ] },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];

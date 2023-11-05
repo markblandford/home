@@ -40,4 +40,3 @@ const jestConfig: Config = {
 };
 
 export default jestConfig;
-

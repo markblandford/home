@@ -61,6 +61,7 @@ export class RoutingService {
 
   private setMetaTags(path: string | undefined, id?: string): void {
     if (this.isArticle(path, id)) {
+      console.log('is article');
       this.metaService.setTagsForArticlePage(id as string);
     } else {
       this.metaService.setDefaultTags();

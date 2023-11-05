@@ -8,7 +8,7 @@ import {
 } from './pages';
 
 const routes: Routes = [
-  { path: 'article-list', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { heading: 'Articles' } ] },
+  { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { heading: 'Articles' } ] },
   { path: 'articles/:id', component: RenderArticleComponent },
   { path: '', title: 'Blandford.dev - home', component: HomeComponent, data: [ { heading: 'Blandford.dev' } ] },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
@@ -17,8 +17,9 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     anchorScrolling: 'enabled',
-    onSameUrlNavigation: 'ignore'
-  })],
+    onSameUrlNavigation: 'ignore',
+    initialNavigation: 'enabledBlocking'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

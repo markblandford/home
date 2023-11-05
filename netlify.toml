@@ -1,7 +1,7 @@
-#[[redirects]]
-#  from = "/*"
-#  to = "/index.html"
-#  status = 200
+[build]
+  command = "npm run prerender"
+  functions = "./functions"
+  publish = "dist/home/browser"
 
 [[plugins]]
 package = "netlify-plugin-a11y"

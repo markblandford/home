@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -59,9 +59,9 @@ import {
         },
       },
     }),
-    // MarkdownModule.forRoot({ loader: HttpClient }),
   ],
   providers: [
+    provideClientHydration(),
     {
       provide: ErrorHandler,
       useValue: createErrorHandler({

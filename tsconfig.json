@@ -25,13 +25,13 @@
     ],
     "paths": {
       "@components/*": [
-        "src/app/components/*"
+        "./src/app/components/*"
       ],
       "@pages/*": [
-        "src/app/pages/*"
+        "./src/app/pages/*"
       ],
       "@services/*": [
-        "src/app/services/*"
+        "./src/app/services/*"
       ]
     },
     "useDefineForClassFields": false

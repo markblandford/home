@@ -15,7 +15,7 @@ package = "@sentry/netlify-build-plugin"
   [headers.values]
   Content-Security-Policy = '''
   base-uri 'self';
-  default-src 'none';
+  default-src 'self';
   connect-src 'self' https://o544339.ingest.sentry.io;
   font-src https://fonts.gstatic.com;
   form-action 'none';

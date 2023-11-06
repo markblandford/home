@@ -1,7 +1,7 @@
 [build]
-  command = "npm run prerender"
+  command = "npm run build:ssr"
   functions = "./functions"
-  publish = "dist/home/browser"
+  publish = "dist/home"
 
 [[plugins]]
 package = "netlify-plugin-a11y"

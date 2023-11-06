@@ -1,7 +1,13 @@
 [build]
   command = "npm run build:ssr"
-  functions = "./functions"
+  functions = "functions"
   publish = "dist/home"
+
+[[redirects]]
+  force = true
+  from = "/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200
 
 [[plugins]]
 package = "netlify-plugin-a11y"

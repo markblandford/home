@@ -2,7 +2,6 @@ import { Data, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { of } from 'rxjs';
 
 import { RoutingService } from './routing.service';
-import { MetaService } from '@services/meta.service';
 
 describe('RoutingService', () => {
   it('should subscribe to get the routing data', () => {
@@ -17,11 +16,7 @@ describe('RoutingService', () => {
       }
     } as unknown as jest.MockedObject<Router>;
 
-    const metaService = {
-      setTagsForArticlePage: jest.fn()
-    } as jest.MockedObject<MetaService>;
-
-    const service = new RoutingService(mockRouter, metaService);
+    const service = new RoutingService(mockRouter);
 
     let actual = null;
     service.routeData$.subscribe(_ => actual = _);
@@ -42,11 +37,7 @@ describe('RoutingService', () => {
       }
     } as unknown as jest.MockedObject<Router>;
 
-    const metaService = {
-      setTagsForArticlePage: jest.fn()
-    } as jest.MockedObject<MetaService>;
-
-    const service = new RoutingService(mockRouter, metaService);
+    const service = new RoutingService(mockRouter);
 
     let actual = null;
     service.routeData$.subscribe(_ => actual = _);
@@ -68,59 +59,11 @@ describe('RoutingService', () => {
       }
     } as unknown as jest.MockedObject<Router>;
 
-    const metaService = {
-      setTagsForArticlePage: jest.fn()
-    } as jest.MockedObject<MetaService>;
-
-    const service = new RoutingService(mockRouter, metaService);
+    const service = new RoutingService(mockRouter);
 
     let actual = null;
     service.routeData$.subscribe(_ => actual = _);
 
     expect(actual).toEqual({ header: 'sweet child of mine' } as jest.MockedObject<Data>);
   })
-
-  it('should set the meta tags for article pages', () => {
-    const mockRouter = {
-      events: of(new NavigationEnd(0, '', '')),
-      routerState: {
-        snapshot: {
-          root: {
-            params: { id: 'theID' },
-            routeConfig: { path: 'articles/:id' }
-          }
-        }
-      }
-    } as unknown as jest.MockedObject<Router>;
-
-    const metaService = {
-      setTagsForArticlePage: jest.fn()
-    } as jest.MockedObject<MetaService>;
-
-    new RoutingService(mockRouter, metaService);
-
-    expect(metaService.setTagsForArticlePage).toHaveBeenCalledWith('theID');
-  });
-
-  it('should set the meta tags for web pages', () => {
-    const mockRouter = {
-      events: of(new NavigationEnd(0, '', '')),
-      routerState: {
-        snapshot: {
-          root: {
-            params: { },
-            routeConfig: { path: 'articles' }
-          }
-        }
-      }
-    } as unknown as jest.MockedObject<Router>;
-
-    const metaService = {
-      setDefaultTags: jest.fn()
-    } as jest.MockedObject<MetaService>;
-
-    new RoutingService(mockRouter, metaService);
-
-    expect(metaService.setDefaultTags).toHaveBeenCalledTimes(1);
-  });
 });

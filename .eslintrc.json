@@ -11,6 +11,7 @@
       "parserOptions": {
         "project": [
           "tsconfig.json",
+          "tsconfig.server.json",
           "tsconfig.spec.json",
           "cypress/tsconfig.json"
         ],

@@ -3,6 +3,9 @@
   functions = "functions"
   publish = "dist/home"
 
+[functions]
+  node_bundler = "esbuild"
+
 [[redirects]]
   force = true
   from = "/*"

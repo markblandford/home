@@ -6,14 +6,8 @@
 [functions]
   node_bundler = "esbuild"
   included_files = [
-    "dist/home/server/**"
+    "dist/home/browser/**"
   ]
-
-[[redirects]]
-force = true
-from = "*/assets/*"
-to = "assets/:splat"
-status = 200
 
 [[redirects]]
   force = true
@@ -22,12 +16,11 @@ status = 200
   status = 200
 
 [[plugins]]
-  package = "netlify-plugin-a11y"
+package = "netlify-plugin-a11y"
   [plugins.inputs]
   checkPaths = ['dist/home/browser']
-
 [[plugins]]
-  package = "@sentry/netlify-build-plugin"
+package = "@sentry/netlify-build-plugin"
 
 [[headers]]
   for = "/*"

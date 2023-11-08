@@ -5,7 +5,10 @@
 
 [functions]
   node_bundler = "esbuild"
-included_files = ["dist/home/**"]
+  included_files = [
+    "dist/home/**",
+    "dist/home/browser/assets/**"
+  ]
 
 [[redirects]]
   force = true

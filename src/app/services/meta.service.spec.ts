@@ -1,6 +1,5 @@
 import { Meta, Title } from '@angular/platform-browser';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { of } from 'rxjs';
 
 import { ArticlesService } from '@services/articles.service';
 import { ArticleSummary } from '../models/article-summary';
@@ -19,17 +18,14 @@ describe('MetaService', () => {
   describe('getMetaTagsForArticle', () => {
     it('should return the default meta tags if the article is not found', () => {
       const mockArticlesService = {
-        getArticleSummary: jest.fn().mockReturnValue(of(undefined)),
+        getArticleSummary: jest.fn().mockReturnValue(undefined),
       } as jest.MockedObject<ArticlesService>;
       const mockTitleService = {} as jest.MockedObject<Title>;
       const mockMetaService = {} as jest.MockedObject<Meta>;
 
       const service = new MetaService(mockArticlesService, mockTitleService, mockMetaService);
 
-      let actual = null;
-      service.getMetaTagsForArticle('p').subscribe(_ => actual = _);
-
-      expect(actual).toEqual(MetaService.defaultTags());
+      expect(service.getMetaTagsForArticle('p')).toEqual(MetaService.defaultTags());
     });
 
     it('should call the Articles service to get the data and return the array of meta tags', () => {
@@ -47,7 +43,7 @@ describe('MetaService', () => {
       } as ArticleSummary;
 
       const mockArticlesService = {
-        getArticleSummary: jest.fn().mockReturnValue(of(articleSummary)),
+        getArticleSummary: jest.fn().mockReturnValue(articleSummary),
       } as jest.MockedObject<ArticlesService>;
       const mockTitleService = {} as jest.MockedObject<Title>;
       const mockMetaService = {} as jest.MockedObject<Meta>;
@@ -63,10 +59,7 @@ describe('MetaService', () => {
         [ Tags.OG_Url ] : `${MetaService.fqdn}${ArticlesService.articlesLocation}${articleSummary.id}`,
       };
 
-      let actual = null;
-      service.getMetaTagsForArticle('p').subscribe(_ => actual = _);
-
-      expect(actual).toEqual(expected);
+      expect(service.getMetaTagsForArticle('p')).toEqual(expected);
     });
   });
 
@@ -86,12 +79,14 @@ describe('MetaService', () => {
       } as ArticleSummary;
 
       const mockArticlesService = {
-        getArticleSummary: jest.fn().mockReturnValue(of(articleSummary)),
+        getArticleSummary: jest.fn().mockReturnValue(articleSummary),
       } as jest.MockedObject<ArticlesService>;
       const mockTitleService = {
         setTitle: jest.fn(),
       } as jest.MockedObject<Title>;
-      const mockMetaService = {} as jest.MockedObject<Meta>;
+      const mockMetaService = {
+        updateTag: jest.fn(),
+      } as jest.MockedObject<Meta>;
 
       const service = new MetaService(mockArticlesService, mockTitleService, mockMetaService);
 
@@ -117,7 +112,7 @@ describe('MetaService', () => {
       } as ArticleSummary;
 
       const mockArticlesService = {
-        getArticleSummary: jest.fn().mockReturnValue(of(articleSummary)),
+        getArticleSummary: jest.fn().mockReturnValue(articleSummary),
       } as jest.MockedObject<ArticlesService>;
       const mockTitleService = {
         setTitle: jest.fn(),

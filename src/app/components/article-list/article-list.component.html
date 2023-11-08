@@ -1,5 +1,5 @@
 <ul class="article-list">
-    <li class="article-list__card" *ngFor="let summary of articleSummaries$ | async">
+    <li class="article-list__card" *ngFor="let summary of articleSummaries">
         <app-article-card [summary]="summary"></app-article-card>
     </li>
 </ul>

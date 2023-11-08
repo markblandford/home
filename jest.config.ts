@@ -23,6 +23,9 @@ const jestConfig: Config = {
   setupFilesAfterEnv: ['<rootDir>/src/test.ts'],
   clearMocks: true,
   collectCoverage: true,
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/app/content/'
+  ],
   coverageReporters: ['text-summary', 'html'],
   coverageDirectory: 'reports/coverage',
   coverageThreshold: {

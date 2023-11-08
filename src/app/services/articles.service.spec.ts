@@ -3,6 +3,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { ArticlesService } from './articles.service';
 import { ArticleSummary } from '../models/article-summary';
+import ArticleList from '@content/article-list';
+
+jest.mock('@content/article-list')
 
 describe('ArticlesService', () => {
   let service: ArticlesService;
@@ -64,14 +67,9 @@ describe('ArticlesService', () => {
         }
       ];
 
-      service.getArticleSummaries()
-        .subscribe(f => expect(f).toEqual(expected));
+      jest.spyOn(ArticleList.prototype, 'getSummaries').mockReturnValue(expected);
 
-      const req = httpTestingController.expectOne(`${ArticlesService.articlesLocation}summaries.json`);
-
-      expect(req.request.method).toEqual('GET');
-
-      req.flush(expected);
+      expect(service.getArticleSummaries()).toEqual(expected);
     });
   });
 
@@ -93,14 +91,9 @@ describe('ArticlesService', () => {
         { id: 'a' } as ArticleSummary
       ]
 
-      service.getArticleSummary('p')
-        .subscribe(f => expect(f).toEqual(expected));
+      jest.spyOn(ArticleList.prototype, 'getSummaries').mockReturnValue(allSummaries);
 
-      const req = httpTestingController.expectOne(`${ArticlesService.articlesLocation}summaries.json`);
-
-      expect(req.request.method).toEqual('GET');
-
-      req.flush(allSummaries);
+      expect(service.getArticleSummary('p')).toEqual(expected);
     });
   });
 });

@@ -6,8 +6,7 @@
 [functions]
   node_bundler = "esbuild"
   included_files = [
-    "dist/home/**",
-    "dist/home/browser/assets/**"
+    "dist/home/browser/**"
   ]
 
 [[redirects]]

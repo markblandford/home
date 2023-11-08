@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ArticleSummary } from '../models/article-summary';
+import ArticleList from '@content/article-list';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,13 @@ export class ArticlesService {
     return this.http.get(filename, { responseType: 'text' });
   }
 
-  public getArticleSummaries(): Observable<Array<ArticleSummary>> {
-    return this.http.get<Array<ArticleSummary>>(`${ArticlesService.articlesLocation}summaries.json`, { responseType: 'json' });
+  public getArticleSummaries(): Array<ArticleSummary> {
+    return new ArticleList().getSummaries();
   }
 
-  public getArticleSummary(articleId: string): Observable<ArticleSummary | undefined> {
+  public getArticleSummary(articleId: string): ArticleSummary | undefined {
     return this.getArticleSummaries()
-      .pipe(
-        map(as => as.find(({ id }) => id === articleId))
-      );
+      .find(({ id }) => id === articleId);
   }
 
   constructor(

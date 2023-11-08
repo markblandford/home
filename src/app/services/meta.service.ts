@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 import { ArticlesService } from '@services/articles.service';
-import { map, Observable } from 'rxjs';
 import { MetaTags, Tags } from '../models/meta';
 
 @Injectable({
@@ -29,31 +28,28 @@ export class MetaService {
     private metaService: Meta,
   ) { }
 
-  public getMetaTagsForArticle(id: string): Observable<MetaTags> {
-    return this.articleService.getArticleSummary(id)
-      .pipe(
-        map(a => {
-          return a
-            ? {
-                [Tags.Description]: a.about,
-                [Tags.OG_Description]: a.about,
-                [Tags.OG_Image]: `${MetaService.fqdn}${ArticlesService.articlesLocation}${a.id}/${a.image}`,
-                [Tags.OG_Title]: a.title,
-                [Tags.OG_Type]: 'article',
-                [Tags.OG_Url]: `${MetaService.fqdn}${ArticlesService.articlesLocation}${a.id}`,
-              } as MetaTags
-            : MetaService.defaultTags();
-        })
-      );
+  public getMetaTagsForArticle(id: string): MetaTags {
+    const a = this.articleService.getArticleSummary(id);
+
+    return a
+      ? {
+          [Tags.Description]: a.about,
+          [Tags.OG_Description]: a.about,
+          [Tags.OG_Image]: `${MetaService.fqdn}${ArticlesService.articlesLocation}${a.id}/${a.image}`,
+          [Tags.OG_Title]: a.title,
+          [Tags.OG_Type]: 'article',
+          [Tags.OG_Url]: `${MetaService.fqdn}${ArticlesService.articlesLocation}${a.id}`,
+        } as MetaTags
+      : MetaService.defaultTags();
   };
 
   public setTagsForArticlePage(id: string): void {
-    this.getMetaTagsForArticle(id)
-      .subscribe(tags => {
-        this.titleService.setTitle(`${MetaService.siteTitle} - ${tags[Tags.OG_Title]}`);
+    const tags = this.getMetaTagsForArticle(id);
 
-        this.updateTags(tags);
-      });
+    this.titleService.setTitle(`${MetaService.siteTitle} - ${tags[Tags.OG_Title]}`);
+
+    this.updateTags(tags);
+
   };
 
   public setDefaultTags(): void {

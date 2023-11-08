@@ -6,6 +6,7 @@
     "types": [
       "jest"
     ],
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -24,6 +25,9 @@
       "dom"
     ],
     "paths": {
+      "@content/*": [
+        "./src/app/content/*"
+      ],
       "@components/*": [
         "./src/app/components/*"
       ],

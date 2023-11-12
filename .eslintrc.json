@@ -13,6 +13,7 @@
           "tsconfig.json",
           "tsconfig.spec.json",
           "cypress/tsconfig.json",
+          "build-route-list.ts",
           "server.ts"
         ],
         "createDefaultProgram": true

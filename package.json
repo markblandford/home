@@ -19,7 +19,8 @@
     "dev:ssr": "ng run home:serve-ssr",
     "serve:ssr": "node dist/home/server/main.js",
     "build:ssr": "ng build && ng run home:server",
-    "prerender": "ng run home:prerender"
+    "prerender": "npm run build:routes && ng run home:prerender",
+    "build:routes": "ts-node build-route-list.ts"
   },
   "private": true,
   "dependencies": {
@@ -62,7 +63,7 @@
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.7",
     "@types/marked": "^4.3.2",
-    "@types/node": "^20.8.10",
+    "@types/node": "^20.9.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.9.0",
     "codelyzer": "^6.0.2",

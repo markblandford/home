@@ -66,3 +66,6 @@ Thumbs.db
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+# routes - dynamically updated in npm script
+routes.txt

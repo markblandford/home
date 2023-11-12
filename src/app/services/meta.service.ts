@@ -31,11 +31,15 @@ export class MetaService {
   public getMetaTagsForArticle(id: string): MetaTags {
     const a = this.articleService.getArticleSummary(id);
 
+    const image = a?.image
+      ? `${MetaService.fqdn}${ArticlesService.articlesLocation}${a.id}/${a.image}`
+      : `${MetaService.fqdn}/assets/images/code-python-zen.jpg`
+
     return a
       ? {
           [Tags.Description]: a.about,
           [Tags.OG_Description]: a.about,
-          [Tags.OG_Image]: `${MetaService.fqdn}${ArticlesService.articlesLocation}${a.id}/${a.image}`,
+          [Tags.OG_Image]: image,
           [Tags.OG_Title]: a.title,
           [Tags.OG_Type]: 'article',
           [Tags.OG_Url]: `${MetaService.fqdn}${ArticlesService.articlesLocation}${a.id}`,

@@ -61,6 +61,39 @@ describe('MetaService', () => {
 
       expect(service.getMetaTagsForArticle('p')).toEqual(expected);
     });
+
+    it('should use the default zen of python image if none is provided', () => {
+      const articleSummary = {
+        id: 'p',
+        title: 'An article',
+        createdDate: '2023-10-23',
+        updatedDate: '2023-10-24',
+        about: 'the description',
+        tags: [
+          'angular',
+          'test'
+        ],
+      } as ArticleSummary;
+
+      const mockArticlesService = {
+        getArticleSummary: jest.fn().mockReturnValue(articleSummary),
+      } as jest.MockedObject<ArticlesService>;
+      const mockTitleService = {} as jest.MockedObject<Title>;
+      const mockMetaService = {} as jest.MockedObject<Meta>;
+
+      const service = new MetaService(mockArticlesService, mockTitleService, mockMetaService);
+
+      const expected: MetaTags = {
+        [ Tags.Description ] : articleSummary.about,
+        [ Tags.OG_Description ] : articleSummary.about,
+        [ Tags.OG_Image ] : `${MetaService.fqdn}${ArticlesService.articlesLocation}${articleSummary.id}/${articleSummary.image}`,
+        [ Tags.OG_Title ] : articleSummary.title,
+        [ Tags.OG_Type ] : 'article',
+        [ Tags.OG_Url ] : `${MetaService.fqdn}${ArticlesService.articlesLocation}${articleSummary.id}`,
+      };
+
+      expect(service.getMetaTagsForArticle('p')['og:image']).toEqual(`${MetaService.fqdn}/assets/images/code-python-zen.jpg`);
+    });
   });
 
   describe('setTagsForArticlePage', () => {

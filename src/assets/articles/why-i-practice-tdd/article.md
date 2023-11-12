@@ -30,11 +30,11 @@ Yep, it sure would be: at first. Give it a few weeks or months and I expect you'
 
 > I don't like writing tests
 
-I get it, but this is where TDD has helped me. I think practicing TDD, makes you better at writing tests and as such, the aversion evaporates. I actually love writing tests now.
+I get it, but this is where TDD has helped me. I think practising TDD, makes you better at writing tests and as such, the aversion evaporates. I actually love writing tests now.
 
 > TDD is hard
 
-Now we're getting somewhere. I think you're right, at least at first. In my experience, this differs between languages and competence too. For example, I began practicing TDD in .Net, an OO language. I found the strictness comforting and because of my level of experience at the time, it was easier.
+Now we're getting somewhere. I think you're right, at least at first. In my experience, this differs between languages and competence too. For example, I began practising TDD in .Net, an OO language. I found the strictness comforting and because of my level of experience at the time, it was easier.
 
 Then, when I started developing Angular applications, I simply couldn't use TDD as I had been use to. I had to adapt. I didn't know the language & test framework well enough. I struggled with the 'laziness' of the language. Likewise, when I develop in Python, I try but I cannot do 'full' Test Driven Development but I try. This brings us onto the next section, when to TDD.
 
@@ -59,9 +59,15 @@ How many times have you been working on a new feature, and got to a point where 
 
 4️⃣ TDD stops me developing more than what has been requested. It stops me trying to predict the future.
 
+However:
+
+> If you get today's work done today, but you do it in such a way that you can't possibly get tomorrow's work done tomorrow, then you lose.
+>
+> -- <cite>Kent Beck (excerpt from Refactoring by Martin Fowler)</cite>
+
 I bet most engineers, who don't subscribe to TDD, have gotten to where the production code is done, and they've come to write the tests and found the code isn't easily testable. This probably means your code doesn't adhere to some well regarded development patterns.
 
-5️⃣ TDD helps me write better code.
+5️⃣ TDD helps me write better code. This often means it is more functional, or has few side-effects.
 6️⃣ TDD also helps me learn and get more comfortable with the test frameworks: I actually enjoy writing tests!
 
 Similar, you've written the production code, and you are beat, you're done. The last thing you want to do is write tests. You're validated further when you tell your business stakeholders, *"the work is done I just have the tests to write"*. They're response: *"don't bother, we need that feature out"*.
@@ -129,7 +135,7 @@ At this point, I can now run the test. The spec will now compile but thanks to t
 
 I think I want a public method called, `enableTheme(theme: string)`, which should take the theme and do as required:
 
-1. Use `querySelector()` on the dom /` Document` to select the `html` element.
+1. Use `querySelector()` on the DOM / `Document` to select the `html` element.
 2. Call `setAttribute` to set the `data-theme` attribute with the provided theme.
 
 This takes us to:
@@ -189,10 +195,10 @@ Next, we'd refactor not only the test but also the production code, safe in the 
 #### What we need to develop for the API feature
 
 1. A new, [Feign](https://github.com/OpenFeign/feign) client, to make the `get` request to `https://example.com/themes`.
-  1. This client will expose a `get()` method.
+   1. This client will expose a `get()` method.
 2. A new Java service to call the new client.
 3. A new end-point on our controller which calls the new service.
-  1. This is what our UI will interface with.
+   1. This is what our UI will interface with.
 
 For the brevity of this post, we'll just address step 2. the Java Service.
 
@@ -222,10 +228,10 @@ Working backwards, these tests describe what we need to implement to achieve our
 
 1. We need a new Java Service, `CustomThemes`.
 2. The service will have a dependency on the soon-to-be developed, Feign client.
-  1. The Feign client will have a `get()` method we need to call to retrieve the themes.
+   1. The Feign client will have a `get()` method we need to call to retrieve the themes.
 3. The service will have a public, `getThemes()` method.
-  1. The method will need to ensure the list is sorted alphabetically, when there are themes available.
-  2. The method will need to elegantly handle when no themes are available.
+   1. The method will need to ensure the list is sorted alphabetically, when there are themes available.
+   2. The method will need to elegantly handle when no themes are available.
 
 Again, we know the tests will fail 🔴 immediately because of the 'Not implemented' exception.
 
@@ -337,6 +343,8 @@ When you need to squash a bug or update an existing feature the process is very 
 2. Run your tests. The ones you have updated, should fail 🔴.
 3. Implement the changes required to the production code.
 4. Run your tests. If you've fixed the issue, then you tests are green 🟢 and you're done.
+
+I get a real buzz when it comes to squashing a bug using this approach. Creating a test that asserts the expected behaviour to fix the bug, and then seeing that go green, is great. You know you've fixed it!
 
 ## Summary
 

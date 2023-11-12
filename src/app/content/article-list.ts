@@ -14,6 +14,20 @@ export default class ArticleList {
           'angular',
           'testing'
         ]
-      }];
+      },
+      {
+        id: 'why-i-practice-tdd',
+        title: 'Why I practice TDD',
+        createdDate: '2023-11-06',
+        updatedDate: '2023-11-06',
+        about: 'I enjoy Test Driven Development. I want more engineers to try it. This is how I do it: Test-driven development (TDD) is a software development process relying on software requirements being converted to test cases before software is fully developed, and tracking all software development by repeatedly testing the software against all test cases. This is as opposed to software being developed first and test cases created later.',
+        tags: [
+          'angular',
+          'Java',
+          'testing',
+          'TDD'
+        ]
+      }
+    ];
   }
 }

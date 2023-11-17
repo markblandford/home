@@ -42,13 +42,13 @@ Then, when I started developing Angular applications, I simply couldn't use TDD 
 
 How many engineers plan the work they are about to develop? I bet most of you don't. This covers the first, three benefits I gain from TDD:
 
-1️⃣ TDD helps me plan / acts as a To-Do list for the work ahead.
-2️⃣ TDD forces me to break a task into smaller pieces (units).
-3️⃣ This process immediately makes me think about how the feature is going to work and even raise any questions if the requirements aren't clear. I find this really beneficial, as it means any clarification on the requirements is completed right at the start, and not when you're already head-deep in the code.
+:one: TDD helps me plan / acts as a To-Do list for the work ahead.
+:two: TDD forces me to break a task into smaller pieces (units).
+:three: This process immediately makes me think about how the feature is going to work and even raise any questions if the requirements aren't clear. I find this really beneficial, as it means any clarification on the requirements is completed right at the start, and not when you're already head-deep in the code.
 
 How many times have you been working on a new feature, and got to a point where you've added a little extra[^1] as you think it will be required in the future?
 
-4️⃣ TDD stops me developing more than what has been requested. It stops me trying to predict the future.
+:four: TDD stops me developing more than what has been requested. It stops me trying to predict the future.
 
 However:
 
@@ -58,13 +58,13 @@ However:
 
 I bet most engineers, who don't subscribe to TDD, have gotten to where the production code is done, and they've come to write the tests and found the code isn't easily testable. This probably means your code doesn't adhere to some well regarded development patterns. **This doesn't mean, make all of the methods public!**
 
-5️⃣ TDD helps me write better code. This often means it is more functional with few side-effects.
-6️⃣ TDD also helps me learn and get more comfortable with the test frameworks: I actually enjoy writing tests!
+:five: TDD helps me write better code. This often means it is more functional with few side-effects.
+:six: TDD also helps me learn and get more comfortable with the test frameworks: I actually enjoy writing tests!
 
 Similar, you've written the production code, you're beat, you're done. The last thing you want to do is write tests. You're validated further when you tell your business stakeholders, *"the work is done I just have the tests to write"*. They're response: *"don't bother, we need that feature out"*.
 
-7️⃣ I've written the tests up-front, and I get that regular feedback, as the tests go from red 🔴 to green 🟢.
-8️⃣ TDD gives me confidence that when all the tests are green 🟢, I've completed the full, working feature. There have been times where I have such confidence, I don't even need to manually test the changes: I know it works because my tests tell me so.
+:seven: I've written the tests up-front, and I get that regular feedback, as the tests go from failing to passing.
+:eight: TDD gives me confidence that when all the tests are green :green_circle:, I've completed the full, working feature. There have been times where I have such confidence, I don't even need to manually test the changes: I know it works because my tests tell me so.
 
 ## When to TDD
 
@@ -79,7 +79,7 @@ It could be argued that none of these points actually highlight a problem with T
 
 ## How I TDD
 
-Let's go through two examples, for TDD with unit tests:  one in [Angular](#angular) and another in [Java](#java-spring-boot).
+Let's go through two examples, for TDD with unit tests:  one in Angular and another in Java.
 
 ### Angular
 
@@ -116,9 +116,9 @@ This test describes what we have to implement:
 2. The service has a dependency on the DOM / `Document`.
 3. The service will need a public method to enable the selected theme.
 
-Now, we know that if we even attempt to run the test, it'll fail immediately because `ThemeService` doesn't exist. 🔴
+Now, we know that if we even attempt to run the test, it'll fail immediately because `ThemeService` doesn't exist. :red_circle:
 
-I always ensure too, that my new test throws a 'Not Implemented' exception. Test Frameworks generally mark tests as passed 🟢, if there is no assertion. Ensuring the test throws an exception, immediately means the test is 🔴 and I don't have a false-sense that everything is done.
+I always ensure too, that my new test throws a 'Not Implemented' exception. Test Frameworks generally mark tests as passed :green_circle:, if there is no assertion. Ensuring the test throws an exception, immediately means the test is :red_circle: and I don't have a false-sense that everything is done.
 
 > 💡**Tip:** I have added shortcuts / code snippets in my IDEs, to enable me to quickly insert a 'Not implemented' exception. I can type <kbd>nie</kbd> + <kbd>tab</kbd> and depending on the language, I get the new exception added.
 
@@ -241,7 +241,7 @@ Working backwards, these tests describe what we need to implement to achieve our
    1. The method will need to ensure the list is sorted alphabetically, when there are themes available.
    2. The method will need to elegantly handle when no themes are available.
 
-Again, we know the tests will fail 🔴 immediately because of the 'Not implemented' exception.
+Again, we know the tests will fail :red_circle: immediately because of the 'Not implemented' exception.
 
 Next, I write the shell of the new service (for brevity I'm not including Spring Boot decorators, interfaces etc.).
 
@@ -313,7 +313,7 @@ public class CustomThemesService {
 }
 ```
 
-If we run our tests, now we should have one passing 🟢 and one failing 🔴. This is great and exactly what we want. Now to finish the implementation to handle when no themes are returned.
+If we run our tests, now we should have one passing :green_circle: and one failing :red_circle:. This is great and exactly what we want. Now to finish the implementation to handle when no themes are returned.
 
 ```java
 public class CustomThemesService {
@@ -353,11 +353,11 @@ In both of these situations, it is easy to write the Integration Tests. They won
 
 When you need to squash a bug or update an existing feature the process is very similar.
 
-1. Run the tests *before* you make any changes. All of the tests should pass 🟢. (If they don't you,ve got bigger problems).
+1. Run the tests *before* you make any changes. All of the tests should pass :green_circle:. (If they don't you,ve got bigger problems).
 2. Update your existing tests, or create a new test(s) to cover the new, expected behaviour.
-3. Run your tests. The ones you have updated, should fail 🔴.
+3. Run your tests. The ones you have updated, should fail :red_circle:.
 4. Implement the changes required to the production code.
-5. Run your tests. If you've fixed the issue, then you tests are green 🟢 and you're done.
+5. Run your tests. If you've fixed the issue, then you tests are green :green_circle: and you're done.
 
 I get a real buzz when it comes to squashing a bug using this approach. Creating a test that asserts the expected behaviour to fix the bug, and then seeing that go green, is great. You know you've fixed it!
 
@@ -368,9 +368,9 @@ I get a real buzz when it comes to squashing a bug using this approach. Creating
 2. Implement the skeleton of the production code / Unit Under Test.
     * Remember to throw your 'Not implemented' exceptions in the Unit Under Test.
 3. Write the body of the tests.
-    * The tests will still fail 🔴, but with 'Not implemented' exceptions from the Unit Under Test.
+    * The tests will still fail :red_circle:, but with 'Not implemented' exceptions from the Unit Under Test.
 4. Implement the production code in the Unit Under Test.
-5. The tests should now all pass 🟢.
+5. The tests should now all pass :green_circle:.
 6. Go back around, and refactor / improve what has just been implemented with the confidence that you are covered with working tests.
 
 I would guess that the majority of Software Engineers can at least complete steps 1 & 2, on the majority of the code they write. If you can start there, then I think in no time at all, you'll be able to complete all of the steps above. At the very least, your starting to use TDD concepts and I guarantee that will lead to better quality code.

@@ -1,4 +1,4 @@
-# Why I practice TDD
+# How I practice TDD
 
 ## What is TDD?
 
@@ -14,7 +14,7 @@ In essence, write the tests first and then the production code.
 
 1. Red - You write a test that doesn't work (it probably won't even compile as the Unit Under Test doesn't [yet] exist).
 2. Green - Make the test work - You build the Unit Under Test / production code.
-3. Refactor - clean up the test, removing duplication etc. (but please follow ['AHA'](https://en.wikipedia.org/wiki/Don't_repeat_yourself#AHA) in the test).
+3. Refactor - clean up the test, removing duplication etc. (but please keep the test ['DAMP' / 'AHA'](https://en.wikipedia.org/wiki/Don't_repeat_yourself#AHA)).
 
 ## Some of the feedback I hear about why Engineers don't TDD
 
@@ -22,34 +22,25 @@ In essence, write the tests first and then the production code.
 
 I disagree. If your team has a mentality for quality software, then you already must have a culture of automated testing. As such, why not build the tests first?
 
-*In fact, the opposite is actually true. I believe it has been proven / accepted that engineers who practice TDD, write more tests but are subsequently more productive.*
+*In fact, the opposite is actually true. I believe it has been proven / accepted that engineers who practice TDD, write more tests and are more productive.*
 
 > When I don't write tests, development is faster
 
-Yep, it sure would be: at first. Give it a few weeks or months and I expect you'll hit a wall, with confidence dwindling that the software still works.
+Yep, it sure would be: at first. Give it a few weeks or months and I expect you'll hit a wall, with confidence dwindling, that the software still works.
 
 > I don't like writing tests
 
-I get it, but this is where TDD has helped me. I think practising TDD, makes you better at writing tests and as such, the aversion evaporates. I actually love writing tests now.
+I get it. This is where TDD has helped me. I think practising TDD, makes you better at writing tests and as such, the aversion evaporates. It's still writing code, so should be enjoyable. I think writing the tests first make the process feel less like a chore.
 
 > TDD is hard
 
-Now we're getting somewhere. I think you're right, at least at first. In my experience, this differs between languages and competence too. For example, I began practising TDD in .Net, an OO language. I found the strictness comforting and because of my level of experience at the time, it was easier.
+Now we're getting somewhere. I think you're right, at least at first. In my experience, this differs between languages and competence too. For example, I began practising TDD in C#, an OO language. I found the strictness comforting and because of my level of experience at the time, it was easier.
 
-Then, when I started developing Angular applications, I simply couldn't use TDD as I had been use to. I had to adapt. I didn't know the language & test framework well enough. I struggled with the 'laziness' of the language. Likewise, when I develop in Python, I try but I cannot do 'full' Test Driven Development but I try. This brings us onto the next section, when to TDD.
-
-## When to TDD
-
-I would challenge for even the strongest of engineers to be able to practice 'full' TDD all of the time:
-
-1. If you don't know or cannot predict the result of a scenario, then I don't think you can TDD.
-2. If you simply don't know how to write tests, then you can't practice TDD but then I think you're not ready to develop fully featured, robust & maintainable software.
-3. If you don't have an idea of how to get to the result / outcome, then you probably can't TDD. For example, if you need to 'trial and error' to get there. However, you maybe able to figure it out as you go (so try and start with TDD).
-4. If you don't have a solid understanding of the language, then TDD will be hard, but again I think you can start.
+Then, when I started developing Angular applications, I simply couldn't use TDD as I had been use to. I had to adapt. I didn't know the language & test framework well enough. I struggled with the 'laziness' of the language and the [blurred lines](../articles/venn-of-angular-component-testing) of the *unit* testing suggested. Likewise, when I develop in Python, I try but I cannot do 'full' Test Driven Development but I try. I still get some benefit from the little I can do. This brings us onto the next section, the benefits I gain from TDD.
 
 ## The Benefits I get from TDD
 
-How many engineers plan the work they are about to develop? I bet most of you don't. This is the first three benefits I get from TDD:
+How many engineers plan the work they are about to develop? I bet most of you don't. This covers the first, three benefits I gain from TDD:
 
 1️⃣ TDD helps me plan / acts as a To-Do list for the work ahead.
 2️⃣ TDD forces me to break a task into smaller pieces (units).
@@ -65,15 +56,26 @@ However:
 >
 > -- <cite>Kent Beck (excerpt from Refactoring by Martin Fowler)</cite>
 
-I bet most engineers, who don't subscribe to TDD, have gotten to where the production code is done, and they've come to write the tests and found the code isn't easily testable. This probably means your code doesn't adhere to some well regarded development patterns.
+I bet most engineers, who don't subscribe to TDD, have gotten to where the production code is done, and they've come to write the tests and found the code isn't easily testable. This probably means your code doesn't adhere to some well regarded development patterns. **This doesn't mean, make all of the methods public!**
 
-5️⃣ TDD helps me write better code. This often means it is more functional, or has few side-effects.
+5️⃣ TDD helps me write better code. This often means it is more functional with few side-effects.
 6️⃣ TDD also helps me learn and get more comfortable with the test frameworks: I actually enjoy writing tests!
 
-Similar, you've written the production code, and you are beat, you're done. The last thing you want to do is write tests. You're validated further when you tell your business stakeholders, *"the work is done I just have the tests to write"*. They're response: *"don't bother, we need that feature out"*.
+Similar, you've written the production code, you're beat, you're done. The last thing you want to do is write tests. You're validated further when you tell your business stakeholders, *"the work is done I just have the tests to write"*. They're response: *"don't bother, we need that feature out"*.
 
 7️⃣ I've written the tests up-front, and I get that regular feedback, as the tests go from red 🔴 to green 🟢.
 8️⃣ TDD gives me confidence that when all the tests are green 🟢, I've completed the full, working feature. There have been times where I have such confidence, I don't even need to manually test the changes: I know it works because my tests tell me so.
+
+## When to TDD
+
+I think there are occasions when it is difficult or not possible to practice 'full' TDD *all of the time*:
+
+1. If you don't know or cannot predict the result of a scenario, then I don't think you can TDD.
+2. If you don't have an idea of how to get to the result / outcome, then you probably can't TDD. For example, if you need to 'trial and error' to get there. However, you maybe able to figure it out as you go (so try and start with TDD).
+3. If you simply don't know how to write tests, then you can't practice TDD. Are you ready to develop fully featured, robust & maintainable software in that case?
+4. If you don't have a solid understanding of the language, then TDD will be hard, but again I think you can start.
+
+It could be argued that none of these points actually highlight a problem with Test-Driven Development. These points potentially highlight problems with the development / design approach of an engineer.
 
 ## How I TDD
 
@@ -92,7 +94,7 @@ Let's go through two examples, for TDD with unit tests:  one in [Angular](#angul
 1. An Angular Service to update the `data-theme` attribute on the `html` element.
 2. a UI element for the customer to select one of the three themes.
 
-For the brevity of this post, we'll just address step 1, the Angular Service. FYI, this is what I have on [my own website](https://www.blandford.dev).
+For the brevity of this post, we'll just address step 1, the Angular Service. This is what I have on [my own website](https://www.blandford.dev).
 
 With these requirements, let's now write our 'to-do' list but as unit tests & test setup:
 
@@ -108,7 +110,7 @@ describe('ThemeService', () => {
 });
 ```
 
-Working backwards, this describes what we have to do:
+This test describes what we have to implement:
 
 1. We need a new Angular Service.
 2. The service has a dependency on the DOM / `Document`.
@@ -116,9 +118,9 @@ Working backwards, this describes what we have to do:
 
 Now, we know that if we even attempt to run the test, it'll fail immediately because `ThemeService` doesn't exist. 🔴
 
-I always ensure too, that my new test throws a 'Not Implemented' exception. Test Frameworks generally mark tests as passed 🟢, if there is no assertion. Ensuring the test throws an exception, immediately means the test is 🔴.
+I always ensure too, that my new test throws a 'Not Implemented' exception. Test Frameworks generally mark tests as passed 🟢, if there is no assertion. Ensuring the test throws an exception, immediately means the test is 🔴 and I don't have a false-sense that everything is done.
 
-> 💡**Tip:** I have added a shortcut / code snippets in my IDEs, to enable me to quickly insert a 'Not implemented' exception. I can type <kbd>nie</kbd> + <kbd>tab</kbd> and depending on the language, I get the new exception added.
+> 💡**Tip:** I have added shortcuts / code snippets in my IDEs, to enable me to quickly insert a 'Not implemented' exception. I can type <kbd>nie</kbd> + <kbd>tab</kbd> and depending on the language, I get the new exception added.
 
 Next, I actually create the Production Service:
 
@@ -135,7 +137,7 @@ At this point, I can now run the test. The spec will now compile but thanks to t
 
 I think I want a public method called, `enableTheme(theme: string)`, which should take the theme and do as required:
 
-1. Use `querySelector()` on the DOM / `Document` to select the `html` element.
+1. Use `querySelector()` on the `Document` to select the `html` element.
 2. Call `setAttribute` to set the `data-theme` attribute with the provided theme.
 
 This takes us to:
@@ -145,6 +147,7 @@ This takes us to:
 
 ```typescript
 it('should set the html data-theme attribute to the provided theme', () => {
+  // ARRANGE
   const dom = {
     querySelector: jest.fn(),
   } as jest.MockedObject<Document>;
@@ -155,9 +158,11 @@ it('should set the html data-theme attribute to the provided theme', () => {
 
   jest.spyOn(dom, 'querySelector').mockReturnValue(htmlStub);
 
+  // ACT
   const service = new ThemeService(dom);
   service.enableTheme('Sunny');
 
+  // ASSERT
   expect(htmlStub.setAttribute).toHaveBeenCalledWith('data-theme', 'Sunny');
 });
 ```
@@ -220,7 +225,10 @@ public class CustomThemesServiceUnitTest {
     void getThemes_themesUnavailable_emptyStringArray() {
         throw new NotImplementedException();
     }
-    // in reality, we would probably have more tests, covering error responses etc.
+    // in reality, we would have more tests,
+    // covering error responses etc.
+    // because we're already thinking about these up-front
+    // (and should be a part of our requirements too)
 }
 ```
 
@@ -251,6 +259,7 @@ We've not done much here, but it means we can continue with our tests, and they 
 public class CustomThemesServiceUnitTest {
     @Test
     void getThemes_themesAvailable_listofSortedThemes() {
+        // ARRANGE
         // we will assume the `ThemeClient` interface has already been created
         // I'm using Mockito to mock the dependencies
         ThemeClient mockThemeClient = mock(ThemeClient.class);
@@ -259,19 +268,24 @@ public class CustomThemesServiceUnitTest {
         String[] themes = { "Sunny", "Default", "Night"};
         when(mockThemeClient.get()).thenReturn(themes);
 
+        // ACT
         CustomThemesService cut = new CustomThemesService(mockThemeClient);
 
-        assertEquals(cut.getThemes(), { "Default", "Night", "Sunny" });
+        // ACT & ASSERT
+        assertEquals({ "Default", "Night", "Sunny" }, cut.getThemes());
     }
 
     @Test
     void getThemes_themesUnavailable_emptyStringArray() {
+        // ARRANGE
         ThemeClient mockThemeClient = mock(ThemeClient.class);
 
         when(mockThemeClient.getThemes()).thenReturn(null);
 
+        // ACT
         CustomThemesService cut = new CustomThemesService(mockThemeClient);
 
+        // ACT & ASSERT
         assertEquals(0, cut.getThemes().length);
     }
 }
@@ -318,11 +332,11 @@ public class CustomThemesService {
 }
 ```
 
-And that should be that. Again, this is untested but looks about right to me. 🤞
+And that should be it. Again, this is untested but looks about right to me. 🤞
 
 ### Integration Tests
 
-If it is warranted, I highly recommend TDD with Integration Tests. I actually find these easier, and depending on the Unit Under Test absolutely lead to better quality. By following TDD with Integration Tests also prevents me from forgetting to implement the tests, which I think happens frequently.
+I highly recommend TDD with Integration Tests. I actually find these easier, and depending on the Unit Under Test absolutely leads to better quality. By following TDD with Integration Tests also prevents me from forgetting to implement the tests, which I think happens frequently.
 
 For example:
 
@@ -333,32 +347,34 @@ For example:
     1. You have the designs and know what HTML elements etc. should be used.
     2. You already use tools such as [Playwright](https://playwright.dev/) or [Cypress](https://www.cypress.io/) for your Integration Tests.
 
-In both of these situations, it is then really, really easy to write the Integration Tests. They won't work but when they finally do, you know you're dev complete. Furthermore, it'll make you think about the response permutations and potential edge-cases. Things, that may ordinarily get missed when diving head-first into the code.
+In both of these situations, it is easy to write the Integration Tests. They won't work but when they finally do, you know you're dev complete. Furthermore, it'll make you think about the response permutations and potential edge-cases. Things, that may ordinarily get missed (or ignored later, when you're 'done') when diving head-first into the code.
 
-### Defect fix or update an existing feature
+### Fixing defects or updating an existing feature
 
 When you need to squash a bug or update an existing feature the process is very similar.
 
-1. Update your existing tests, or create a new test(s) to cover the new, expected behaviour.
-2. Run your tests. The ones you have updated, should fail 🔴.
-3. Implement the changes required to the production code.
-4. Run your tests. If you've fixed the issue, then you tests are green 🟢 and you're done.
+1. Run the tests *before* you make any changes. All of the tests should pass 🟢. (If they don't you,ve got bigger problems).
+2. Update your existing tests, or create a new test(s) to cover the new, expected behaviour.
+3. Run your tests. The ones you have updated, should fail 🔴.
+4. Implement the changes required to the production code.
+5. Run your tests. If you've fixed the issue, then you tests are green 🟢 and you're done.
 
 I get a real buzz when it comes to squashing a bug using this approach. Creating a test that asserts the expected behaviour to fix the bug, and then seeing that go green, is great. You know you've fixed it!
 
 ## Summary
 
-1. Write the test shells, as a 'to-do' list, covering just what the requirements are.
-    * Remember to throw your 'Not implemented' exceptions.
+1. Write the test shells, as a 'to-do' list, covering just the requirements.
+    * Remember to throw your 'Not implemented' exceptions in the tests.
 2. Implement the skeleton of the production code / Unit Under Test.
-    * Remember to throw your 'Not implemented' exceptions.
-    * The tests will now compile.
+    * Remember to throw your 'Not implemented' exceptions in the Unit Under Test.
 3. Write the body of the tests.
-    * The tests will still fail, but with 'Not implemented' exceptions from the Unit Under Test.
-4. Implement the code in the Unit Under Test.
+    * The tests will still fail 🔴, but with 'Not implemented' exceptions from the Unit Under Test.
+4. Implement the production code in the Unit Under Test.
 5. The tests should now all pass 🟢.
 6. Go back around, and refactor / improve what has just been implemented with the confidence that you are covered with working tests.
 
-I would guess that the majority of Software Engineers can at least complete steps 1 & 2, on the majority of the code they write. If you can start there, then I think in no time at all, you'll be able to practice TDD, through all the steps outlined. At the very least, your starting to use TDD concepts and I guarantee that will lead to better quality code.
+I would guess that the majority of Software Engineers can at least complete steps 1 & 2, on the majority of the code they write. If you can start there, then I think in no time at all, you'll be able to complete all of the steps above. At the very least, your starting to use TDD concepts and I guarantee that will lead to better quality code.
+
+**If you've practiced TDD for your unit and integration tests, then do you need any manual testing?**
 
 [^1]: I always think back to a time when I built a really cool Easter Egg in a 404 error page. I was then pulled up by a more senior engineer, who (rightfully) challenged me on how I was going to test it. Needless to say, that 404 page never saw the light of day. Thank you, Richard, I'll never forget that valuable lesson!

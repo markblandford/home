@@ -69,7 +69,7 @@ You're spot on. If you read the [Angular Guide for testing Components](https://a
 >
 > -- <cite>[Angular Guide - Component DOM testing](https://angular.io/guide/testing-components-basics#component-dom-testing)</cite>
 
-So if Component DOM Tests are to address this 'limitation', that must mean the Component DOM Tests need to have dependencies and 'integrate with its parent and child components'? Sounds pretty close to the [definition of an Integration Test](#a-definition-of-an-integration-test) to me.
+So if Component DOM Tests are to address this 'limitation', that must mean the Component DOM Tests need to have dependencies and 'integrate with its parent and child components'? Sounds pretty close to the definition of an Integration Test to me.
 
 I felt there had to be a cleaner, more succinct way to draw the line between Component Unit Tests vs Component DOM Tests vs Integration Tests. This is where I went back to my books[^5] and considered Sociable and Solitary tests.
 
@@ -99,7 +99,7 @@ I fall firmly into the Solitary camp of unit testing approaches: I can probably 
 
 My predisposition probably comes down to my development background. For example, it's simply not possible to test a WPF UI (or View) binding / interaction with the 'class' (View Model), with the unit test framework, [NUnit](https://nunit.org/). Furthermore, the 'View' should never have any logic anyway. I would argue, for the large part, it should be the same for Angular Templates too!
 
-In addition, the Sociable Tests exhibit traits similar to Integration tests for example: [fragility](#fragility) & [speed](#speed). To better describe this, look at this basic example.
+In addition, the Sociable Tests exhibit traits similar to Integration tests for example: fragility & speed. To better describe this, look at this basic example.
 
 ### An Example comparing Solitary & Sociable Angular Component Tests
 

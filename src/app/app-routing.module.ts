@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import {
-  ArticlesComponent,
   HomeComponent,
-  RenderArticleComponent
 } from './pages';
 
 const routes: Routes = [
-  { path: 'articles', title: 'Blandford.dev - articles', component: ArticlesComponent, data: [ { heading: 'Articles' } ] },
-  { path: 'articles/:id', component: RenderArticleComponent },
+  {
+    path: 'articles',
+    loadChildren: () => import('./articles.module').then(m => m.ArticlesModule)
+  },
   { path: '', title: 'Blandford.dev - home', component: HomeComponent, data: [ { heading: 'Blandford.dev' } ] },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
@@ -18,7 +18,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {
     anchorScrolling: 'enabled',
     onSameUrlNavigation: 'ignore',
-    initialNavigation: 'enabledBlocking'
+    initialNavigation: 'enabledBlocking',
+    preloadingStrategy: PreloadAllModules,
 })],
   exports: [RouterModule]
 })

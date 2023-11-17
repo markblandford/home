@@ -18,7 +18,7 @@
   base-uri 'self';
   default-src 'self';
   connect-src 'self' https://o544339.ingest.sentry.io;
-  font-src https://fonts.gstatic.com https://rsms.me/inter/font-files/;
+  font-src 'self' https://fonts.gstatic.com;
   form-action 'none';
   frame-ancestors 'none';
   img-src 'self';

@@ -41,7 +41,7 @@
     "@nguniversal/express-engine": "^16.2.0",
     "@sentry/angular-ivy": "^7.88.0",
     "emoji-toolkit": "^8.0.0",
-    "express": "^4.15.2",
+    "express": "^4.19.2",
     "marked": "^4.3.0",
     "ngx-markdown": "^16.0.0",
     "prismjs": "^1.29.0",

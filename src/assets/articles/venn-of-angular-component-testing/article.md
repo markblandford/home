@@ -41,7 +41,7 @@ I think this where the lines blur between what [I would consider] a unit vs an i
 > * A CSS selector that defines how the component is used in a template
 > * Optionally, CSS styles applied to the template
 >
-> -- <cite>[Angular Guide - Angular components overview](https://angular.io/guide/component-overview#angular-components-overview)<cite>
+> -- <cite>[Angular Guide - Angular components overview](https://angular.io/guide/component-overview#angular-components-overview)</cite>
 
 I ask you this question:
 

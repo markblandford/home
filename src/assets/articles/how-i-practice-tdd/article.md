@@ -4,13 +4,13 @@
 
 > Test-driven development (TDD) is a software development process relying on software requirements being converted to test cases before software is fully developed, and tracking all software development by repeatedly testing the software against all test cases. This is as opposed to software being developed first and test cases created later.
 >
-> -- <cite>[Wikipedia - Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development)<cite>
+> -- <cite>[Wikipedia - Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development)</cite>
 
 In essence, write the tests first and then the production code.
 
 > Red/green/refactor - the TDD mantra.
 >
-> -- <cite>[Test-driven development: by Example - Kent Beck](https://www.oreilly.com/library/view/test-driven-development/0321146530/)<cite>
+> -- <cite>[Test-driven development: by Example - Kent Beck](https://www.oreilly.com/library/view/test-driven-development/0321146530/)</cite>
 
 1. Red - You write a test that doesn't work (it probably won't even compile as the Unit Under Test doesn't [yet] exist).
 2. Green - Make the test work - You build the Unit Under Test / production code.

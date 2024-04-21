@@ -27,6 +27,18 @@ export default class ArticleList {
           'testing',
           'TDD'
         ]
+      },
+      {
+        id: 'customers-not-users',
+        title: 'I have <insert alternative noun> not Users',
+        createdDate: '2024-04-21',
+        updatedDate: '2024-04-21',
+        about: 'Is it time to stop referring to those who engage with our software or technology as users? I think it\'s actually long over due.',
+        tags: [
+          'CX',
+          'Personas',
+          'language'
+        ]
       }
     ];
   }

@@ -24,7 +24,7 @@
   img-src 'self';
   object-src 'none';
   script-src 'self' https://o544339.ingest.sentry.io;
-  script-src-elem 'self' https://o544339.ingest.sentry.io https://netlify-cdp-loader.netlify.app;
+  script-src-elem 'self' 'unsafe-inline' https://o544339.ingest.sentry.io https://netlify-cdp-loader.netlify.app;
   style-src 'self' 'unsafe-inline';
   style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com;
   report-uri https://o544339.ingest.sentry.io/api/5665484/security/?sentry_key=36e2e5d5b38b4d52b2056ea49bf895c4;

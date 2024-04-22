@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RenderArticleComponent } from '@pages/render-article/render-article.component';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { MarkdownModule, MARKED_OPTIONS } from 'ngx-markdown';
 import { HttpClient } from '@angular/common/http';
 import { ArticleComponent } from '@components/article/article.component';
 import { ArticlesComponent } from '@pages/articles/articles.component';
@@ -25,7 +25,7 @@ const articlesRoutes: Routes = [
     MarkdownModule.forRoot({
       loader: HttpClient,
       markedOptions: {
-        provide: MarkedOptions,
+        provide: MARKED_OPTIONS,
         useValue: {
           gfm: true,
           breaks: true,

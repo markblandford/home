@@ -21,7 +21,7 @@ Now consider the negative conatations of the word 'user' when in the context of:
 >
 > -- <cite>[Edward Tufte](https://www.edwardtufte.com/tufte/complit_9497)</cite>
 
-Add in the growing research and concern around the additive nature of certain 'computers' or technology such as [Social Media](https://www.ukat.co.uk/addiction/behavioural/social-media/), the parallels are certainly there.
+Add in the growing research and concern around the addictive nature of certain 'computers' or technology such as [Social Media](https://www.ukat.co.uk/addiction/behavioural/social-media/), the parallels are certainly there.
 
 ## Time for a different approach
 

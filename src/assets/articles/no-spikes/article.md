@@ -10,7 +10,7 @@ I thought about writing this post a while ago but it has recently come to mind o
 
 ## I'm not a fan
 
-First off, let me be clear I'm not 100% against completing Spikes. Perhaps 99% against rhythm though. The big issue I have is the tendency to over-rely on them for even the tiniest uncertainty. I'm generally of the opinion an engineering team should be skilled and knowledgeable enough, plus have the confidence, to 'jump in' and engineer a solution. However, let's dig a little further.
+First off, let me be clear I'm not 100% against completing Spikes. Perhaps 99% against them though. The big issue I have is the tendency to over-rely on them for even the tiniest uncertainty. I'm generally of the opinion an engineering team should be skilled and knowledgeable enough, plus have the confidence, to 'jump in' and engineer a solution. However, let's dig a little further.
 
 ## The attributes of a Spike
 

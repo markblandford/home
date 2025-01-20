@@ -39,6 +39,17 @@ export default class ArticleList {
           'Personas',
           'language'
         ]
+      },
+      {
+        id: 'no-spikes',
+        title: 'No Spikes',
+        createdDate: '2025-01-20',
+        updatedDate: '2025-01-20',
+        about: 'Why do some teams and organisations complete Spikes in teams who are meant to demonstrate agility?',
+        tags: [
+          'Agile',
+          'Engineering'
+        ]
       }
     ];
   }

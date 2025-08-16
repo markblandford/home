@@ -1,6 +1,6 @@
 # Threat Modelling with Threat Dragon
 
-This post is about how to perform Threat Modelling using the [STRIDE model](https://en.wikipedia.org/wiki/STRIDE_model). I'll highlight some of the nuances with using [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/).
+This post is about how to perform Threat Modelling using the [STRIDE model](https://en.wikipedia.org/wiki/STRIDE_model). I'll also highlight some tips with using [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/), and some practices I choose to follow.
 
 ## What is Threat Modelling
 
@@ -12,16 +12,50 @@ The goal is to identify and mitigate threats early, before they become problems.
 
 [STRIDE](https://en.wikipedia.org/wiki/STRIDE_model) is a threat classification model which was developed by Microsoft.
 
-| Threat                      | Description                                                                       |
-|-----------------------------|-----------------------------------------------------------------------------------|
-| **S**poofing                | Impersonating something or someone else.                                          |
-| **T**ampering               | Modifying data or code, in transit or at rest.                                    |
-| **R**epudiation             | Denying an action or transaction has taken place. Denying without accountability. |
-| **I**nformation Disclosure  | Exposing data to unauthorised parties.                                            |
-| **D**enial of Service (DoS) | Preventing legitimate people or processes from access a service or resource.      |
-| **E**levation of Privilege  | Gaining unauthorised access to resources or functionality.                        |
+| Threat  | Description |
+|---------|-------------|
+| **S**poofing | Impersonating something or someone else. |
+| **T**ampering | Modifying data or code, in transit or at rest. |
+| **R**epudiation | Denying an action or transaction has taken place. Denying without accountability. |
+| **I**nformation Disclosure | Exposing data to unauthorised parties. |
+| **D**enial of Service (DoS) | Preventing legitimate people or processes from access a service or resource. |
+| **E**levation of Privilege | Gaining unauthorised access to resources or functionality. |
 
 Each element within the system can be exposed to different threats in different ways. Furthermore, they could be exposed to multiple 'implementations' of the same threat. For example Denial of Service against a process, could come from a DDos attack or from an internal, malicious actor. Each would be represented as a different threat on that process.
+
+## Quick Reference
+
+### STRIDE Threat Classification Overview
+
+| Threat | Description | Key Question |
+|--------|---------------|--------------|
+| **Spoofing** | Impersonating others or systems. | _"Can someone pretend to be someone else?"_ |
+| **Tampering** | Modifying data or code. | _"Can someone alter information?"_ |
+| **Repudiation** | Denying actions occurred. | _"Can someone deny they did something?"_ |
+| **Information Disclosure** | Exposing sensitive data. | _"Can someone see information they shouldn't?"_ |
+| **Denial of Service** | Blocking legitimate access. | _"Can someone prevent the system from working?"_ |
+| **Elevation of Privilege** | Gaining unauthorised access. | _"Can someone do things they're not allowed to?"_ |
+
+### Threats by Threat Dragon Element
+
+| Element | Applicable Threats | Common Examples |
+|---------|-------------------|-----------------|
+| **🧑 Actor** | _None directly_ | Customers, other systems. |
+| **↩️ Data Flow** | **T**ampering, **I**nfo Disclosure, **D**oS | HTTP requests, database queries, API calls. |
+| **📦 Process** | **All STRIDE threats** | Web apps, APIs, microservices. |
+| **📁 Store** | **T**ampering, **R**epudiation, **I**nfo Disclosure, **D**oS | Databases, file systems, browser storage. |
+| **🤝 Trust Boundary** | _Defines the threat context_ | Network perimeters, different infrastructure. |
+
+### Common Mitigations
+
+| Threat Type | Typical Mitigations |
+|-------------|-------------------|
+| **Spoofing** | MFA, authentication. |
+| **Tampering** | Encryption, input validation. |
+| **Repudiation** | Audit logs, digital signatures. |
+| **Information Disclosure** | Encryption, access controls, limit data stored. |
+| **Denial of Service** | Rate limiting, load balancing, monitoring. |
+| **Elevation of Privilege** | Role-Based Access controls, least privilege, regular reviews. |
 
 ## Threat Dragon
 
@@ -34,87 +68,29 @@ Threat Dragon is available in two ways:
 1. 🌐 Web version - Simply use within the browser at [https://threatdragon.com](https://threatdragon.com).
 2. 💻 Desktop version - Available for download from the [OWASP Threat Dragon GitHub release page](https://github.com/OWASP/threat-dragon/releases).
 
-Once you have it, you can start by creating a new model or importing an existing model. Depending on the threat model chosen, Threat Dragon will suggest the threats on each Data Flow or Process you add.
+Simply create a new model and start adding elements - Threat Dragon will suggest applicable STRIDE threats for each component you add.
 
-### Advice when using Threat Dragon
+### Tips with using Threat Dragon
 
 Threat Dragon is a little temperamental but once you get use to it, it is a great tool.
 
-### Save Often
+#### Interface Navigation
 
-I find it is very easy to make a mistake, drag a Data Flow so it doesn't look like how you want it too. I've even had saves fail before and have had to start over. So **save your work regularly**.
+* **Save frequently** - Models can be lost easily and saves sometimes fail.
+* **Click arrow heads on Data Flows** to select data flows (not the line itself).
+* **Click anywhere on Data Flows** to add corners/drag points.
 
-### Selecting Data Flows
+#### Threat Analysis Best Practices
 
-If you need to select an existing Data Flow in order to edit the details or threats to it, **click the Arrow Head**, not the line itself. Clicking the line, will...
+* **Different elements have different threats** - A Tampering threat on a Data Flow is different compared to a Process or Store. The mitigations will be different too.
+* **Include all applicable threats** - Even mark as N/A to show they were considered.
+* **Mark out-of-scope elements** - Document dependencies you can't control, but be aware they may change behaviour after marking as out-of-scope.
+* **Review regularly** - Threats change as systems evolve, especially when adding new integrations.
 
-### Adjusting the position of a Data Flow
+#### Troubleshooting
 
-Again a little tricky and often you'll find you just have to do a best-effort. If you want to add a 'corner' or a drag-point on a Data Flow, **click anywhere on the line**.
-
-### Out-of-Scope Elements
-
-If you mark a Process or Data Flow as out of scope, then click away and come back to the out-of-scope item before editing further. You'll find then, the item has changed and for example, you cannot add threats to it. Do include out-of-scope processes and data flows. By doing so, we're acknowledging their existence as a dependency, and so we can be aware if anything was to change, or for example, the out-of-scope element was known to be vulnerable, we could more easily see where our system could be exposed and what mitigations we should / have in place.
-
-### Create all of the threats for each element even if Not Applicable
-
-I find it beneficial to include every applicable threat to each process, data flow and store, even if there is no known threat or it's status is N/A. This demonstrates later that the threat was at least considered and not simply forgotten to be added.
-
-### Review, review and review
-
-The threats against a system are never static. Regularly review the threat model with the team, especially when new integrations are added. This helps keep everyone educated and aware plus offers the opportunity to close outstanding threats or create new ones.
-
-### It is just JSON underneath
-
-I've had models which when loaded, an error is displayed in Threat Dragon. The model is just JSON, so use other linting and validation tools to help resolve such issues.
-
-If you're feeling brave, you can manually edit the JSON in a text editor. For example, if you want to rename something, you could use find-and-replace in a text editor.
-
-### Components & Boundaries in Threat Dragon
-
-When creating your threat model, there are different items you will use to represent your system:
-
-| Item              | Description                                                       | Example use                           |
-|-------------------|-------------------------------------------------------------------|---------------------------------------|
-| Actor 🧍          | A user or external entity that perform against on the system.     | Customers, other applications or APIs |
-| Data Flow ↩️      | Represents the movement of data between elements.                 | HTTP requests, SQL queries            |
-| Process 📦        | Represents a component in the system that performs some function. | Web application, API, Auth provider   |
-| Store 📁          | Where data is stored.                                             | Database, file system                 |
-| Trust Boundary 🤝 | Represents a boarder where control or trust changes.              | Network zones, internal vs public     |
-
-## Threats by item / element within a system
-
-Now we know what the threat classifications are in STRIDE and where in the system they apply, we'll now look into those in more detail for each element in the system.
-
-### Data Flow ↩️
-
-| Threat                     | Example                                                            | Potential Mitigations                                                |
-|----------------------------|--------------------------------------------------------------------|----------------------------------------------------------------------|
-| **Tampering**              | A request is intercepted and altered.                              | Encryption (TLS), signing.                                           |
-| **Information Disclosure** | Sensitive information (PII, passwords) is sent in the request URL. | None. Redesign the system and include in the encrypted body instead. |
-| **Denial of Service**      | Overwhelming the network.                                          | Load balancing, short connection timeouts.                           |
-
-_I find DoS against the Data Flows as one of the hardest threats to consider and suggest mitigations for._
-
-## Process 📦
-
-| Threat                      | Example                                                                      | Potential Mitigations                                                                                              |
-|-----------------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| **Spoofing**                | A malicious actor is able to gain access as another user of the application. | MFA, password hygiene, least-privilege.                                                                            |
-| **Tampering**               | Code is maliciously modified with the application.                           | Signed commits, PRs requiring approval, [SAST](https://en.wikipedia.org/wiki/Static_application_security_testing). |
-| **Repudiation**             | A malicious actor deletes resources from the application and denies it.      | All actions attributed in audit logs, recording IP addresses etc.                                                  |
-| **Information Disclosure**  | An API exposes infrastructure details in error messages and logs.            | Sanitize error messages, logs.                                                                                     |
-| **Denial of Service (DoS)** | An API is overwhelmed with requests causing it to become unresponsive.       | Rate limiting, Load Balancing.                                                                                     |
-| **Elevation of Privilege**  | A regular account is able to perform admin-level actions.                    | Enforce role-based access, least-privilege and regular reviews.                                                    |
-
-## Store 📁
-
-| Threat                      | Example                                                                                      | Potential Mitigations                                                      |
-|-----------------------------|----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| **Tampering**               | A malicious actor is able to change stored, customer data.                                   | Access controls, encryption at rest and in while in use, backups.          |
-| **Repudiation**             | A malicious actor changes data and it is not possible to attribute the action to them.       | Enabling audit logs.                                                       |
-| **Information Disclosure**  | The data is stored unencrypted and accessible to unauthorised people.                        | Encryption (rest, in use and transit), only store the minimum required.    |
-| **Denial of Service (DoS)** | A poorly constructed query is able to be run and causes the database to become unresponsive. | Prevent direct access, optimise queries, real-time performance monitoring. |
+* Models are JSON underneath - use JSON linting tools if Threat Dragon shows errors.
+  * You can manually edit JSON files for bulk changes (find/replace for renaming).
 
 ## An Example
 
@@ -129,7 +105,7 @@ Here is a small, not very detailed example of a web application, which
 ### Steps
 
 1. Create the data flow / model of the application flow within your software system.
-   1. If it's large, consider breaking it down and create, smaller separate threat models for logic parts of the flow. Threat Dragon can have multiple models within the same 'parent' model.
+   1. If it's large, consider breaking it down and create, smaller separate threat models for logical parts of the flow. Threat Dragon can have multiple models within the same 'parent' model.
 2. Analysis each process, store & data flow following STRIDE.
    1. When you have an element selected, clicking '+ New Threat' will at first default to adding the applicable threats for the element selected. However, you don't have to stick with this, feel free to add more as you see fit.
 
@@ -153,8 +129,6 @@ Here is a small, not very detailed example of a web application, which
 | **Denial of Service** | Preventing legitimate users from accessing a service or resource. | 🟢 Mitigated | ⚖️ Uses CDN caching and load balancing. |
 | **Elevation of Privilege** | Gaining unauthorised access to resources or functionality. | 🟢 Mitigated | 🔑 Authorisation checks are carried out and there is no concept of roles within the application. Control to the infrastructure of the application and code is access controlled following least-privilege. |
 
----
-
 ##### Backend API 📦
 
 | Threat | Risk | Status | Mitigation |
@@ -165,8 +139,6 @@ Here is a small, not very detailed example of a web application, which
 | **Information Disclosure** | A 500 error response shows the stack trace, which exposes the language the API is written in etc. | 🔴 Open (Medium) | Return generic or sanitised error responses. |
 | **Denial of Service** | Preventing legitimate people or processes from access a service or resource. | 🟢 Mitigated | ⚖️ Rate limiting, load balancing, and request timeouts. |
 | **Elevation of Privilege** | Gaining unauthorised access to resources or functionality. | 🟢 Mitigated | 🔑 Role-based access control and least privilege enforced at the API code & infrastructure. |
-
----
 
 #### Stores
 
@@ -179,51 +151,53 @@ Here is a small, not very detailed example of a web application, which
 | **Information Disclosure** | Personally identifiable information stored in plain text. | 🔴 Open (High) | Encrypt sensitive fields at rest & while in use. Ensure there are strict access controls to the database. |
 | **Denial of Service** | Preventing legitimate people or processes from access a service or resource. | 🟢 Mitigated | ⚖️ Apply query limits, use indexes, and enable monitoring and alerts. |
 
----
-
 #### ↔️ Data Flows
 
 ##### POST /api/{username}/order - 📦 Web App ↔ 📦 Backend API
 
-| Threat | Risk | Status | Mitigation |
-|--------|------|--------|------------|
-| **Tampering** | Modifying data or code, in transit. | 🟢 Mitigated | TLS encryption. |
-| **Information Disclosure** | Sensitive data (e.g. usernames) is included in URLs (`/api/{username}/order`). | 🔴 Open (High) | Remove identifiers from URLs; pass data in request body or claims. |
-| **Denial of Service** | Preventing legitimate people or processes from access a service or resource. | 🟢 Mitigated | ⚖️ Rate limiting and API gateway protections. |
-
----
+| Threat | Status | Key Issue |
+|--------|---------|-----------|
+| **Tampering** | 🟢 Mitigated | TLS encryption. |
+| **Information Disclosure** | 🔴 Open (High) | Username is in URL path. |
+| **Denial of Service** | 🟢 Mitigated | Rate limiting, API gateway. |
 
 ##### Authenticate - 📦 Web App ↔ 📦 Third-Party Authentication Provider
 
-| Threat | Risk | Status | Mitigation |
-|--------|------|--------|------------|
-| **Tampering** | Modifying data or code, in transit. | 🟢 Mitigated | Verify PKCE challenge and state value. |
-| **Information Disclosure** | Exposing data to unauthorised parties. | 🟢 Mitigated | TLS & no sensitive data is included in the request. |
-| **Denial of Service** | Preventing legitimate people or processes from access a service or resource. | ⚪ N/A | Documented as a third-party dependency risk. However, if they suffer a DoS, what impact will it have on us? |
-
----
+| Threat | Status | Key Issue |
+|--------|---------|-----------|
+| **Tampering** | 🟢 Mitigated | TLS encryption. |
+| **Information Disclosure** | 🟢 Mitigated | TLS with no sensitive data in request. |
+| **Denial of Service** | ⚪ N/A | Third-party dependency risk. However, if they suffer a DoS, what impact will it have on us? |
 
 ##### Verify JWT - 📦 Backend API ↔ 📦 Third-Party Authentication Provider
 
-| Threat | Risk | Status | Mitigation |
-|--------|------|--------|------------|
-| **Tampering** | TLS 1.1 is used, which is now considered insecure. | 🔴 Open (Medium) | TLS encryption with integrity checks. |
-| **Information Disclosure** | Exposing data to unauthorised parties. | 🟢 Mitigated | Although only TLS 1.1 & no sensitive data is included in the request. |
-| **Denial of Service** | Preventing legitimate people or processes from access a service or resource. | ⚪ N/A | Documented as a third-party dependency risk. However, if they suffer a DoS, what impact will it have on us? |
-
----
+| Threat | Status | Key Issue |
+|--------|---------|-----------|
+| **Tampering** | 🔴 Open (Medium) | TLS 1.1 used (insecure) |
+| **Information Disclosure** | 🔴 Open (Low) | TLS 1.1 used (insecure) |
+| **Denial of Service** | ⚪ N/A | Third-party dependency risk. However, if they suffer a DoS, what impact will it have on us? |
 
 ##### Queries - 📦 Backend API ↔ 📁 Internal Database
 
-| Threat | Risk | Status | Mitigation |
-|--------|------|--------|------------|
-| **Tampering** | The request is made without SSL enabled, exposing the credentials and query in the request and response. | 🔴 Open (Low) | This is an issue but the communication is internal, as the database is on 10.0.0.0 private address space. Parametrised queries are also already in use. Enable SSL. |
-| **Information Disclosure** | The request is made without SSL enabled, exposing the credentials and query in the request and response. | 🔴 Open (Low) | Enforce SSL on all database connections. |
-| **Denial of Service** | Preventing legitimate people or processes from access a service or resource. | 🟢 Mitigated | ⚖️ Resource limits, query monitoring, and real-time alerts are in place. |
+| Threat | Status | Key Issue |
+|--------|---------|-----------|
+| **Tampering** | 🔴 Open (Low) | No SSL on internal connections. |
+| **Information Disclosure** | 🔴 Open (Low) | Credentials / queries unencrypted. |
+| **Denial of Service** | 🟢 Mitigated | Resource limits & monitoring. |
 
 ## Conclusion
 
-Hopefully this gives you a better idea about how to use Threat Dragon to perform threat modelling on your application environment.
+Threat modelling with STRIDE and Threat Dragon can help teams to methodically analyse software systems, to help them identify vulnerabilities before they become issues.
+
+### Key takeaways
+
+* **Include everyone** - Developers, architects, QAs, business stakeholders each bring unique perspectives.
+* **Be comprehensive** - Document all threats, even those marked N/A, to demonstrate they have been considered.
+* **Review regularly** - Systems evolve, and so should the threat model.
+
+Threat Dragon may have its quirks, but it is free, accessible and fairly straight-forward to use. The JSON-based output is ideal for source control.
+
+Remember: the goal isn't for bullet-proof security, it is about understanding and documenting the known risks.
 
 ## Additional Resources
 

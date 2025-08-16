@@ -56,6 +56,7 @@ export default class ArticleList {
         title: 'Threat Modelling with Threat Dragon',
         createdDate: '2025-08-16',
         updatedDate: '2025-08-16',
+        image: 'example-threat-model.png',
         about: 'I often run threat modelling sessions with my team and few seem to pick it up. Here is my attempt at distilling the practice down to make it a little more approachable.',
         tags: [
           'security',

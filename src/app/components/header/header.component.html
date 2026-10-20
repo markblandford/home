@@ -1,5 +1,7 @@
 <div class="header">
-  <h1 *ngIf="(routeData$ | async)?.heading as h1" class="header__title">
-    {{ h1 }}
-  </h1>
+  @if ((routeData$ | async)?.heading; as h1) {
+    <h1 class="header__title">
+      {{ h1 }}
+    </h1>
+  }
 </div>

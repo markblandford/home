@@ -1,8 +1,8 @@
 @use 'sass:color' as color;
 
-@import 'scss/colors';
-@import 'scss/misc';
-@import 'scss/sizes';
+@use 'scss/colors' as *;
+@use 'scss/misc' as *;
+@use 'scss/sizes' as *;
 
 :root {
   --base-font-size: 16px;
@@ -87,7 +87,7 @@ blockquote {
 }
 
 article {
-  word-break: break-word;
+  overflow-wrap: anywhere;
 
   .sourceCode {
     overflow-x: auto;
@@ -99,7 +99,6 @@ article {
 }
 
 .visually-hidden {
-  clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
   overflow: hidden;

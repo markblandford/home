@@ -1,25 +1,15 @@
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets/index.js';
 import { pathsToModuleNameMapper } from 'ts-jest';
-import { compilerOptions } from './tsconfig.json';
+import tsconfig from './tsconfig.json' with { type: 'json' };
 
 const jestConfig: Config = {
-  preset: 'jest-preset-angular',
+  ...presets.createCjsPreset({ testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env' }),
   roots: [
     '<rootDir>/src/'
   ],
   testMatch: ['**/+(*.)+(spec).+(ts)'],
-  transform: {
-    '^.+\\.(ts|js|html|svg)$': [
-      'jest-preset-angular',
-      {
-        tsconfig: '<rootDir>/tsconfig.spec.json',
-        stringifyContentPathRegex: '\\.(html|svg)$',
-        isolatedModules: true,
-        useESM: true,
-      },
-    ],
-  },
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$|marked/))'],
   setupFilesAfterEnv: ['<rootDir>/src/test.ts'],
   clearMocks: true,
   collectCoverage: true,
@@ -37,7 +27,7 @@ const jestConfig: Config = {
     }
   },
   moduleNameMapper: {
-    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),
+    ...pathsToModuleNameMapper(tsconfig.compilerOptions.paths, { prefix: '<rootDir>' }),
   }
 };
 

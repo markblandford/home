@@ -1,10 +1,9 @@
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { ErrorHandler, inject, NgModule, provideAppInitializer } from '@angular/core';
+import { BrowserModule, provideClientHydration, withNoIncrementalHydration } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 
-import { createErrorHandler, TraceService } from '@sentry/angular-ivy';
+import { createErrorHandler, TraceService } from '@sentry/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,28 +33,21 @@ import {
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
     FontAwesomeModule,
     ArticleListComponent,
   ],
   providers: [
-    provideClientHydration(),
+    provideClientHydration(withNoIncrementalHydration()),
+    provideHttpClient(),
     {
       provide: ErrorHandler,
       useValue: createErrorHandler({
         showDialog: false,
       }),
     },
-    {
-      provide: TraceService,
-      deps: [Router],
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => () => {},
-      deps: [TraceService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      inject(TraceService);
+    }),
   ],
   bootstrap: [AppComponent]
 })

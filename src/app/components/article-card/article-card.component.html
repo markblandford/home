@@ -1,21 +1,22 @@
 
-<div class="article-card" *ngIf="summary as a">
+@if (summary; as a) {
+  <div class="article-card">
     <dl>
-        <dt class="article-card__dt visually-hidden">Published:</dt>
-        <dd class="article-card__dd  article-card__dd--date">{{ a.createdDate | date:"EE d LLLL YYYY" }}</dd>
-        <dt class=" article-card__dt visually-hidden">Title</dt>
-        <dd class="article-card__dd  article-card__dd--title">
-            <h3>{{ a.title }}</h3>
-        </dd>
-        <dt class=" article-card__dt visually-hidden">About</dt>
-        <dd class="article-card__dd article-card__dd--about">
-            <p>
-               {{ a.about }}
-            </p>
-        </dd>
+      <dt class="article-card__dt visually-hidden">Published:</dt>
+      <dd class="article-card__dd  article-card__dd--date">{{ a.createdDate | date:"EE d LLLL YYYY" }}</dd>
+      <dt class=" article-card__dt visually-hidden">Title</dt>
+      <dd class="article-card__dd  article-card__dd--title">
+        <h3>{{ a.title }}</h3>
+      </dd>
+      <dt class=" article-card__dt visually-hidden">About</dt>
+      <dd class="article-card__dd article-card__dd--about">
+        <p>
+          {{ a.about }}
+        </p>
+      </dd>
     </dl>
-
     <div class="article-card__more">
-        <a [routerLink]="['/articles', a.id]">Read More</a>
+      <a [routerLink]="['/articles', a.id]">Read More</a>
     </div>
-</div>
+  </div>
+}

@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BasePage } from '@pages/base-page/base-page';
 import { MetaService } from '@services/meta.service';
 
 @Component({
-  templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HomeComponent extends BasePage {
   constructor(metaService: MetaService) {

@@ -69,3 +69,6 @@ Thumbs.db
 
 # routes - dynamically updated in npm script
 routes.txt
+
+# articles - generated from article.md by build-articles.mts
+src/assets/articles/**/article.html

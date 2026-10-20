@@ -5,6 +5,10 @@ const angular = require('angular-eslint');
 
 module.exports = defineConfig([
   {
+    // Generated from article.md by build-articles.mts; not Angular templates.
+    ignores: ['src/assets/**'],
+  },
+  {
     files: ['**/*.ts'],
     extends: [
       tseslint.configs.base,

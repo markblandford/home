@@ -9,7 +9,7 @@ import ArticleList from '@content/article-list';
 })
 export class ArticlesService {
   static readonly articlesLocation = '/assets/articles/';
-  static readonly articleFilename = 'article.md';
+  static readonly articleFilename = 'article.html';
 
   public loadArticle(id: string): Observable<string> {
     const filename = `${ArticlesService.articlesLocation}${id}/${ArticlesService.articleFilename}`;

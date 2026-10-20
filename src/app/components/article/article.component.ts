@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { ArticlesService } from '@services/articles.service';
 import { MetaService } from '@services/meta.service';
-import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
     selector: 'app-article',
@@ -11,7 +10,6 @@ import { MarkdownComponent } from 'ngx-markdown';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
-        MarkdownComponent,
     ]
 })
 export class ArticleComponent implements OnChanges {

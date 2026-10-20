@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RenderArticleComponent } from '@pages/render-article/render-article.component';
-import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
-import { HttpClient } from '@angular/common/http';
 import { ArticleComponent } from '@components/article/article.component';
 import { ArticlesComponent } from '@pages/articles/articles.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -23,19 +21,6 @@ const articlesRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(articlesRoutes),
     ArticleComponent,
-  ],
-  providers: [
-    provideMarkdown({
-      loader: HttpClient,
-      markedOptions: {
-        provide: MARKED_OPTIONS,
-        useValue: {
-          gfm: true,
-          breaks: true,
-          pedantic: false,
-        },
-      },
-    }),
   ],
   exports: [
     ArticlesComponent,

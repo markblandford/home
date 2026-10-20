@@ -9,7 +9,7 @@ const jestConfig: Config = {
     '<rootDir>/src/'
   ],
   testMatch: ['**/+(*.)+(spec).+(ts)'],
-  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$|marked/))'],
+  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
   setupFilesAfterEnv: ['<rootDir>/src/test.ts'],
   clearMocks: true,
   collectCoverage: true,

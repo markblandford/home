@@ -34,7 +34,7 @@ describe('ArticlesService', () => {
 
   describe('articleFilename', () => {
     it('should return the filename of the articles', () => {
-      expect(ArticlesService.articleFilename).toEqual('article.md');
+      expect(ArticlesService.articleFilename).toEqual('article.html');
     });
   });
 
@@ -45,7 +45,7 @@ describe('ArticlesService', () => {
       service.loadArticle('AnID')
       .subscribe(f => expect(f).toEqual(expected));
 
-      const req = httpTestingController.expectOne('/assets/articles/AnID/article.md');
+      const req = httpTestingController.expectOne('/assets/articles/AnID/article.html');
 
       expect(req.request.method).toEqual('GET');
 

@@ -66,5 +66,46 @@ describe('ArticleComponent', () => {
       expect(metaService.setTagsForArticlePage).toHaveBeenCalledTimes(1);
       expect(metaService.setTagsForArticlePage).toHaveBeenCalledWith('TheID');
     });
+
+    it('should not reload the article if the article ID has not changed', () => {
+      const articleService = {
+        loadArticle: jest.fn()
+      } as jest.MockedObject<ArticlesService>;
+
+      const metaService = {
+        setTagsForArticlePage: jest.fn()
+      } as jest.MockedObject<MetaService>;
+
+      const component = new ArticleComponent(articleService, metaService);
+
+      const changes = {
+        articleId: {
+          previousValue: 'TheID',
+          currentValue: 'TheID',
+        } as SimpleChange,
+      } as SimpleChanges;
+
+      component.ngOnChanges(changes);
+
+      expect(articleService.loadArticle).not.toHaveBeenCalled();
+      expect(metaService.setTagsForArticlePage).not.toHaveBeenCalled();
+    });
+
+    it('should not load an article if the article ID is not part of the changes', () => {
+      const articleService = {
+        loadArticle: jest.fn()
+      } as jest.MockedObject<ArticlesService>;
+
+      const metaService = {
+        setTagsForArticlePage: jest.fn()
+      } as jest.MockedObject<MetaService>;
+
+      const component = new ArticleComponent(articleService, metaService);
+
+      component.ngOnChanges({} as SimpleChanges);
+
+      expect(articleService.loadArticle).not.toHaveBeenCalled();
+      expect(metaService.setTagsForArticlePage).not.toHaveBeenCalled();
+    });
   });
 });

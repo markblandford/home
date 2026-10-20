@@ -1,5 +1,7 @@
 <ul class="article-list">
-    <li class="article-list__card" *ngFor="let summary of articleSummaries">
-        <app-article-card [summary]="summary"></app-article-card>
+  @for (summary of articleSummaries; track summary) {
+    <li class="article-list__card">
+      <app-article-card [summary]="summary"></app-article-card>
     </li>
+  }
 </ul>

@@ -20,12 +20,12 @@ describe('FooterComponent', () => {
   it('should enable the default theme in ngOnInit', () => {
     component.ngOnInit();
 
-    expect(themeService.enableTheme).toBeCalledWith(Themes.Default);
+    expect(themeService.enableTheme).toHaveBeenCalledWith(Themes.Default);
   });
 
   it('should set the theme', () => {
     component.changeTheme(Themes.Sunny);
 
-    expect(themeService.enableTheme).toBeCalledWith(Themes.Sunny);
+    expect(themeService.enableTheme).toHaveBeenCalledWith(Themes.Sunny);
   });
 });

@@ -1,4 +1,4 @@
-@import "../scss/mixins";
+@use "../scss/mixins" as *;
 
 .app {
   background-color: var(--bg-color);
@@ -13,7 +13,7 @@
     "sidebar sidebar" auto
     "footer footer" auto
     / 1fr;
-  grid-gap: 0;
+  gap: 0;
 
   @include breakpoint(md) {
     grid:

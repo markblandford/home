@@ -6,7 +6,6 @@ import { MetaService } from '@services/meta.service';
   template: '',
   selector: 'app-tbp',
 })
-// eslint-disable-next-line @angular-eslint/component-class-suffix
 class TestBasePage extends BasePage {
   constructor(metaService: MetaService,) {
     super(metaService);

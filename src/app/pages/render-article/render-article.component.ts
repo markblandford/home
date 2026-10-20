@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MetaService } from '@services/meta.service';
 import { BasePage } from '@pages/base-page/base-page';
 
 @Component({
-  templateUrl: './render-article.component.html'
+    templateUrl: './render-article.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RenderArticleComponent extends BasePage implements OnInit {
   articleId = '';

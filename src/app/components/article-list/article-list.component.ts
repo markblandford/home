@@ -21,6 +21,10 @@ export class ArticleListComponent implements OnInit {
   constructor(private articlesService: ArticlesService) {}
 
   ngOnInit(): void {
-    this.articleSummaries = this.articlesService.getArticleSummaries();
+    this.articleSummaries = this.articlesService.getArticleSummaries().sort((a, b) => {
+      const aDate = new Date(a.updatedDate);
+      const bDate = new Date(b.updatedDate);
+      return bDate.getTime() - aDate.getTime();
+    });
   }
 }

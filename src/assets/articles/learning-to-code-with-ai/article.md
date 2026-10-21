@@ -82,6 +82,8 @@ erDiagram
     TICKETS ||--o{ TICKET_IMAGES : has
 ```
 
+[![Entity Relationship Diagram](/assets/articles/learning-to-code-with-ai/entity-relationship-diagram.png)](/assets/articles/learning-to-code-with-ai/entity-relationship-diagram.png)
+
 From that, I also wrote an OpenAPI spec for the endpoints. None of it is complicated, for an experienced developer, but it meant I used the AI solely for learning, and I was still in control of the development process & structure.
 
 ## Filling in the gaps 🧩
@@ -89,7 +91,6 @@ From that, I also wrote an OpenAPI spec for the endpoints. None of it is complic
 The approach I valued most is what I've been calling 'fill in the gaps'.
 
 Rather than handing me a finished method, Claude would explain the concept, then give me a skeleton with some parts left blank. My task was then to fill in the blanks. If I got stuck, I would ask Claude for help. Everything I asked was logged in the `docs/training.md` file so I could refer back to it later.
-
 
 [![Claude providing a skeleton for me to complete](/assets/articles/learning-to-code-with-ai/learning-to-code-with-ai-small.png)](/assets/articles/learning-to-code-with-ai/learning-to-code-with-ai.png)
 

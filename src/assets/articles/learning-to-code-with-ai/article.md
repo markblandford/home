@@ -120,6 +120,8 @@ Every explanation went into `docs/training.md`, which is now over 800 lines of n
 #### Testing server-rendered HTML with `hickory` instead of substrings
 
 ```markdown
+## 2026-07-30 — Testing server-rendered HTML with `hickory` instead of substrings
+
 The first version of `get-venues-renders-page` asserted on raw markup with
 `str/includes?` and a regex counting `<li` occurrences. That style of
 assertion has a real blind spot: it can't tell *where* text landed. This

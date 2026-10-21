@@ -59,6 +59,7 @@ Articles are written in Markdown and converted to HTML **at build time**, so the
 1. Create a folder under [src/assets/articles](./src/assets/articles) named after the article ID, e.g. `src/assets/articles/my-new-article/`.
 2. Write the content in `article.md` in that folder.
 3. Add a summary for the article to [article-list.ts](./src/app/content/article-list.ts). This drives the article list, the prerendered routes and the meta tags.
+   1. If there is a unique image for the article, to be used in link previews etc, add it to the folder and reference it in the summary. Otherwise, the default image will be used.
 4. Run `npm run build:articles`, or keep `npm run watch:articles` running.
 
 ### How the articles are built

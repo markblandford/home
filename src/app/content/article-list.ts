@@ -63,6 +63,19 @@ export default class ArticleList {
           'OWASP',
           'threat-modelling'
         ]
+      },
+      {
+        id: 'learning-to-code-with-ai',
+        title: 'Learning to code a new language with an AI tutor',
+        createdDate: '2025-10-21',
+        updatedDate: '2025-10-21',
+        image: 'learning-to-code-with-ai-small.png',
+        about: 'My experience of learning to code in Clojure with Claude Code as my tutor.',
+        tags: [
+          'AI',
+          'learning',
+          'Clojure',
+        ]
       }
     ];
   }
